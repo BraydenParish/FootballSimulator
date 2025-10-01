@@ -61,3 +61,20 @@ def parse_free_agents(path: str | Path) -> list[dict[str, str]]:
             }
         )
     return agents
+
+
+def parse_schedule(path: str | Path) -> list[dict[str, str]]:
+    """Parse scheduled games from a pipe-delimited text file."""
+
+    path = Path(path)
+    schedule: list[dict[str, str]] = []
+    for row in _read_lines(path):
+        week, home_abbr, away_abbr = row.split("|")
+        schedule.append(
+            {
+                "week": int(week),
+                "home_abbr": home_abbr,
+                "away_abbr": away_abbr,
+            }
+        )
+    return schedule

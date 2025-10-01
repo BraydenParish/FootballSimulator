@@ -10,7 +10,12 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from shared.constants.teams import TEAMS  # noqa: E402
-from shared.utils.parsers import parse_depth_charts, parse_free_agents, parse_ratings  # noqa: E402
+from shared.utils.parsers import (
+    parse_depth_charts,
+    parse_free_agents,
+    parse_ratings,
+    parse_schedule,
+)  # noqa: E402
 
 DATA_DIR = REPO_ROOT / "shared" / "data"
 DB_PATH = BASE_DIR / "nfl_gm_sim.db"
@@ -51,6 +56,43 @@ def load_players(connection: sqlite3.Connection) -> None:
         )
 
 
+def load_schedule(connection: sqlite3.Connection) -> None:
+    games = parse_schedule(DATA_DIR / "schedule.txt")
+    for game in games:
+        home_team_row = connection.execute(
+            "SELECT id FROM teams WHERE abbreviation = ?",
+            (game["home_abbr"],),
+        ).fetchone()
+        away_team_row = connection.execute(
+            "SELECT id FROM teams WHERE abbreviation = ?",
+            (game["away_abbr"],),
+        ).fetchone()
+
+        if home_team_row is None or away_team_row is None:
+            raise ValueError(
+                f"Missing team for schedule entry: {game['home_abbr']} vs {game['away_abbr']}"
+            )
+
+        existing = connection.execute(
+            """
+            SELECT id FROM games
+            WHERE week = ? AND home_team_id = ? AND away_team_id = ?
+            """,
+            (game["week"], home_team_row[0], away_team_row[0]),
+        ).fetchone()
+
+        if existing:
+            continue
+
+        connection.execute(
+            """
+            INSERT INTO games (week, home_team_id, away_team_id)
+            VALUES (?, ?, ?)
+            """,
+            (game["week"], home_team_row[0], away_team_row[0]),
+        )
+
+
 def apply_depth_chart(connection: sqlite3.Connection) -> None:
     depth_entries = parse_depth_charts(DATA_DIR / "depth_charts.txt")
     for entry in depth_entries:
@@ -82,6 +124,7 @@ def main() -> None:
         init_db(connection)
         load_teams(connection)
         load_players(connection)
+        load_schedule(connection)
         apply_depth_chart(connection)
         load_free_agents(connection)
         connection.commit()

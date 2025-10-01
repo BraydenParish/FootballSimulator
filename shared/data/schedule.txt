@@ -1,0 +1,5 @@
+# week|home_abbr|away_abbr
+1|BUF|CIN
+2|CIN|BUF
+3|BUF|CIN
+4|CIN|BUF
