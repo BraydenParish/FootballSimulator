@@ -28,6 +28,17 @@ type GameRow = {
   away_team_abbreviation: string;
 };
 
+type PlayerRow = {
+  id: number;
+  name: string;
+  position: string;
+  overall_rating: number;
+  age: number;
+  team_id: number | null;
+  depth_chart_position: string | null;
+  status: string;
+};
+
 const mockTeamStats = [
   { label: "Overall", value: 86 },
   { label: "Offense", value: 89 },
@@ -55,6 +66,9 @@ function App() {
   const [games, setGames] = useState<GameRow[]>([]);
   const [gamesLoading, setGamesLoading] = useState(true);
   const [gamesError, setGamesError] = useState<string | null>(null);
+  const [players, setPlayers] = useState<PlayerRow[]>([]);
+  const [playersLoading, setPlayersLoading] = useState(true);
+  const [playersError, setPlayersError] = useState<string | null>(null);
 
   useEffect(() => {
     let isActive = true;
@@ -136,6 +150,48 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    let isActive = true;
+
+    async function loadPlayers() {
+      try {
+        setPlayersLoading(true);
+        const response = await fetch(
+          `${API_BASE_URL}/players?team_id=${FOCUS_TEAM_ID}&status=active`
+        );
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = (await response.json()) as PlayerRow[];
+        if (!Array.isArray(data)) {
+          throw new Error("Unexpected response format");
+        }
+
+        if (isActive) {
+          setPlayers(data);
+          setPlayersError(null);
+        }
+      } catch (error) {
+        if (isActive) {
+          console.error("Failed to load roster", error);
+          setPlayers([]);
+          setPlayersError("Unable to load roster right now.");
+        }
+      } finally {
+        if (isActive) {
+          setPlayersLoading(false);
+        }
+      }
+    }
+
+    loadPlayers();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
   const standingsMap = useMemo(() => {
     const map = new Map<number, StandingRow>();
     standings.forEach((team) => {
@@ -187,6 +243,27 @@ function App() {
       record: opponentRecordParts.length ? opponentRecordParts.join("-") : null,
     };
   }, [standingsMap, upcomingGame]);
+
+  const depthChartPreview = useMemo(() => {
+    if (!players.length) {
+      return [];
+    }
+
+    const sorted = [...players].sort((a, b) => {
+      if (a.depth_chart_position && b.depth_chart_position) {
+        return a.depth_chart_position.localeCompare(b.depth_chart_position);
+      }
+      if (a.depth_chart_position) {
+        return -1;
+      }
+      if (b.depth_chart_position) {
+        return 1;
+      }
+      return b.overall_rating - a.overall_rating || a.name.localeCompare(b.name);
+    });
+
+    return sorted.slice(0, 6);
+  }, [players]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 p-6">
@@ -250,6 +327,36 @@ function App() {
                 <StatCard key={stat.label} label={stat.label} value={stat.value} />
               ))}
             </div>
+          </div>
+
+          <div className="rounded-2xl border border-white/5 bg-slate-950/70 p-6 shadow-lg">
+            <h2 className="text-xl font-semibold text-white">Depth Chart Preview</h2>
+            {playersLoading ? (
+              <p className="mt-4 text-sm text-slate-400">Loading roster…</p>
+            ) : playersError ? (
+              <p className="mt-4 text-sm text-red-300">{playersError}</p>
+            ) : depthChartPreview.length ? (
+              <ul className="mt-4 space-y-3 text-sm text-slate-300">
+                {depthChartPreview.map((player) => (
+                  <li key={player.id} className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="font-semibold text-white">
+                        {player.name}
+                      </p>
+                      <p className="text-xs uppercase tracking-wide text-slate-400">
+                        {player.position}
+                        {player.depth_chart_position ? ` · ${player.depth_chart_position}` : ""}
+                      </p>
+                    </div>
+                    <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary">
+                      OVR {player.overall_rating}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="mt-4 text-sm text-slate-400">No roster data available.</p>
+            )}
           </div>
 
           <div className="rounded-2xl border border-white/5 bg-slate-950/70 p-6 shadow-lg">
