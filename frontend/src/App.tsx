@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+const FOCUS_TEAM_ID = 1;
 
 type StandingRow = {
   id: number;
@@ -13,10 +14,18 @@ type StandingRow = {
   ties: number;
 };
 
-const mockUpcomingOpponent = {
-  name: "Baltimore Ravens",
-  record: "2-0",
-  kickoff: "Sunday 1:00 PM ET"
+type GameRow = {
+  id: number;
+  week: number;
+  home_team_id: number;
+  away_team_id: number;
+  home_score: number;
+  away_score: number;
+  played_at: string | null;
+  home_team_name: string;
+  home_team_abbreviation: string;
+  away_team_name: string;
+  away_team_abbreviation: string;
 };
 
 const mockTeamStats = [
@@ -43,6 +52,9 @@ function App() {
   const [standings, setStandings] = useState<StandingRow[]>([]);
   const [standingsLoading, setStandingsLoading] = useState(true);
   const [standingsError, setStandingsError] = useState<string | null>(null);
+  const [games, setGames] = useState<GameRow[]>([]);
+  const [gamesLoading, setGamesLoading] = useState(true);
+  const [gamesError, setGamesError] = useState<string | null>(null);
 
   useEffect(() => {
     let isActive = true;
@@ -84,14 +96,107 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    let isActive = true;
+
+    async function loadGames() {
+      try {
+        setGamesLoading(true);
+        const response = await fetch(`${API_BASE_URL}/games?team_id=${FOCUS_TEAM_ID}`);
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = (await response.json()) as GameRow[];
+        if (!Array.isArray(data)) {
+          throw new Error("Unexpected response format");
+        }
+
+        if (isActive) {
+          setGames(data);
+          setGamesError(null);
+        }
+      } catch (error) {
+        if (isActive) {
+          console.error("Failed to load games", error);
+          setGames([]);
+          setGamesError("Unable to load schedule right now.");
+        }
+      } finally {
+        if (isActive) {
+          setGamesLoading(false);
+        }
+      }
+    }
+
+    loadGames();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const standingsMap = useMemo(() => {
+    const map = new Map<number, StandingRow>();
+    standings.forEach((team) => {
+      map.set(team.id, team);
+    });
+    return map;
+  }, [standings]);
+
   const featuredStandings = useMemo(() => standings.slice(0, 6), [standings]);
+
+  const focusTeamRecord = useMemo(() => {
+    const team = standingsMap.get(FOCUS_TEAM_ID);
+    if (!team) {
+      return null;
+    }
+    const recordParts = [`${team.wins}-${team.losses}`];
+    if (team.ties) {
+      recordParts.push(`${team.ties}`);
+    }
+    return recordParts.join("-");
+  }, [standingsMap]);
+
+  const upcomingGame = useMemo(() => {
+    if (!games.length) {
+      return null;
+    }
+    const sorted = [...games].sort((a, b) => a.week - b.week || a.id - b.id);
+    return sorted.find((game) => !game.played_at) ?? sorted[0];
+  }, [games]);
+
+  const upcomingOpponent = useMemo(() => {
+    if (!upcomingGame) {
+      return null;
+    }
+
+    const isHome = upcomingGame.home_team_id === FOCUS_TEAM_ID;
+    const opponentId = isHome ? upcomingGame.away_team_id : upcomingGame.home_team_id;
+    const opponentName = isHome ? upcomingGame.away_team_name : upcomingGame.home_team_name;
+    const opponent = standingsMap.get(opponentId);
+    const opponentRecordParts = opponent ? [`${opponent.wins}-${opponent.losses}`] : [];
+    if (opponent?.ties) {
+      opponentRecordParts.push(`${opponent.ties}`);
+    }
+
+    return {
+      name: opponentName,
+      isHome,
+      week: upcomingGame.week,
+      record: opponentRecordParts.length ? opponentRecordParts.join("-") : null,
+    };
+  }, [standingsMap, upcomingGame]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 p-6">
       <header className="mx-auto flex max-w-5xl flex-col gap-4 rounded-2xl bg-primary p-6 text-white shadow-xl sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">NFL GM Simulator</h1>
-          <p className="text-sm text-slate-200">Season 2024 · Week 3</p>
+          <p className="text-sm text-slate-200">
+            Season 2024 · {upcomingGame ? `Week ${upcomingGame.week}` : "Loading"}
+            {focusTeamRecord ? ` · Record ${focusTeamRecord}` : ""}
+          </p>
         </div>
         <div className="rounded-xl bg-white/10 px-6 py-3 text-right">
           <p className="text-sm uppercase tracking-wide text-slate-200">Team Power Index</p>
@@ -106,15 +211,25 @@ function App() {
             <p className="mt-2 text-sm text-slate-300">
               Prepare scouting reports, adjust depth charts, and finalize your game plan before kickoff.
             </p>
-            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-lg font-semibold text-white">{mockUpcomingOpponent.name}</p>
-                <p className="text-sm text-slate-400">{mockUpcomingOpponent.record}</p>
+            {gamesLoading ? (
+              <p className="mt-6 text-sm text-slate-400">Loading matchup…</p>
+            ) : gamesError ? (
+              <p className="mt-6 text-sm text-red-300">{gamesError}</p>
+            ) : upcomingOpponent ? (
+              <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-lg font-semibold text-white">{upcomingOpponent.name}</p>
+                  <p className="text-sm text-slate-400">
+                    {upcomingOpponent.record ?? "Record unavailable"}
+                  </p>
+                </div>
+                <span className="rounded-full bg-primary.accent/90 px-4 py-2 text-sm font-medium uppercase text-white">
+                  Week {upcomingOpponent.week} · {upcomingOpponent.isHome ? "Home" : "Away"}
+                </span>
               </div>
-              <span className="rounded-full bg-primary.accent/90 px-4 py-2 text-sm font-medium uppercase text-white">
-                {mockUpcomingOpponent.kickoff}
-              </span>
-            </div>
+            ) : (
+              <p className="mt-6 text-sm text-slate-400">No scheduled games found.</p>
+            )}
           </div>
 
           <div className="rounded-2xl border border-white/5 bg-slate-950/70 p-6 shadow-lg">
