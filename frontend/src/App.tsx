@@ -1,4 +1,17 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000";
+
+type StandingRow = {
+  id: number;
+  name: string;
+  abbreviation: string;
+  conference: string;
+  division: string;
+  wins: number;
+  losses: number;
+  ties: number;
+};
 
 const mockUpcomingOpponent = {
   name: "Baltimore Ravens",
@@ -27,6 +40,51 @@ function App() {
     () => Math.round(mockTeamStats.reduce((sum, stat) => sum + stat.value, 0) / mockTeamStats.length),
     []
   );
+  const [standings, setStandings] = useState<StandingRow[]>([]);
+  const [standingsLoading, setStandingsLoading] = useState(true);
+  const [standingsError, setStandingsError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isActive = true;
+
+    async function loadStandings() {
+      try {
+        setStandingsLoading(true);
+        const response = await fetch(`${API_BASE_URL}/standings`);
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = (await response.json()) as StandingRow[];
+        if (!Array.isArray(data)) {
+          throw new Error("Unexpected response format");
+        }
+
+        if (isActive) {
+          setStandings(data);
+          setStandingsError(null);
+        }
+      } catch (error) {
+        if (isActive) {
+          console.error("Failed to load standings", error);
+          setStandings([]);
+          setStandingsError("Unable to load standings right now.");
+        }
+      } finally {
+        if (isActive) {
+          setStandingsLoading(false);
+        }
+      }
+    }
+
+    loadStandings();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const featuredStandings = useMemo(() => standings.slice(0, 6), [standings]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 p-6">
@@ -86,6 +144,32 @@ function App() {
               <li>· Scout upcoming draft prospects.</li>
               <li>· Evaluate free agent market for linebacker depth.</li>
             </ul>
+          </div>
+
+          <div className="rounded-2xl border border-white/5 bg-slate-950/70 p-6 shadow-lg">
+            <h2 className="text-xl font-semibold text-white">League Standings</h2>
+            {standingsLoading ? (
+              <p className="mt-4 text-sm text-slate-400">Loading standings…</p>
+            ) : standingsError ? (
+              <p className="mt-4 text-sm text-red-300">{standingsError}</p>
+            ) : (
+              <ul className="mt-4 space-y-3 text-sm text-slate-300">
+                {featuredStandings.map((team) => (
+                  <li key={team.id} className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="font-semibold text-white">{team.name}</p>
+                      <p className="text-xs uppercase tracking-wide text-slate-400">
+                        {team.conference} · {team.division}
+                      </p>
+                    </div>
+                    <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary">
+                      {team.wins}-{team.losses}
+                      {team.ties ? `-${team.ties}` : ""}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </aside>
       </section>

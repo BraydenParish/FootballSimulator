@@ -2,5 +2,6 @@ __pycache__/
 *.pyc
 database/*.db
 frontend/node_modules/
+frontend/dist/
 .venv/
 .DS_Store
