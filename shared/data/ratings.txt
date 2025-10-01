@@ -1,0 +1,5 @@
+# player_id|name|position|overall|team_abbr|age
+1|Josh Allen|QB|95|BUF|28
+2|Stefon Diggs|WR|94|BUF|30
+3|Von Miller|EDGE|92|BUF|34
+4|Joe Burrow|QB|92|CIN|27
