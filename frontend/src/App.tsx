@@ -265,6 +265,56 @@ function App() {
     return sorted.slice(0, 6);
   }, [players]);
 
+  const lastCompletedGame = useMemo(() => {
+    const completedGames = games.filter((game) => Boolean(game.played_at));
+    if (!completedGames.length) {
+      return null;
+    }
+
+    return completedGames
+      .slice()
+      .sort((a, b) => {
+        if (a.week !== b.week) {
+          return b.week - a.week;
+        }
+
+        if (a.played_at && b.played_at && a.played_at !== b.played_at) {
+          return new Date(b.played_at).getTime() - new Date(a.played_at).getTime();
+        }
+
+        return b.id - a.id;
+      })[0];
+  }, [games]);
+
+  const lastResult = useMemo(() => {
+    if (!lastCompletedGame) {
+      return null;
+    }
+
+    const isHome = lastCompletedGame.home_team_id === FOCUS_TEAM_ID;
+    const opponentName = isHome
+      ? lastCompletedGame.away_team_name
+      : lastCompletedGame.home_team_name;
+    const focusScore = isHome ? lastCompletedGame.home_score : lastCompletedGame.away_score;
+    const opponentScore = isHome ? lastCompletedGame.away_score : lastCompletedGame.home_score;
+
+    let outcomeLabel = "Tie";
+    if (focusScore > opponentScore) {
+      outcomeLabel = "Win";
+    } else if (focusScore < opponentScore) {
+      outcomeLabel = "Loss";
+    }
+
+    return {
+      week: lastCompletedGame.week,
+      location: isHome ? "Home" : "Away",
+      opponentName,
+      focusScore,
+      opponentScore,
+      outcomeLabel,
+    };
+  }, [lastCompletedGame]);
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 p-6">
       <header className="mx-auto flex max-w-5xl flex-col gap-4 rounded-2xl bg-primary p-6 text-white shadow-xl sm:flex-row sm:items-center sm:justify-between">
@@ -306,6 +356,37 @@ function App() {
               </div>
             ) : (
               <p className="mt-6 text-sm text-slate-400">No scheduled games found.</p>
+            )}
+          </div>
+
+          <div className="rounded-2xl border border-white/5 bg-slate-950/70 p-6 shadow-lg">
+            <h2 className="text-xl font-semibold text-white">Recent Result</h2>
+            <p className="mt-2 text-sm text-slate-300">
+              Review the latest scoreboard to gauge momentum heading into the next matchup.
+            </p>
+            {gamesLoading ? (
+              <p className="mt-6 text-sm text-slate-400">Checking results…</p>
+            ) : gamesError ? (
+              <p className="mt-6 text-sm text-red-300">{gamesError}</p>
+            ) : lastResult ? (
+              <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-lg font-semibold text-white">vs. {lastResult.opponentName}</p>
+                  <p className="text-sm text-slate-400">
+                    Week {lastResult.week} · {lastResult.location}
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 text-white">
+                  <span className="rounded-full bg-primary/20 px-3 py-1 text-xs font-semibold text-primary">
+                    {lastResult.outcomeLabel}
+                  </span>
+                  <p className="text-2xl font-bold">
+                    {lastResult.focusScore}-{lastResult.opponentScore}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="mt-6 text-sm text-slate-400">No completed games yet.</p>
             )}
           </div>
 
