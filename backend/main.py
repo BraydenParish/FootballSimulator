@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import defaultdict
 from dataclasses import asdict
 from typing import Literal, Optional
 
@@ -10,7 +11,7 @@ from backend.app.db import get_connection, row_to_dict
 from backend.app.services.roster_service import RosterService
 from backend.app.services.box_score_service import BoxScoreService
 from backend.app.services.narrative_service import NarrativeService
-from backend.app.services.simulation_service import SimulationService
+from backend.app.services.simulation_service import GameBoxScore, SimulationService
 from backend.app.services.stats_service import TeamStatsService
 from backend.app.services.trade_service import TradeService
 from shared.utils.rules import load_game_rules, load_simulation_rules
@@ -169,6 +170,8 @@ def sign_free_agent(team_id: int, payload: SignPlayerRequest):
         roster_service.validate_depth_requirements(connection, team_id)
         connection.commit()
 
+    return {"team": result.team, "player": result.player}
+
 
 @app.get("/teams/{team_id}/depth-chart")
 def get_depth_chart(team_id: int):
@@ -184,7 +187,6 @@ def update_depth_chart(team_id: int, payload: DepthChartUpdateRequest):
         roster_service.update_depth_chart(connection, team_id, entry_payload)
         connection.commit()
     return {"teamId": team_id, "updated": len(payload.entries)}
-    return {"team": result.team, "player": result.player}
 
 
 class TradeAsset(BaseModel):
@@ -365,10 +367,13 @@ def simulate_week(request: WeekSimulationRequest):
     if detailed:
         play_by_play = _format_play_log(box_scores)
 
+    games_payload = [_serialize_simulation_game(box, include_plays=detailed) for box in box_scores]
+
     return {
         "week": request.week,
         "mode": request.mode,
         "summaries": summaries,
+        "games": games_payload,
         "playByPlay": play_by_play,
         "narratives": narratives,
     }
@@ -386,6 +391,46 @@ def _format_play_log(box_scores) -> list[str]:
             )
     return entries
 
+
+def _serialize_simulation_game(box: GameBoxScore, *, include_plays: bool) -> dict:
+    team_stats_payload: list[dict] = []
+    player_stats_payload: list[dict] = []
+    for team_id, stats in box.team_stats.items():
+        team_stats_payload.append(
+            {
+                "teamId": team_id,
+                "totalYards": stats.get("total_yards", 0),
+                "turnovers": stats.get("turnovers", 0),
+            }
+        )
+        player_stats_payload.append(
+            {
+                "teamId": team_id,
+                "players": [dict(player) for player in stats.get("players", [])],
+            }
+        )
+
+    injuries_payload = [dict(injury) for injury in box.injuries]
+
+    return {
+        "gameId": box.game_id,
+        "week": box.week,
+        "playedAt": box.played_at,
+        "homeTeam": box.home_team,
+        "awayTeam": box.away_team,
+        "teamStats": team_stats_payload,
+        "playerStats": player_stats_payload,
+        "injuries": injuries_payload,
+        "plays": box.plays if include_plays else [],
+    }
+
+@app.get("/games/week/{week}")
+def list_week_box_scores(week: int):
+    with get_connection() as connection:
+        box_scores = box_score_service.box_scores(connection, week=week)
+    return box_scores
+
+
 @app.get("/games/box-scores")
 def list_box_scores(week: Optional[int] = None, team_id: Optional[int] = None):
     with get_connection() as connection:
@@ -400,133 +445,117 @@ def get_box_score(game_id: int):
     return payload
 
 
+@app.get("/standings")
+def league_standings():
+    with get_connection() as connection:
+        teams = connection.execute(
+            """
+            SELECT id, name, abbreviation, conference, division
+            FROM teams
+            ORDER BY conference, division, name
+            """
+        ).fetchall()
+
+        results = connection.execute(
+            """
+            SELECT week, home_team_id, away_team_id, home_score, away_score
+            FROM games
+            WHERE played_at IS NOT NULL
+            ORDER BY week
+            """
+        ).fetchall()
+
+    latest_week = max((row["week"] for row in results), default=0)
+
+    records: dict[int, dict[str, float]] = {
+        team["id"]: {
+            "wins": 0,
+            "losses": 0,
+            "ties": 0,
+            "points_for": 0,
+            "points_against": 0,
+        }
+        for team in teams
+    }
+
+    for row in results:
+        home = records[row["home_team_id"]]
+        away = records[row["away_team_id"]]
+
+        home_score = int(row["home_score"] or 0)
+        away_score = int(row["away_score"] or 0)
+
+        home["points_for"] += home_score
+        home["points_against"] += away_score
+        away["points_for"] += away_score
+        away["points_against"] += home_score
+
+        if home_score > away_score:
+            home["wins"] += 1
+            away["losses"] += 1
+        elif away_score > home_score:
+            away["wins"] += 1
+            home["losses"] += 1
+        else:
+            home["ties"] += 1
+            away["ties"] += 1
+
+    by_division: dict[tuple[str, str], list[dict]] = defaultdict(list)
+
+    standings: list[dict] = []
+    for team in teams:
+        record = records[team["id"]]
+        games_played = record["wins"] + record["losses"] + record["ties"]
+        win_pct = (
+            (record["wins"] + 0.5 * record["ties"]) / games_played
+            if games_played
+            else 0.0
+        )
+        payload = {
+            "teamId": team["id"],
+            "name": team["name"],
+            "abbreviation": team["abbreviation"],
+            "conference": team["conference"],
+            "division": team["division"],
+            "wins": int(record["wins"]),
+            "losses": int(record["losses"]),
+            "ties": int(record["ties"]),
+            "winPct": round(win_pct, 3),
+            "pointsFor": int(record["points_for"]),
+            "pointsAgainst": int(record["points_against"]),
+            "pointDiff": int(record["points_for"] - record["points_against"]),
+        }
+        standings.append(payload)
+        by_division[(team["conference"], team["division"])].append(payload)
+
+    division_order = sorted(by_division.keys(), key=lambda key: (key[0], key[1]))
+    divisions: list[dict] = []
+    for key in division_order:
+        teams_in_division = sorted(
+            by_division[key],
+            key=lambda item: (item["winPct"], item["pointDiff"], item["pointsFor"]),
+            reverse=True,
+        )
+        divisions.append(
+            {
+                "conference": key[0],
+                "division": key[1],
+                "teams": teams_in_division,
+            }
+        )
+
+    return {
+        "updatedThroughWeek": latest_week,
+        "divisions": divisions,
+        "teams": standings,
+    }
+
+
 @app.get("/narratives")
 def list_narratives(week: Optional[int] = None):
     with get_connection() as connection:
         items = narrative_service.list_narratives(connection, week=week)
     return items
-
-
-# ---- Standings ----
-@app.get("/standings")
-def get_standings():
-    query = """
-        WITH played_games AS (
-            SELECT *
-            FROM games
-            WHERE played_at IS NOT NULL OR home_score <> 0 OR away_score <> 0
-        ),
-        team_results AS (
-            SELECT
-                home_team_id AS team_id,
-                home_score AS points_for,
-                away_score AS points_against,
-                CASE WHEN home_score > away_score THEN 1 ELSE 0 END AS wins,
-                CASE WHEN home_score < away_score THEN 1 ELSE 0 END AS losses,
-                CASE WHEN home_score = away_score THEN 1 ELSE 0 END AS ties
-            FROM played_games
-            UNION ALL
-            SELECT
-                away_team_id AS team_id,
-                away_score AS points_for,
-                home_score AS points_against,
-                CASE WHEN away_score > home_score THEN 1 ELSE 0 END AS wins,
-                CASE WHEN away_score < home_score THEN 1 ELSE 0 END AS losses,
-                CASE WHEN away_score = home_score THEN 1 ELSE 0 END AS ties
-            FROM played_games
-        )
-        SELECT
-            t.id AS teamId,
-            t.name AS name,
-            t.abbreviation AS abbreviation,
-            t.conference AS conference,
-            t.division AS division,
-            COALESCE(SUM(tr.wins), 0) AS wins,
-            COALESCE(SUM(tr.losses), 0) AS losses,
-            COALESCE(SUM(tr.ties), 0) AS ties,
-            COALESCE(SUM(tr.points_for), 0) AS pointsFor,
-            COALESCE(SUM(tr.points_against), 0) AS pointsAgainst
-        FROM teams AS t
-        LEFT JOIN team_results AS tr ON tr.team_id = t.id
-        GROUP BY t.id
-        ORDER BY t.conference, t.division, wins DESC, losses ASC, pointsFor DESC
-    """
-
-    with get_connection() as connection:
-        standings = connection.execute(query).fetchall()
-
-    return [row_to_dict(row) for row in standings]
-
-@app.post("/simulate-week")
-def simulate_week(request: WeekSimulationRequest):
-    detailed = request.mode == "detailed"
-    with get_connection() as connection:
-        box_scores = simulation_service.simulate_week(
-            connection, request.week, detailed=detailed
-        )
-        connection.commit()
-
-    results = [
-        {
-            "game_id": box.game_id,
-            "week": box.week,
-            "played_at": box.played_at,
-            "mode": request.mode,
-            "home_team": box.home_team,
-            "away_team": box.away_team,
-            "team_stats": box.team_stats,
-            "injuries": box.injuries,
-            "plays": box.plays if detailed else [],
-            "play_count": len(box.plays),
-        }
-        for box in box_scores
-    ]
-    return {"week": request.week, "mode": request.mode, "results": results}
-
-# ---- Standings ----
-@app.get("/standings")
-def get_standings():
-    query = """
-        WITH completed_games AS (
-            SELECT *
-            FROM games
-            WHERE played_at IS NOT NULL OR home_score <> 0 OR away_score <> 0
-        ),
-        game_results AS (
-            SELECT
-                home_team_id AS team_id,
-                CASE WHEN home_score > away_score THEN 1 ELSE 0 END AS wins,
-                CASE WHEN home_score < away_score THEN 1 ELSE 0 END AS losses,
-                CASE WHEN home_score = away_score THEN 1 ELSE 0 END AS ties
-            FROM completed_games
-            UNION ALL
-            SELECT
-                away_team_id AS team_id,
-                CASE WHEN away_score > home_score THEN 1 ELSE 0 END AS wins,
-                CASE WHEN away_score < home_score THEN 1 ELSE 0 END AS losses,
-                CASE WHEN home_score = away_score THEN 1 ELSE 0 END AS ties
-            FROM completed_games
-        )
-        SELECT
-            t.id,
-            t.name,
-            t.abbreviation,
-            t.conference,
-            t.division,
-            COALESCE(SUM(gr.wins), 0) AS wins,
-            COALESCE(SUM(gr.losses), 0) AS losses,
-            COALESCE(SUM(gr.ties), 0) AS ties
-        FROM teams AS t
-        LEFT JOIN game_results AS gr ON gr.team_id = t.id
-        GROUP BY t.id
-        ORDER BY t.conference, t.division, wins DESC, losses ASC, t.name
-    """
-
-    with get_connection() as connection:
-        standings = connection.execute(query).fetchall()
-
-    return [row_to_dict(row) for row in standings]
-
 
 
 

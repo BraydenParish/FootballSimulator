@@ -13,12 +13,15 @@ from shared.utils.rules import SimulationRules
 
 @dataclass(slots=True)
 class GameBoxScore:
+    """Lightweight representation of a simulated game's results."""
+
     game_id: int
     week: int
     played_at: str
     home_team: dict
     away_team: dict
     team_stats: dict
+    player_stats: dict[int, list[dict]]
     injuries: list[dict]
     plays: list[dict]
 
@@ -88,6 +91,11 @@ class SimulationService:
         away_stats = self._generate_team_stats(connection, rng, away_team, away_score, home_score)
 
         injuries = home_stats.pop("injuries") + away_stats.pop("injuries")
+
+        player_stats = {
+            home_team["id"]: [dict(player) for player in home_stats["players"]],
+            away_team["id"]: [dict(player) for player in away_stats["players"]],
+        }
 
         for entry in (home_stats, away_stats):
             connection.execute(
@@ -168,6 +176,7 @@ class SimulationService:
             home_team=box["home_team"],
             away_team=box["away_team"],
             team_stats=box["team_stats"],
+            player_stats=player_stats,
             injuries=injuries,
             plays=plays,
         )
@@ -547,7 +556,14 @@ class SimulationService:
             if not player:
                 continue
             if rng.random() < self.rules.injury_probability:
-                injuries.append({"player_id": player["id"], "name": player["name"], "status": "questionable"})
+                injuries.append(
+                    {
+                        "player_id": player["id"],
+                        "team_id": player["team_id"],
+                        "name": player["name"],
+                        "status": "questionable",
+                    }
+                )
                 connection.execute(
                     "UPDATE players SET injury_status = 'questionable' WHERE id = ?",
                     (player["id"],),
