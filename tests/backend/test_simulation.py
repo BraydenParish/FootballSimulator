@@ -13,19 +13,22 @@ def _db_connection() -> sqlite3.Connection:
     return connection
 
 
-def test_simulate_week_creates_box_scores(api_client: TestClient) -> None:
+def test_simulate_week_quick_mode(api_client: TestClient) -> None:
     response = api_client.post("/simulate-week", json={"week": 1})
     assert response.status_code == 200
     data = response.json()
+
     assert data["week"] == 1
-    assert len(data["results"]) >= 1
+    assert data["mode"] == "quick"
+    assert len(data["summaries"]) >= 1
+    assert isinstance(data["playByPlay"], list)
 
-    first_result = data["results"][0]
-    assert "home_team" in first_result and "away_team" in first_result
-    assert "team_stats" in first_result
-    assert isinstance(first_result["injuries"], list)
+    first_summary = data["summaries"][0]
+    assert "homeTeam" in first_summary and "awayTeam" in first_summary
+    assert first_summary["homeTeam"]["points"] >= 0
+    assert isinstance(first_summary["keyPlayers"], list)
 
-    game_id = first_result["game_id"]
+    game_id = first_summary["gameId"]
     with _db_connection() as connection:
         game_row = connection.execute(
             "SELECT played_at, home_score, away_score FROM games WHERE id = ?",
@@ -42,11 +45,44 @@ def test_simulate_week_creates_box_scores(api_client: TestClient) -> None:
             "SELECT COUNT(*) AS total FROM player_game_stats WHERE game_id = ?",
             (game_id,),
         ).fetchone()["total"]
+        event_count = connection.execute(
+            "SELECT COUNT(*) AS total FROM game_events WHERE game_id = ?",
+            (game_id,),
+        ).fetchone()["total"]
         assert team_stats == 2
         assert player_stats >= 2
+        assert event_count == 0
 
-    # Simulating again should fail because games are already marked as played.
     second = api_client.post("/simulate-week", json={"week": 1})
     assert second.status_code == 400
     assert "already simulated" in second.json()["detail"]
 
+
+def test_simulate_week_detailed_mode_creates_play_log(api_client: TestClient) -> None:
+    response = api_client.post("/simulate-week", json={"week": 1, "mode": "detailed"})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data["mode"] == "detailed"
+    assert len(data["summaries"]) >= 1
+    assert len(data["playByPlay"]) > 0
+
+    first_summary = data["summaries"][0]
+    game_id = first_summary["gameId"]
+
+    with _db_connection() as connection:
+        event_rows = connection.execute(
+            """
+            SELECT sequence, home_score_after, away_score_after
+            FROM game_events
+            WHERE game_id = ?
+            ORDER BY sequence
+            """,
+            (game_id,),
+        ).fetchall()
+        assert len(event_rows) > 0
+        assert len(data["playByPlay"]) >= len(event_rows)
+
+        last_event = event_rows[-1]
+        assert last_event["home_score_after"] == first_summary["homeTeam"]["points"]
+        assert last_event["away_score_after"] == first_summary["awayTeam"]["points"]

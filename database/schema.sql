@@ -76,3 +76,35 @@ CREATE TABLE IF NOT EXISTS player_game_stats (
     FOREIGN KEY (player_id) REFERENCES players (id),
     FOREIGN KEY (team_id) REFERENCES teams (id)
 );
+CREATE TABLE IF NOT EXISTS game_events (
+    id INTEGER PRIMARY KEY,
+    game_id INTEGER NOT NULL,
+    sequence INTEGER NOT NULL,
+    quarter INTEGER NOT NULL,
+    clock TEXT NOT NULL,
+    team_id INTEGER,
+    player_id INTEGER,
+    description TEXT NOT NULL,
+    highlight_type TEXT NOT NULL,
+    impact TEXT,
+    points INTEGER NOT NULL,
+    home_score_after INTEGER NOT NULL,
+    away_score_after INTEGER NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (game_id) REFERENCES games (id),
+    FOREIGN KEY (team_id) REFERENCES teams (id),
+    FOREIGN KEY (player_id) REFERENCES players (id)
+);
+CREATE INDEX IF NOT EXISTS idx_game_events_game_sequence ON game_events (game_id, sequence);
+CREATE TABLE IF NOT EXISTS week_narratives (
+    id INTEGER PRIMARY KEY,
+    week INTEGER NOT NULL,
+    headline TEXT NOT NULL,
+    body TEXT,
+    game_id INTEGER,
+    tags TEXT,
+    sequence INTEGER NOT NULL DEFAULT 1,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY (game_id) REFERENCES games (id)
+);
+CREATE INDEX IF NOT EXISTS idx_week_narratives_week ON week_narratives (week, sequence);
