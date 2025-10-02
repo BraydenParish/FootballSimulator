@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import sqlite3
 from contextlib import contextmanager
+import os
 from pathlib import Path
 from typing import Iterator
 
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-DB_PATH = REPO_ROOT / "database" / "nfl_gm_sim.db"
+DEFAULT_DB_PATH = REPO_ROOT / "database" / "nfl_gm_sim.db"
+DB_PATH = Path(os.environ.get("NFL_GM_DB_PATH", DEFAULT_DB_PATH))
 
 
 def _connect() -> sqlite3.Connection:

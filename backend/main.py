@@ -1,118 +1,26 @@
 from __future__ import annotations
 
-from datetime import datetime
-from typing import Optional
-
-import random
+from dataclasses import asdict
+from typing import Literal, Optional
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from backend.app.db import get_connection, row_to_dict
+from backend.app.services.roster_service import RosterService
+from backend.app.services.simulation_service import SimulationService
+from backend.app.services.stats_service import TeamStatsService
+from backend.app.services.trade_service import TradeService
+from shared.utils.rules import load_game_rules, load_simulation_rules
 
+CURRENT_YEAR = 2025
+GAME_RULES = load_game_rules()
+SIMULATION_RULES = load_simulation_rules()
 
-def _get_team(connection, team_id: int):
-    team = connection.execute(
-        """
-        SELECT id, name, abbreviation, conference, division
-        FROM teams
-        WHERE id = ?
-        """,
-        (team_id,),
-    ).fetchone()
-    if team is None:
-        raise HTTPException(status_code=404, detail=f"Team {team_id} not found")
-    return team
-
-
-def _team_strength(connection, team_id: int) -> float:
-    rating_row = connection.execute(
-        """
-        SELECT AVG(overall_rating) AS avg_rating
-        FROM players
-        WHERE team_id = ?
-        """,
-        (team_id,),
-    ).fetchone()
-    avg_rating = rating_row["avg_rating"] if rating_row and rating_row["avg_rating"] is not None else 60.0
-    return float(avg_rating)
-
-
-def _simulate_scores(home_rating: float, away_rating: float, seed: int) -> tuple[int, int]:
-    rng = random.Random(seed)
-    rating_diff = home_rating - away_rating
-    base_total = 42 + rng.uniform(-8, 8)
-    home_share = 0.5 + rating_diff * 0.008
-    home_points = base_total * max(0.2, min(0.8, home_share))
-    away_points = base_total - home_points
-    home_score = max(0, int(round(home_points + rng.gauss(0, 3))))
-    away_score = max(0, int(round(away_points + rng.gauss(0, 3))))
-    if home_score == away_score:
-        adjustment = 1 if rng.random() > 0.5 else -1
-        home_score = max(0, home_score + adjustment)
-    return home_score, away_score
-
-
-def _build_narrative(home_team: dict, away_team: dict, home_score: int, away_score: int) -> str:
-    if home_score > away_score:
-        margin = home_score - away_score
-        return (
-            f"{home_team['name']} protected home field with a {home_score}-{away_score} win over "
-            f"{away_team['name']}, pulling away by {margin} in the final quarter."
-        )
-    if away_score > home_score:
-        margin = away_score - home_score
-        return (
-            f"{away_team['name']} stunned {home_team['name']} on the road, leaving with a {away_score}-{home_score}"
-            f" victory and a {margin}-point cushion."
-        )
-    return (
-        f"{home_team['name']} and {away_team['name']} traded blows all afternoon, settling for a "
-        f"{home_score}-{away_score} tie after overtime."
-    )
-
-
-def _persist_simulation(
-    connection,
-    *,
-    week: int,
-    home_team_id: int,
-    away_team_id: int,
-    home_score: int,
-    away_score: int,
-    played_at: str,
-):
-    existing = connection.execute(
-        """
-        SELECT id, played_at
-        FROM games
-        WHERE week = ? AND home_team_id = ? AND away_team_id = ?
-        """,
-        (week, home_team_id, away_team_id),
-    ).fetchone()
-
-    if existing:
-        if existing["played_at"]:
-            raise HTTPException(status_code=400, detail="Game has already been simulated")
-        game_id = existing["id"]
-        connection.execute(
-            """
-            UPDATE games
-            SET home_score = ?, away_score = ?, played_at = ?
-            WHERE id = ?
-            """,
-            (home_score, away_score, played_at, game_id),
-        )
-        return game_id
-
-    cursor = connection.execute(
-        """
-        INSERT INTO games (week, home_team_id, away_team_id, home_score, away_score, played_at)
-        VALUES (?, ?, ?, ?, ?, ?)
-        """,
-        (week, home_team_id, away_team_id, home_score, away_score, played_at),
-    )
-    return cursor.lastrowid
+roster_service = RosterService(GAME_RULES)
+trade_service = TradeService(GAME_RULES, roster_service)
+simulation_service = SimulationService(SIMULATION_RULES)
+team_stats_service = TeamStatsService()
 
 
 app = FastAPI()
@@ -166,6 +74,13 @@ def get_team(team_id: int):
 
     return {**row_to_dict(team), "roster": [row_to_dict(player) for player in roster]}
 
+
+@app.get("/teams/{team_id}/stats")
+def get_team_stats(team_id: int):
+    with get_connection() as connection:
+        stats = team_stats_service.starters_stats(connection, team_id)
+    return stats
+
 # ---- Players ----
 @app.get("/players")
 def get_players(team_id: Optional[int] = None, status: Optional[str] = None):
@@ -213,6 +128,86 @@ def get_player(player_id: int):
         raise HTTPException(status_code=404, detail="Player not found")
 
     return row_to_dict(player)
+
+# ---- Free agency ----
+
+
+class SignPlayerRequest(BaseModel):
+    player_id: int
+
+
+@app.get("/free-agents")
+def list_free_agents(year: Optional[int] = None):
+    target_year = year if year is not None else CURRENT_YEAR
+    with get_connection() as connection:
+        free_agents = roster_service.list_free_agents(connection, year=target_year)
+    return {"year": target_year, "players": free_agents}
+
+
+@app.post("/teams/{team_id}/sign")
+def sign_free_agent(team_id: int, payload: SignPlayerRequest):
+    with get_connection() as connection:
+        result = roster_service.sign_player(
+            connection,
+            team_id=team_id,
+            player_id=payload.player_id,
+        )
+        roster_service.validate_depth_requirements(connection, team_id)
+        connection.commit()
+
+    return {"team": result.team, "player": result.player}
+
+
+class TradeAsset(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    type: Literal["player", "pick"]
+    player_id: Optional[int] = None
+    year: Optional[int] = None
+    draft_round: Optional[int] = Field(default=None, alias="round")
+
+    @model_validator(mode="after")
+    def _validate_asset(self):
+        if self.type == "player" and self.player_id is None:
+            raise ValueError("player asset requires player_id")
+        if self.type == "pick" and (self.year is None or self.draft_round is None):
+            raise ValueError("pick asset requires year and round")
+        return self
+
+
+class TradeProposal(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+
+    team_a: int = Field(alias="teamA")
+    team_b: int = Field(alias="teamB")
+    offer: list[TradeAsset]
+    request: list[TradeAsset]
+
+
+@app.post("/trade")
+def submit_trade(proposal: TradeProposal):
+    offer_payload = [asset.model_dump(by_alias=True, exclude_none=True) for asset in proposal.offer]
+    request_payload = [asset.model_dump(by_alias=True, exclude_none=True) for asset in proposal.request]
+
+    with get_connection() as connection:
+        result = trade_service.execute_trade(
+            connection,
+            team_a_id=proposal.team_a,
+            team_b_id=proposal.team_b,
+            offer=offer_payload,
+            request=request_payload,
+        )
+        connection.commit()
+
+    summary = asdict(result)
+    return {
+        "teamA": summary["team_a"],
+        "teamB": summary["team_b"],
+        "teamA_sent": summary["team_a_sent"],
+        "teamA_received": summary["team_a_received"],
+        "teamB_sent": summary["team_b_sent"],
+        "teamB_received": summary["team_b_received"],
+    }
 
 # ---- Games ----
 @app.get("/games")
@@ -290,98 +285,30 @@ def get_game(game_id: int):
 
 
 # ---- Simulation ----
-class GameRequest(BaseModel):
-    home_team: int
-    away_team: int
+
+
+class WeekSimulationRequest(BaseModel):
     week: int
-
-class WeekRequest(BaseModel):
-    week: int
-
-
-def _simulate_and_store(
-    connection,
-    *,
-    week: int,
-    home_team_id: int,
-    away_team_id: int,
-) -> dict:
-    if home_team_id == away_team_id:
-        raise HTTPException(status_code=400, detail="A team cannot play against itself")
-
-    home_team = _get_team(connection, home_team_id)
-    away_team = _get_team(connection, away_team_id)
-    home_team_data = row_to_dict(home_team)
-    away_team_data = row_to_dict(away_team)
-    home_rating = _team_strength(connection, home_team_id)
-    away_rating = _team_strength(connection, away_team_id)
-
-    seed = (week << 20) ^ (home_team_id << 10) ^ away_team_id
-    home_score, away_score = _simulate_scores(home_rating, away_rating, seed)
-    played_at = datetime.utcnow().isoformat(timespec="seconds")
-    game_id = _persist_simulation(
-        connection,
-        week=week,
-        home_team_id=home_team_id,
-        away_team_id=away_team_id,
-        home_score=home_score,
-        away_score=away_score,
-        played_at=played_at,
-    )
-
-    narrative = _build_narrative(home_team_data, away_team_data, home_score, away_score)
-
-    return {
-        "game_id": game_id,
-        "week": week,
-        "played_at": played_at,
-        "home_team": {**home_team_data, "score": home_score},
-        "away_team": {**away_team_data, "score": away_score},
-        "narrative": narrative,
-    }
-
-
-@app.post("/simulate-game")
-def simulate_game(request: GameRequest):
-    with get_connection() as connection:
-        result = _simulate_and_store(
-            connection,
-            week=request.week,
-            home_team_id=request.home_team,
-            away_team_id=request.away_team,
-        )
-        connection.commit()
-    return result
 
 
 @app.post("/simulate-week")
-def simulate_week(request: WeekRequest):
+def simulate_week(request: WeekSimulationRequest):
     with get_connection() as connection:
-        scheduled_games = connection.execute(
-            """
-            SELECT id, home_team_id, away_team_id, played_at
-            FROM games
-            WHERE week = ?
-            """,
-            (request.week,),
-        ).fetchall()
-
-        if not scheduled_games:
-            raise HTTPException(status_code=404, detail="No games scheduled for this week")
-
-        results = []
-        for scheduled in scheduled_games:
-            results.append(
-                _simulate_and_store(
-                    connection,
-                    week=request.week,
-                    home_team_id=scheduled["home_team_id"],
-                    away_team_id=scheduled["away_team_id"],
-                )
-            )
-
+        box_scores = simulation_service.simulate_week(connection, request.week)
         connection.commit()
 
+    results = [
+        {
+            "game_id": box.game_id,
+            "week": box.week,
+            "played_at": box.played_at,
+            "home_team": box.home_team,
+            "away_team": box.away_team,
+            "team_stats": box.team_stats,
+            "injuries": box.injuries,
+        }
+        for box in box_scores
+    ]
     return {"week": request.week, "results": results}
 
 # ---- Standings ----

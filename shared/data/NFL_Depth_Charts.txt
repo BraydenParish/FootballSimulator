@@ -1,0 +1,5 @@
+# team_abbr|position|player_id|order
+BUF|QB|1|1
+BUF|WR|2|1
+BUF|EDGE|3|1
+CIN|QB|4|1

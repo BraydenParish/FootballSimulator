@@ -1,0 +1,10 @@
+# Key roster and salary rules for the simulator
+roster_min=46
+roster_max=53
+salary_cap=210000000
+salary_base=750000
+salary_per_rating=120000
+max_contract_years=4
+elite_qb_rating=92
+max_elite_qbs=1
+min_position_depth=QB:1

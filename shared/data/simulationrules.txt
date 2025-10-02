@@ -1,0 +1,12 @@
+# Simulation parameters for weekly matchups
+base_points=24
+rating_factor=0.35
+home_field_advantage=3.0
+random_variance=7.5
+min_score=10
+max_score=48
+passing_yards_per_rating=7.0
+rushing_yards_per_rating=4.5
+receiving_yards_per_rating=5.5
+defense_big_play_factor=0.05
+injury_probability=0.07
