@@ -1,10 +1,253 @@
-# Key roster and salary rules for the simulator
-roster_min=46
-roster_max=53
-salary_cap=210000000
-salary_base=750000
-salary_per_rating=120000
-max_contract_years=4
-elite_qb_rating=92
-max_elite_qbs=1
-min_position_depth=QB:1
+1. Teams & Rosters
+
+Each team has 53 total roster spots.
+
+At least 46 players must be active on gameday.
+
+Positional minimums per team:
+
+QB: 2
+
+RB: 3
+
+WR: 5
+
+TE: 2
+
+OL: 8 (any mix of T, G, C)
+
+DL: 7 (any mix of DT, DE, NT)
+
+LB: 6
+
+DB: 8 (any mix of CB, S)
+
+Specialists: 1 Kicker, 1 Punter, 1 Long Snapper
+
+If a team drops below these minimums, they must sign free agents to correct it before the next game.
+
+2. Salary Cap
+
+Salary cap is $255,000,000 per team (adjust this for season year).
+
+A transaction (trade, signing, extension) is invalid if it pushes a team over the cap.
+
+Each player has:
+
+Contract years
+
+Cap hit (annual salary applied to the cap)
+
+Cap space = Salary Cap − Current Total Salaries.
+
+Dead cap: If a player is cut, his cap hit for that year still counts.
+
+Cap: $255,000,000 (adjust yearly).
+
+Cap applies to active players, IR players, dead money from cuts.
+
+Cap space = Salary Cap − Current Total Salaries.
+
+3. Transactions
+3.1 Trades
+
+Trades can involve players and draft picks.
+
+Trade checks before approval:
+
+Cap compliance (neither team exceeds cap after trade).
+
+Roster size (no team exceeds 53 players).
+
+Trade balance is not enforced (teams can make lopsided trades).
+
+Example trade format:
+
+TRADE: Eagles send WR DeVonta Smith + 2026 3rd Rd Pick 
+       to Bears for CB Jaylon Johnson.
+
+3.2 Free Agency
+
+Free agents are listed in free_agents.csv.
+
+To sign a free agent:
+
+Team must have open roster spots.
+
+Team must have enough cap space.
+
+If two teams target the same player in the same turn:
+
+The team offering the highest salary gets the player.
+
+If tied, the team with the worse record gets priority.
+
+3.3 Waivers & Cuts
+
+A cut player goes into waivers for 24 in-game hours.
+
+Waiver priority = reverse standings order.
+
+If unclaimed, player moves to free agents pool.
+
+4. Contracts, Extensions & Restructures
+4.1 Contracts
+
+Each player has:
+
+Contract length (years remaining).
+
+Annual salary (cap hit).
+
+Guaranteed money (cannot be avoided if cut).
+
+Cutting a player before contract end creates dead cap, equal to remaining guaranteed salary.
+
+4.2 Extensions
+
+Teams may negotiate extensions for players in the final year of their contracts.
+
+Extension rules:
+
+New salary must be ≥ player’s current salary if the player is above-average (rating ≥ 75).
+
+Extensions add 2–5 years typically.
+
+Extended contracts replace the expiring one and begin the following season.
+
+Extension signing bonuses (if modeled) can be spread over contract years to lower current-year cap hit.
+
+4.3 Restructures
+
+Teams may restructure contracts to free up cap space.
+
+Rules:
+
+A restructure may convert up to 50% of a player’s current salary into a signing bonus.
+
+Signing bonus is prorated evenly across remaining contract years.
+
+Restructures reduce current-year cap hit but increase future years’ cap hits.
+
+Example:
+
+Player has 2 years left at $20M/year.
+
+Restructure converts $10M into bonus → Cap hit this year becomes $10M salary + $5M bonus = $15M.
+
+Next year adds $5M bonus to salary cap hit.
+
+4.4 Franchise Tag (Optional Rule)
+
+Each offseason, teams may franchise tag one player with an expiring contract.
+
+Franchise tag = average of top 5 salaries at the player’s position.
+
+Player is under contract for 1 year, after which they can be extended, tagged again, or enter free agency.
+
+5. Draft
+
+Annual draft has 7 rounds (32 picks per round).
+
+Draft order is based on the previous season standings (worst to best).
+
+Draft picks are tradeable (up to 3 years ahead).
+
+Rookie contracts are fixed:
+
+Round 1: $5–10M cap hit depending on draft slot.
+
+Round 2: $3–5M.
+
+Rounds 3–7: $1–3M.
+
+6. Injuries & IR
+
+Injuries can occur randomly (or be simulated via simulationrules.txt).
+
+Injured players can be placed on Injured Reserve (IR).
+
+IR rules:
+
+Player must miss at least 4 weeks.
+
+Opening a roster spot does not remove their cap hit.
+
+Teams may sign replacements while the player is on IR.
+
+7. Season Structure
+
+Regular Season: 17 games per team.
+
+Playoffs: Top 7 teams per conference make playoffs.
+
+Seed #1 in each conference gets a bye.
+
+Standard playoff bracket format (Wild Card → Divisional → Conference Championship → Super Bowl).
+
+8. Rule Enforcement
+
+The LLM/game engine must:
+
+Reject invalid trades/signings (cap or roster violations).
+
+Ensure roster minimums are respected weekly.
+
+Update all CSV files consistently after transactions.
+
+9. Narrative/Events (Optional)
+
+The game master may introduce special events:
+
+Retirement
+
+Holdouts (player demands new contract)
+
+Surprise breakout (ratings boost)
+
+Off-field issue (temporary suspension)
+
+These events must not violate core rules (cap, roster size, etc.).
+
+10. Owner/GM Decision Rules
+10.1 Trade Limits
+
+Max 3 trades per team during regular season.
+
+Unlimited trades allowed in offseason.
+
+10.2 Free Agency Limits
+
+Max 2 signings per week during regular season.
+
+Unlimited in offseason.
+
+10.3 Restructure Limits
+
+A player’s contract may only be restructured once per season.
+
+A team may restructure a maximum of 3 contracts per season.
+
+10.4 Franchise Tag Rules
+
+Max 2 consecutive tags on the same player.
+
+After that, player must either be extended or hit free agency.
+
+10.5 Extensions
+
+Extensions may only be offered once per player per offseason.
+
+If rejected, the player enters free agency at contract end.
+
+10.6 Injured Reserve
+
+No more than 8 players may be placed on IR in a season.
+
+Prevents abuse of IR for roster expansion.
+
+10.7 Gameday Roster
+
+Teams must designate 46 active players.
+
+If a team fails to meet positional minimums, they automatically forfeit that game.

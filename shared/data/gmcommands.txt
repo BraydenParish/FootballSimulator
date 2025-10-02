@@ -1,6 +1,35 @@
-SIGN_FREE_AGENT
-MAKE_TRADE
-RENEGOTIATE_CONTRACT
-SET_DEPTH_CHART
-SIMULATE_WEEK
-VIEW_TEAM_STATS
+GM COMMANDS
+
+1. TEAM CONTROL
+- At game start, user picks 1 NFL team to control as GM.
+- User can only make roster moves for that team.
+- All other teams are AI-controlled.
+
+2. SIMULATE
+- "Simulate [Team] vs [Team] Week [X]" → Quick sim.
+- "Simulate [Team] vs [Team] Week [X] (big plays)" → Show big plays and final stats.
+- "Simulate full week [X]" → Simulate all games in that week.
+
+3. TRADES
+- "Trade [Player] from [My Team] to [Other Team] for [Player/Pick]" → Executes trade.
+- Must check salary cap + roster size.
+- Invalid trades must be rejected.
+
+4. FREE AGENCY
+- "Sign [Player] to [My Team]" → Signs player if in correct free agent file and cap space allows.
+- If roster exceeds 53, prompt user to cut a player.
+
+5. ROSTER
+- "Show my depth chart" → Displays current depth chart.
+- "Cut [Player]" → Releases a player, moves them to free agent pool.
+
+6. STATS & STANDINGS
+- "Show standings" → Displays current win-loss records.
+- "Show player stats [Team]" → Displays season stats.
+- "Show league leaders" → Displays top performers.
+
+7. SEASON FLOW
+- "Advance to Week [X]" → Runs through simulation until that week.
+- "Advance to Playoffs" → Runs through end of season standings.
+- "Advance to Offseason" → Unlocks next year free agent pool and draft.
+

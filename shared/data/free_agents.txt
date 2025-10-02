@@ -1,3 +1,0 @@
-# player_id|name|position|overall|age
-101|Julio Jones|WR|82|34
-102|Ndamukong Suh|DL|80|36

@@ -1,12 +1,155 @@
-# Simulation parameters for weekly matchups
-base_points=24
-rating_factor=0.35
-home_field_advantage=3.0
-random_variance=7.5
-min_score=10
-max_score=48
-passing_yards_per_rating=7.0
-rushing_yards_per_rating=4.5
-receiving_yards_per_rating=5.5
-defense_big_play_factor=0.05
-injury_probability=0.07
+1. Game Outcome Calculation
+1.1 Team Rating Formula
+
+Each team gets an Overall Game Rating (OGR) for a matchup:
+
+OGR = (Offense × 0.45) + (Defense × 0.45) + (Special Teams × 0.10)
+
+
+Offense Rating (OR) = (QB_OVR × 0.35) + (OL_Avg_OVR × 0.20) + (WR1_OVR × 0.15) + (WR2_OVR × 0.10) + (RB1_OVR × 0.10) + (TE1_OVR × 0.10)
+
+Defense Rating (DR) = (DL_Avg_OVR × 0.25) + (LB_Avg_OVR × 0.20) + (CB1_OVR × 0.15) + (CB2_OVR × 0.15) + (S1_OVR × 0.15) + (S2_OVR × 0.10)
+
+Special Teams Rating (STR) = (K_OVR × 0.4) + (P_OVR × 0.3) + (KR/PR_SPD × 0.3)
+
+Optional modifier: Home Field Advantage = +3 OGR.
+Optional modifier: Coach Quality = ±2–5 OGR.
+
+1.2 Win Probability
+WP(Team A) = 50% + (OGR_A - OGR_B) × 1.5%
+Clamp: 10% ≤ WP ≤ 90%
+
+1.3 Random Upset Factor
+
+Even if a team is heavily favored, underdog always has at least 10% chance to win.
+
+Upsets should trigger narrative events (e.g., “QB throws 3 INTs,” “Defense scores late TD”).
+
+2. Scoring Simulation
+2.1 Base Scoring Range
+
+NFL average = 22–24 points.
+
+Expected score per team:
+
+ExpectedPoints = (OGR / LeagueAvgOGR) × 22
+FinalPoints = ExpectedPoints ± Rand(0,10)
+Clamp: 7 ≤ FinalPoints ≤ 45
+
+2.2 Stat Allocation
+
+Passing Yards
+
+PassYards = (QB_AWR / 100) × (QB_OVR / 100) × (TotalYards × 0.6) ± Rand(0,75)
+
+
+Rushing Yards
+
+RushYards = (RB_SPD × 0.3 + RB_STR × 0.2 + RB_AGI × 0.25 + RB_COD × 0.25) / 100 × (TotalYards × 0.4)
+
+
+Receiving Yards
+
+Distributed by OVR weighting:
+
+WR1 = ~35% of pass yards
+
+WR2 = ~25%
+
+TE1 = ~15%
+
+Other WRs/TEs = remainder
+
+Defensive Stats
+
+Sacks = (DL_STR + LB_STR + DL_AWR + LB_AWR) vs opponent OL_OVR.
+
+INTs = Opponent QB_AWR penalty vs CB/S SPD + AWR.
+
+Forced fumbles = STR-based chance (DL/LB vs RB).
+
+Distribution rules:
+
+Passing = 55–70% of total yards.
+
+Rushing = 30–45%.
+
+TDs allocated proportionally by yardage shares.
+
+3. Season Simulation
+3.1 Schedule
+
+17 games per team (from schedule.csv).
+
+Weekly injuries/fatigue may adjust ratings.
+
+3.2 Standings
+
+Wins rank teams.
+
+Ties = 0.5 win + 0.5 loss.
+
+Tiebreakers:
+
+Head-to-head
+
+Conference record
+
+Strength of victory
+
+4. Playoff Simulation
+4.1 Wild Card Round
+
+Top seed bye.
+
+Same win probability formula as regular season.
+
+4.2 Divisional + Championship Rounds
+
+Home team gets +3 OGR.
+
+4.3 Super Bowl
+
+Neutral field (no home bonus).
+
+Extra variance: ±14 points possible.
+
+5. Injuries in Simulation
+
+Injury Chance
+
+InjuryChance = (100 - INJ) / 1000 per game
+
+
+Example: INJ 95 → 0.05 chance; INJ 70 → 0.30 chance.
+
+Severity
+
+50% = 1–2 weeks
+
+30% = 3–6 weeks
+
+20% = season-ending (IR)
+
+6. Player Progression/Regression
+
+Players <25 with above-average stats → +1 to +3 OVR.
+
+Players >30 → -1 to -3 OVR.
+
+Injury-prone seasons reduce INJ permanently (by 1–3).
+
+Breakout rookies may gain extra SPD/AGI/COD boost.
+
+7. Narrative Events
+
+Upsets, blowouts, and star performances trigger auto-generated narratives.
+Examples:
+
+“QB throws 4 TDs to lead comeback.”
+
+“Defense forces 3 turnovers in upset win.”
+
+“RB explodes for 150+ yards.”
+
+“Star WR injured in 2nd quarter.”
