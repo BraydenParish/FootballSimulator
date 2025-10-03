@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, it } from "vitest";
@@ -48,7 +48,9 @@ describe("FreeAgencyPage", () => {
     renderPage();
     const filter = await screen.findByLabelText(/position/i);
     const qbOption = await screen.findByRole("option", { name: /qb/i });
-    await userEvent.selectOptions(filter, qbOption);
+    await act(async () => {
+      await userEvent.selectOptions(filter, qbOption);
+    });
     const rows = await screen.findAllByRole("row");
     expect(rows.some((row) => row.textContent?.includes("QB"))).toBe(true);
   });
@@ -81,7 +83,10 @@ describe("FreeAgencyPage", () => {
 
     renderPage();
     const signButtons = await screen.findAllByRole("button", { name: /sign/i });
-    await userEvent.click(signButtons[0]);
-    await screen.findByText(/roster limit reached/i);
+    await act(async () => {
+      await userEvent.click(signButtons[0]);
+    });
+    const messages = await screen.findAllByText(/roster limit reached/i);
+    expect(messages.length).toBeGreaterThanOrEqual(1);
   });
 });

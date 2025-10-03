@@ -11,7 +11,7 @@ export function StandingsPage() {
     <Card>
       <h2 className="text-2xl font-semibold text-white">League standings</h2>
       <p className="mt-2 text-sm text-slate-300">
-        Full conference and division ordering sourced from the mock data store.
+        Full conference and division ordering calculated from completed simulations.
       </p>
       <div className="mt-4 overflow-x-auto">
         <table className="min-w-full divide-y divide-white/10 text-left">
@@ -34,7 +34,7 @@ export function StandingsPage() {
               </tr>
             ) : standings.length ? (
               standings.map((team) => (
-                <tr key={team.teamId} className="border-b border-white/5">
+                <tr key={team.teamId} className="border-b border-white/5" data-test="standings-row">
                   <td className="px-4 py-3 text-sm text-white">{team.name}</td>
                   <td className="px-4 py-3 text-sm text-slate-300">{team.conference}</td>
                   <td className="px-4 py-3 text-sm text-slate-300">{team.division}</td>
