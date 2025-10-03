@@ -1,4 +1,4 @@
-.PHONY: test lint format run coverage-branch-check
+.PHONY: test lint format run coverage-branch-check seed run-backend
 
 TEST_TARGET?=.
 LINT_PATHS=app ../tests/backend
@@ -26,3 +26,8 @@ coverage-branch-check:
 
 run:
 	uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+run-backend: run
+
+seed:
+	PYTHONPATH=.. python -m database.load_data

@@ -11,3 +11,4 @@ flake8==7.0.0
 isort==5.13.2
 types-requests==2.31.0.20240311
 types-setuptools==69.1.0.20240302
+SQLAlchemy==2.0.30

@@ -1,0 +1,11 @@
+id,name,position,team,ovr,age,spd,str,agi,cod,inj,awr
+1,Josh Allen,QB,BUF,95,28,87,80,90,88,88,92
+2,James Cook,RB,BUF,85,25,92,75,88,86,85,84
+3,Stefon Diggs,WR,BUF,93,30,91,70,94,92,90,95
+4,Von Miller,EDGE,BUF,91,34,86,88,82,80,70,93
+5,Joe Burrow,QB,CIN,95,27,82,78,88,90,92,96
+6,Joe Mixon,RB,CIN,88,28,89,82,86,84,88,88
+7,Ja'Marr Chase,WR,CIN,96,24,94,74,95,94,88,94
+8,Trey Hendrickson,EDGE,CIN,90,29,84,86,80,78,75,90
+9,Kyle Allen,QB,BUF,68,27,78,70,76,75,90,70
+10,Jake Browning,QB,CIN,70,27,76,70,74,73,92,72

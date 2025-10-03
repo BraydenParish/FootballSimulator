@@ -20,10 +20,25 @@ cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload
+
+# Load the SQLite database from the parsed CSVs
+make seed
+
+# Start the API (alias: `make run-backend`)
+make run
 ```
 
-The API will be available at `http://localhost:8000`; the `/health` endpoint returns `{ "status": "ok" }` when running. The frontend defaults to mock data, but setting `VITE_API_MODE=api` will point the UI at the live backend once the service is running.
+The API will be available at `http://localhost:8000`; the `/health` endpoint returns `{ "status": "ok" }` when running. The seeding step ingests `shared/data/ratings.csv`, `depth_charts.csv`, `schedule.csv`, and the 2025/2026 free agent CSVs into SQLite via SQLAlchemy models so runtime code never reparses the CSVs.
+
+**Backend QA helpers**
+
+```bash
+cd backend
+make lint   # black, isort, flake8, mypy
+make test   # pytest with coverage enforcement
+```
+
+Use `TEST_TARGET=backend/tests/test_seed_ingestion.py make test` to focus on the ingestion regression checks when iterating on the CSV loader.
 
 ### Frontend
 
