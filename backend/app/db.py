@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
+import os
 import sqlite3
 from contextlib import contextmanager
-import os
 from pathlib import Path
 from typing import Iterator
-
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_DB_PATH = REPO_ROOT / "database" / "nfl_gm_sim.db"

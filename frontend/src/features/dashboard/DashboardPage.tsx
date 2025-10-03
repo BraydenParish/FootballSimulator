@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { leagueApi } from "../../api/client";
 import { queryKeys } from "../../api/queryKeys";
 import { BoxScore, GameSummary, Player, Standing, TeamStats } from "../../types/league";
@@ -68,15 +69,9 @@ function extractStarters(players: Player[]): Array<{ slot: string; player: Playe
   return slots.map((slot) => ({ slot, player: players.find((candidate) => candidate.depthChartSlot === slot) }));
 }
 
-function formatBoxScoreMessage(boxScore: BoxScore | undefined): string {
-  if (!boxScore) {
-    return "Quick sim complete.";
-  }
-  return `${boxScore.homeTeam.name} ${boxScore.homeTeam.points} – ${boxScore.awayTeam.points} ${boxScore.awayTeam.name}`;
-}
-
 export function DashboardPage() {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const { standingsQuery, scheduleQuery, boxScoresQuery, rosterQuery, statsQuery } =
     useFocusTeamData();
 
@@ -95,38 +90,25 @@ export function DashboardPage() {
     [boxScores, lastResultGame]
   );
 
-  const [simModalOpen, setSimModalOpen] = useState(false);
-  const [detailedLogOpen, setDetailedLogOpen] = useState(false);
   const [boxScoreOpen, setBoxScoreOpen] = useState(false);
   const [playerStatsOpen, setPlayerStatsOpen] = useState(false);
-  const [simulationMessage, setSimulationMessage] = useState<string | null>(null);
-  const [detailedLog, setDetailedLog] = useState<string[]>([]);
 
   const simulationMutation = useMutation({
     mutationFn: leagueApi.simulateWeek,
-    onSuccess: (result) => {
+    onSuccess: (_result, variables) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.schedule(FOCUS_TEAM_ID) });
       queryClient.invalidateQueries({ queryKey: queryKeys.standings });
       queryClient.invalidateQueries({ queryKey: queryKeys.boxScores(FOCUS_TEAM_ID) });
       queryClient.invalidateQueries({ queryKey: queryKeys.teamStats(FOCUS_TEAM_ID) });
-      setDetailedLog(result.playByPlay);
+      queryClient.invalidateQueries({ queryKey: queryKeys.weekResults(variables.week) });
     },
   });
 
-  const handleQuickSim = async () => {
-    setSimModalOpen(false);
+  const handleSimulateWeek = async () => {
     const result = await simulationMutation.mutateAsync({ week: nextWeek, mode: "quick" });
-    const summary = result.summaries[0];
-    setSimulationMessage(`Quick sim complete – ${formatBoxScoreMessage(summary)}.`);
-  };
-
-  const handleDetailedSim = async () => {
-    setSimModalOpen(false);
-    const result = await simulationMutation.mutateAsync({ week: nextWeek, mode: "detailed" });
-    const summary = result.summaries[0];
-    setSimulationMessage(`Detailed sim complete – ${formatBoxScoreMessage(summary)}.`);
-    setDetailedLog(result.playByPlay);
-    setDetailedLogOpen(true);
+    const targetWeek = result.week ?? nextWeek;
+    const highlight = result.summaries[0]?.gameId ?? null;
+    navigate(`/results/${targetWeek}`, { state: highlight ? { highlight } : undefined });
   };
 
   const standingsTop = useMemo(() => standings.slice(0, 3), [standings]);
@@ -141,15 +123,9 @@ export function DashboardPage() {
         standings={standings}
         upcomingGame={upcomingGame ?? null}
         focusTeamId={FOCUS_TEAM_ID}
-        onOpenSimulation={() => setSimModalOpen(true)}
+        onSimulateWeek={handleSimulateWeek}
         onOpenPlayerStats={() => setPlayerStatsOpen(true)}
       />
-
-      {simulationMessage ? (
-        <div className="rounded-2xl border border-primary.accent/40 bg-primary.accent/10 p-4 text-sm font-semibold text-primary.accent">
-          {simulationMessage}
-        </div>
-      ) : null}
 
       <div className="grid gap-6 lg:grid-cols-[2fr,1fr]">
         <div className="space-y-6">
@@ -185,62 +161,6 @@ export function DashboardPage() {
           </Card>
         </div>
       </div>
-
-      <Modal
-        title="Choose simulation mode"
-        isOpen={simModalOpen}
-        onClose={() => setSimModalOpen(false)}
-        footer={
-          <>
-            <button
-              type="button"
-              onClick={handleQuickSim}
-              className="rounded-lg bg-primary.accent px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary.accent/90"
-            >
-              Quick Sim
-            </button>
-            <button
-              type="button"
-              onClick={handleDetailedSim}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-200 shadow-sm transition hover:bg-slate-700"
-            >
-              Detailed Sim
-            </button>
-          </>
-        }
-      >
-        <p>
-          Quick sims jump straight to the result. Detailed sims produce a narrated log so you can
-          digest every key drive.
-        </p>
-      </Modal>
-
-      <Modal
-        title="Detailed game log"
-        isOpen={detailedLogOpen}
-        onClose={() => setDetailedLogOpen(false)}
-        footer={
-          <button
-            type="button"
-            onClick={() => setDetailedLogOpen(false)}
-            className="rounded-lg bg-primary.accent px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-primary.accent/90"
-          >
-            Close log
-          </button>
-        }
-      >
-        <ul className="space-y-2">
-          {detailedLog.length ? (
-            detailedLog.map((entry, index) => (
-              <li key={index} className="rounded-lg bg-slate-900 px-3 py-2 text-slate-200">
-                {entry}
-              </li>
-            ))
-          ) : (
-            <li className="text-sm text-slate-400">Simulation log unavailable.</li>
-          )}
-        </ul>
-      </Modal>
 
       <Modal
         title="Latest box score"

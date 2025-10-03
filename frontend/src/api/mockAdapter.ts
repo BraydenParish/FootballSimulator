@@ -1,6 +1,7 @@
 import {
   BoxScore,
   DepthChartEntry,
+  FreeAgentSigningResult,
   GameSummary,
   Player,
   SimulationRequest,
@@ -8,8 +9,10 @@ import {
   Standing,
   Team,
   TeamStats,
-  TradeEvaluation,
+  TradeExecutionResult,
   TradeProposal,
+  TradeProposalResult,
+  WeeklyGameResult,
 } from "../types/league";
 import { useMockDataStore } from "../store/mockData";
 
@@ -41,6 +44,10 @@ export async function fetchBoxScores(teamId?: number): Promise<BoxScore[]> {
   );
 }
 
+export async function fetchWeekResults(week: number): Promise<WeeklyGameResult[]> {
+  return getState().getWeekResults(week);
+}
+
 export async function simulateWeek(request: SimulationRequest): Promise<SimulationResult> {
   return getState().simulateWeek(request.week, request.mode);
 }
@@ -52,17 +59,17 @@ export async function fetchFreeAgents(): Promise<Player[]> {
 export async function signFreeAgent(
   teamId: number,
   playerId: number
-): Promise<TradeEvaluation> {
+): Promise<FreeAgentSigningResult> {
   return getState().signFreeAgent(teamId, playerId);
 }
 
-export async function evaluateTrade(proposal: TradeProposal): Promise<TradeEvaluation> {
+export async function evaluateTrade(proposal: TradeProposal): Promise<TradeProposalResult> {
   return getState().evaluateTrade(proposal);
 }
 
-export async function executeTrade(proposal: TradeProposal): Promise<TradeEvaluation> {
+export async function executeTrade(proposal: TradeProposal): Promise<TradeExecutionResult> {
   const validation = getState().evaluateTrade(proposal);
-  if (!validation.success) {
+  if (validation.status !== "accepted") {
     return validation;
   }
   return getState().executeTrade(proposal);

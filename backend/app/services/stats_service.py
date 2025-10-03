@@ -4,7 +4,6 @@ from fastapi import HTTPException
 
 from ..db import row_to_dict
 
-
 STAT_FIELDS = (
     "passing_yards",
     "passing_tds",
@@ -93,4 +92,3 @@ class TeamStatsService:
         for row in rows:
             aggregates[row["player_id"]] = {key: row[key] for key in row.keys()}
         return aggregates
-

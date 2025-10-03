@@ -2,10 +2,11 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const navigation = [
   { to: "/", label: "Dashboard", end: true },
+  { to: "/results", label: "Results" },
+  { to: "/depth-chart", label: "Depth Chart" },
   { to: "/free-agency", label: "Free Agency" },
   { to: "/trade-center", label: "Trade Center" },
-  { to: "/depth-chart", label: "Depth Chart" },
-  { to: "/data-uploads", label: "Data Uploads" },
+  { to: "/standings", label: "Standings" },
 ];
 
 export function AppLayout() {

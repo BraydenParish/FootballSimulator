@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from typing import Any, Iterable
+from typing import Any
 
 from fastapi import HTTPException
 
@@ -101,7 +101,9 @@ class BoxScoreService:
         return connection.execute(sql, params).fetchall()
 
     def _assemble_payload(self, connection, game_row) -> dict[str, Any]:
-        home_totals, away_totals = self._team_totals(connection, game_row["id"], game_row)
+        home_totals, away_totals = self._team_totals(
+            connection, game_row["id"], game_row
+        )
         player_stats = self._player_stats(connection, game_row["id"])
         key_players = self._select_key_players(player_stats)
         plays = self._game_events(connection, game_row["id"])
@@ -130,7 +132,9 @@ class BoxScoreService:
             "plays": plays,
         }
 
-    def _team_totals(self, connection, game_id: int, game_row) -> tuple[dict[str, int], dict[str, int]]:
+    def _team_totals(
+        self, connection, game_id: int, game_row
+    ) -> tuple[dict[str, int], dict[str, int]]:
         rows = connection.execute(
             """
             SELECT team_id, total_yards, turnovers
@@ -140,12 +144,17 @@ class BoxScoreService:
             (game_id,),
         ).fetchall()
 
-        lookup = {row["team_id"]: {"yards": row["total_yards"], "turnovers": row["turnovers"]} for row in rows}
+        lookup = {
+            row["team_id"]: {"yards": row["total_yards"], "turnovers": row["turnovers"]}
+            for row in rows
+        }
         home = lookup.get(game_row["home_team_id"], {"yards": 0, "turnovers": 0})
         away = lookup.get(game_row["away_team_id"], {"yards": 0, "turnovers": 0})
         return home, away
 
-    def _player_stats(self, connection, game_id: int) -> dict[int, list[dict[str, Any]]]:
+    def _player_stats(
+        self, connection, game_id: int
+    ) -> dict[int, list[dict[str, Any]]]:
         rows = connection.execute(
             """
             SELECT
@@ -188,7 +197,9 @@ class BoxScoreService:
             players.sort(key=lambda item: item["_weight"], reverse=True)
         return groups
 
-    def _select_key_players(self, player_groups: dict[int, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    def _select_key_players(
+        self, player_groups: dict[int, list[dict[str, Any]]]
+    ) -> list[dict[str, Any]]:
         selected: list[dict[str, Any]] = []
         for players in player_groups.values():
             selected.extend(players[:2])
@@ -203,6 +214,33 @@ class BoxScoreService:
             }
             for player in selected[:4]
         ]
+
+    def _game_events(self, connection, game_id: int) -> list[dict[str, Any]]:
+        rows = connection.execute(
+            """
+            SELECT sequence, quarter, clock, description, home_score_after, away_score_after
+            FROM game_events
+            WHERE game_id = ?
+            ORDER BY sequence
+            """,
+            (game_id,),
+        ).fetchall()
+
+        events: list[dict[str, Any]] = []
+        for row in rows:
+            events.append(
+                {
+                    "sequence": row["sequence"],
+                    "quarter": row["quarter"],
+                    "clock": row["clock"],
+                    "description": row["description"],
+                    "score": {
+                        "home": row["home_score_after"],
+                        "away": row["away_score_after"],
+                    },
+                }
+            )
+        return events
 
     def _format_stat_line(self, row) -> tuple[str, float]:
         parts: list[str] = []
@@ -252,5 +290,3 @@ class BoxScoreService:
         if not parts:
             parts.append("No impact stats recorded")
         return ", ".join(parts), weight
-
-
