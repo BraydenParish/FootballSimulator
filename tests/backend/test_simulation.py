@@ -34,6 +34,20 @@ def test_simulate_week_quick_mode(api_client: TestClient) -> None:
     assert isinstance(first_game["injuries"], list)
     assert first_game["plays"] == []
 
+    for stat_block in first_game["playerStats"]:
+        for stat in stat_block.get("players", []):
+            assert stat["passing_yards"] >= 0
+            assert stat["rushing_yards"] >= 0
+            assert stat["receiving_yards"] >= 0
+            assert stat["passing_tds"] >= 0
+            assert stat["rushing_tds"] >= 0
+            assert stat["receiving_tds"] >= 0
+            assert stat["sacks"] >= 0
+
+    for injury in first_game["injuries"]:
+        assert injury["duration_weeks"] >= 1
+        assert injury["games_missed"] >= 0
+
     game_id = first_summary["gameId"]
     with _db_connection() as connection:
         game_row = connection.execute(

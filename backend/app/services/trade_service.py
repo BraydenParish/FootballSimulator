@@ -55,7 +55,15 @@ class TradeService:
         team_a_sent_picks = [row_to_dict(pick) for pick in offer_assets["picks"]]
         team_b_sent_picks = [row_to_dict(pick) for pick in request_assets["picks"]]
 
-        self._validate_roster_sizes(connection, team_a_id, team_b_id, offer_assets, request_assets)
+        self._validate_roster_sizes(
+            connection,
+            team_a_id,
+            team_b_id,
+            offer_assets,
+            request_assets,
+            team_a,
+            team_b,
+        )
         self._validate_salary_caps(connection, team_a_id, team_b_id, offer_assets, request_assets)
 
         try:
@@ -197,22 +205,35 @@ class TradeService:
         team_b_id: int,
         offer_assets: dict[str, list],
         request_assets: dict[str, list],
+        team_a,
+        team_b,
     ) -> None:
-        def roster_total(team_id: int) -> int:
-            row = connection.execute(
-                "SELECT COUNT(*) AS total FROM players WHERE team_id = ? AND status = 'active'",
-                (team_id,),
-            ).fetchone()
-            return row["total"] if row else 0
-
-        team_a_total = roster_total(team_a_id)
-        team_b_total = roster_total(team_b_id)
+        team_a_total = self.roster_service.roster_size(connection, team_a_id)
+        team_b_total = self.roster_service.roster_size(connection, team_b_id)
 
         team_a_after = team_a_total - len(offer_assets["players"]) + len(request_assets["players"])
         team_b_after = team_b_total - len(request_assets["players"]) + len(offer_assets["players"])
 
-        if team_a_after > self.rules.roster_max or team_b_after > self.rules.roster_max:
-            raise HTTPException(status_code=400, detail="Trade would exceed roster limit for a team")
+        if team_a_after > self.rules.roster_max and team_a_after > team_a_total:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{team_a['name']} would exceed the roster limit",
+            )
+        if team_b_after > self.rules.roster_max and team_b_after > team_b_total:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{team_b['name']} would exceed the roster limit",
+            )
+        if team_a_after < self.rules.roster_min and team_a_after < team_a_total:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{team_a['name']} would fall below the roster minimum",
+            )
+        if team_b_after < self.rules.roster_min and team_b_after < team_b_total:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{team_b['name']} would fall below the roster minimum",
+            )
 
     def _validate_salary_caps(
         self,
