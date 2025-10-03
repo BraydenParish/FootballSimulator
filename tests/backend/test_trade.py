@@ -25,16 +25,23 @@ def test_trade_swaps_players_and_updates_rosters(api_client: TestClient) -> None
     julio_id = next(player["id"] for player in free_agents if player["name"] == "Julio Jones")
 
     # Sign Julio Jones to Cincinnati so they have an asset to trade back.
-    sign_response = api_client.post(f"/teams/{cin_id}/sign", json={"player_id": julio_id})
+    sign_response = api_client.post(
+        "/free-agents/sign",
+        json={"teamId": cin_id, "playerId": julio_id},
+    )
     assert sign_response.status_code == 200
 
     trade_payload = {
         "teamA": buf_id,
         "teamB": cin_id,
-        "offer": [{"type": "player", "player_id": 2}],
-        "request": [{"type": "player", "player_id": julio_id}],
+        "offer": [{"type": "player", "playerId": 2}],
+        "request": [{"type": "player", "playerId": julio_id}],
     }
-    trade_response = api_client.post("/trade", json=trade_payload)
+    proposal = api_client.post("/trades/propose", json=trade_payload)
+    assert proposal.status_code == 200
+    assert proposal.json()["status"] == "accepted"
+
+    trade_response = api_client.post("/trades/execute", json=trade_payload)
     assert trade_response.status_code == 200, trade_response.text
     trade_body = trade_response.json()
 
@@ -55,10 +62,12 @@ def test_trade_blocks_duplicate_elite_qbs(api_client: TestClient) -> None:
     trade_payload = {
         "teamA": buf_id,
         "teamB": cin_id,
-        "offer": [{"type": "player", "player_id": 2}],
-        "request": [{"type": "player", "player_id": 4}],
+        "offer": [{"type": "player", "playerId": 2}],
+        "request": [{"type": "player", "playerId": 3}],
     }
-    response = api_client.post("/trade", json=trade_payload)
-    assert response.status_code == 400
-    assert response.json()["detail"].startswith("Team")
+    response = api_client.post("/trades/propose", json=trade_payload)
+    assert response.status_code == 200
+    body = response.json()
+    assert body["status"] == "rejected"
+    assert "Team" in body["message"]
 

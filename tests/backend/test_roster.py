@@ -29,10 +29,15 @@ def test_sign_free_agent_moves_player(api_client: TestClient) -> None:
     free_agents = api_client.get("/free-agents").json()["players"]
     player_id = free_agents[0]["id"]
 
-    response = api_client.post(f"/teams/{team_id}/sign", json={"player_id": player_id})
+    response = api_client.post(
+        "/free-agents/sign",
+        json={"teamId": team_id, "playerId": player_id},
+    )
     assert response.status_code == 200
-    signed = response.json()["player"]
-    assert signed["team_id"] == team_id
+    payload = response.json()
+    assert payload["status"] == "signed"
+    signed = payload["player"]
+    assert signed["teamId"] == team_id
     assert signed["status"] == "active"
 
     # Player should no longer be in free agent pool
@@ -41,8 +46,25 @@ def test_sign_free_agent_moves_player(api_client: TestClient) -> None:
 
     # Signing again should fail because player is no longer a free agent
     repeat_response = api_client.post(
-        f"/teams/{team_id}/sign", json={"player_id": player_id}
+        "/free-agents/sign",
+        json={"teamId": team_id, "playerId": player_id},
     )
     assert repeat_response.status_code == 404
     assert repeat_response.json()["detail"] == "Free agent not found"
+
+
+def test_depth_chart_round_trip(api_client: TestClient) -> None:
+    team_id = _get_team_id(api_client, "BUF")
+    depth_chart = api_client.get(f"/teams/{team_id}/depth-chart")
+    assert depth_chart.status_code == 200
+    entries = depth_chart.json()["entries"]
+    assert any(entry["slot"].startswith("QB") for entry in entries)
+
+    update_response = api_client.post(
+        f"/teams/{team_id}/depth-chart",
+        json={"entries": [{"slot": "QB2", "playerId": entries[0]["playerId"]}]},
+    )
+    assert update_response.status_code == 200
+    updated = api_client.get(f"/teams/{team_id}/depth-chart").json()["entries"]
+    assert any(entry["slot"] == "QB2" for entry in updated)
 

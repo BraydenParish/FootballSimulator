@@ -58,7 +58,7 @@ describe("TradeCenterPage", () => {
     await userEvent.click(requestingPlayer);
     const validateButton = await screen.findByRole("button", { name: /validate proposal/i });
     await userEvent.click(validateButton);
-    await screen.findByText(/proposal passes local validation/i);
+    await screen.findByText(/proposal passes mock validation/i);
   });
 
   it("blocks trades that exceed salary cap", async () => {

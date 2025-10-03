@@ -204,6 +204,33 @@ class BoxScoreService:
             for player in selected[:4]
         ]
 
+    def _game_events(self, connection, game_id: int) -> list[dict[str, Any]]:
+        rows = connection.execute(
+            """
+            SELECT sequence, quarter, clock, description, home_score_after, away_score_after
+            FROM game_events
+            WHERE game_id = ?
+            ORDER BY sequence
+            """,
+            (game_id,),
+        ).fetchall()
+
+        events: list[dict[str, Any]] = []
+        for row in rows:
+            events.append(
+                {
+                    "sequence": row["sequence"],
+                    "quarter": row["quarter"],
+                    "clock": row["clock"],
+                    "description": row["description"],
+                    "score": {
+                        "home": row["home_score_after"],
+                        "away": row["away_score_after"],
+                    },
+                }
+            )
+        return events
+
     def _format_stat_line(self, row) -> tuple[str, float]:
         parts: list[str] = []
         weight = 0.0

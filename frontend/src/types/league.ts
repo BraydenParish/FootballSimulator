@@ -48,6 +48,7 @@ export type Standing = {
   wins: number;
   losses: number;
   ties: number;
+  winPct: number;
 };
 
 export type TeamTotals = {
@@ -63,6 +64,17 @@ export type PlayerStatLine = {
   teamId: number;
   position: string;
   statLine: string;
+};
+
+export type InjuryReport = {
+  playerId: number;
+  name: string;
+  teamId: number;
+  teamName: string;
+  position: string;
+  status: string;
+  description: string;
+  expectedReturn: string;
 };
 
 export type BoxScore = {
@@ -86,6 +98,29 @@ export type SimulationResult = {
   playByPlay: string[];
 };
 
+export type WeeklyGameResult = {
+  gameId: number;
+  week: number;
+  playedAt: string | null;
+  homeTeam: {
+    id: number;
+    name: string;
+    abbreviation: string;
+    points: number | null;
+  };
+  awayTeam: {
+    id: number;
+    name: string;
+    abbreviation: string;
+    points: number | null;
+  };
+  passingLeader: PlayerStatLine | null;
+  rushingLeader: PlayerStatLine | null;
+  receivingLeader: PlayerStatLine | null;
+  defensiveLeaders: PlayerStatLine[];
+  injuries: InjuryReport[];
+};
+
 export type TradeProposal = {
   teamA: number;
   teamB: number;
@@ -93,9 +128,32 @@ export type TradeProposal = {
   request: number[];
 };
 
-export type TradeEvaluation = {
-  success: boolean;
+export type TradeProposalResult = {
+  status: "accepted" | "rejected";
   message: string;
+  offerValue?: number;
+  requestValue?: number;
+  valueDelta?: number;
+};
+
+export type TradeExecutionResult = TradeProposalResult & {
+  teamA?: Record<string, unknown>;
+  teamB?: Record<string, unknown>;
+  teamA_sent?: Record<string, unknown>;
+  teamA_received?: Record<string, unknown>;
+  teamB_sent?: Record<string, unknown>;
+  teamB_received?: Record<string, unknown>;
+};
+
+export type FreeAgentListing = {
+  year: number;
+  players: Player[];
+};
+
+export type FreeAgentSigningResult = {
+  status: "signed" | "error";
+  message: string;
+  player?: Player;
 };
 
 export type DepthChartEntry = {
