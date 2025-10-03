@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, it } from "vitest";
@@ -46,20 +46,32 @@ describe("TradeCenterPage", () => {
 
   it("requires both teams to provide assets", async () => {
     renderPage();
-    const validateButton = await screen.findByRole("button", { name: /validate proposal/i });
-    await userEvent.click(validateButton);
-    await screen.findByText(/both teams must include at least one asset/i);
+    const proposeButton = await screen.findByRole("button", { name: /propose trade/i });
+    await act(async () => {
+      await userEvent.click(proposeButton);
+    });
+    await waitFor(() => {
+      expect(screen.getByText(/both teams must include at least one asset/i)).toBeInTheDocument();
+    });
   });
 
   it("approves a balanced trade", async () => {
     renderPage();
     const offeringPlayer = await screen.findByLabelText("Alpha Linebacker");
-    await userEvent.click(offeringPlayer);
+    await act(async () => {
+      await userEvent.click(offeringPlayer);
+    });
     const requestingPlayer = await screen.findByLabelText("Beta Linebacker");
-    await userEvent.click(requestingPlayer);
-    const validateButton = await screen.findByRole("button", { name: /validate proposal/i });
-    await userEvent.click(validateButton);
-    await screen.findByText(/proposal passes local validation/i);
+    await act(async () => {
+      await userEvent.click(requestingPlayer);
+    });
+    const proposeButton = await screen.findByRole("button", { name: /propose trade/i });
+    await act(async () => {
+      await userEvent.click(proposeButton);
+    });
+    await waitFor(() => {
+      expect(screen.getByText(/trade accepted/i)).toBeInTheDocument();
+    });
   });
 
   it("blocks trades that exceed salary cap", async () => {
@@ -72,12 +84,20 @@ describe("TradeCenterPage", () => {
 
     renderPage();
     const offeringPlayer = await screen.findByLabelText("Alpha Linebacker");
-    await userEvent.click(offeringPlayer);
+    await act(async () => {
+      await userEvent.click(offeringPlayer);
+    });
     const requestingPlayer = await screen.findByLabelText("Beta Tight End");
-    await userEvent.click(requestingPlayer);
-    const validateButton = await screen.findByRole("button", { name: /validate proposal/i });
-    await userEvent.click(validateButton);
-    await screen.findByText(/trade would exceed salary cap for team beta/i);
+    await act(async () => {
+      await userEvent.click(requestingPlayer);
+    });
+    const proposeButton = await screen.findByRole("button", { name: /propose trade/i });
+    await act(async () => {
+      await userEvent.click(proposeButton);
+    });
+    await waitFor(() => {
+      expect(screen.getByText(/trade would exceed salary cap for team beta/i)).toBeInTheDocument();
+    });
   });
 
   it("blocks trades that overflow a roster", async () => {
@@ -108,13 +128,23 @@ describe("TradeCenterPage", () => {
 
     renderPage();
     const offeringPlayer = await screen.findByLabelText("Alpha Linebacker");
-    await userEvent.click(offeringPlayer);
+    await act(async () => {
+      await userEvent.click(offeringPlayer);
+    });
     const secondOffer = await screen.findByLabelText("Alpha Corner");
-    await userEvent.click(secondOffer);
+    await act(async () => {
+      await userEvent.click(secondOffer);
+    });
     const requestingPlayer = await screen.findByLabelText("Beta Tight End");
-    await userEvent.click(requestingPlayer);
-    const validateButton = await screen.findByRole("button", { name: /validate proposal/i });
-    await userEvent.click(validateButton);
-    await screen.findByText(/Team Beta would exceed the roster limit/i);
+    await act(async () => {
+      await userEvent.click(requestingPlayer);
+    });
+    const proposeButton = await screen.findByRole("button", { name: /propose trade/i });
+    await act(async () => {
+      await userEvent.click(proposeButton);
+    });
+    await waitFor(() => {
+      expect(screen.getByText(/team beta would exceed the roster limit/i)).toBeInTheDocument();
+    });
   });
 });

@@ -4,9 +4,9 @@ export type Team = {
   abbreviation: string;
   conference: string;
   division: string;
-  rating: number;
-  salaryCap: number;
-  salarySpent: number;
+  rating?: number;
+  salaryCap?: number;
+  salarySpent?: number;
 };
 
 export type Player = {
@@ -20,6 +20,11 @@ export type Player = {
   teamId: number | null;
   depthChartSlot: string | null;
   status: "active" | "free-agent" | "practice";
+};
+
+export type FreeAgentPool = {
+  year: number;
+  players: Player[];
 };
 
 export type Game = {
@@ -96,6 +101,12 @@ export type TradeProposal = {
 export type TradeEvaluation = {
   success: boolean;
   message: string;
+};
+
+export type SignResult = {
+  message: string;
+  player: Player;
+  team: Team;
 };
 
 export type DepthChartEntry = {
