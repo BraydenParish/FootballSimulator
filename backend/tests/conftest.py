@@ -8,6 +8,10 @@ from typing import Iterator
 import pytest
 from fastapi.testclient import TestClient
 
+ROOT_DIR = Path(__file__).resolve().parents[2]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
 SCHEMA_SQL = """
 PRAGMA foreign_keys = ON;
 
@@ -135,6 +139,14 @@ PLAYER_ROWS = [
     (6, "Joe Mixon", "RB", 88, 28, 2, "RB1", 1, "active", 12000000, 3, None, "healthy"),
     (7, "Ja'Marr Chase", "WR", 96, 24, 2, "WR1", 1, "active", 5000000, 3, None, "healthy"),
     (8, "Trey Hendrickson", "EDGE", 90, 29, 2, "EDGE1", 1, "active", 15000000, 3, None, "healthy"),
+    (9, "Kyle Allen", "QB", 68, 27, 1, "QB2", 2, "active", 1500000, 1, None, "healthy"),
+    (10, "Jake Browning", "QB", 70, 27, 2, "QB2", 2, "active", 1500000, 1, None, "healthy"),
+    (11, "Jarvis Landry", "WR", 80, 31, None, None, None, "free_agent", 3000000, 1, 2025, "healthy"),
+]
+
+DRAFT_PICK_ROWS = [
+    (1, 1, 2025, 1, 1),
+    (2, 2, 2025, 2, 2),
 ]
 
 GAME_ROWS = [
@@ -169,6 +181,18 @@ def initialize_database(db_path: Path) -> None:
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             PLAYER_ROWS,
+        )
+        connection.executemany(
+            """
+            INSERT INTO draft_picks (
+                id,
+                team_id,
+                year,
+                round,
+                original_team_id
+            ) VALUES (?, ?, ?, ?, ?)
+            """,
+            DRAFT_PICK_ROWS,
         )
         connection.executemany(
             """
