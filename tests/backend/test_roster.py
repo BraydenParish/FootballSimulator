@@ -18,10 +18,9 @@ def test_free_agents_list_current_year(api_client: TestClient) -> None:
     payload = response.json()
     assert payload["year"] == 2025
     players = payload["players"]
-    assert [player["name"] for player in players] == [
-        "Julio Jones",
-        "Ndamukong Suh",
-    ]
+    assert len(players) == 25
+    assert all(player["name"].startswith("Free Agent 2025-") for player in players[:3])
+    assert all(player["free_agent_year"] == 2025 for player in players)
 
 
 def test_sign_free_agent_moves_player(api_client: TestClient) -> None:

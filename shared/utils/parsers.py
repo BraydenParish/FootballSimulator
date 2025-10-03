@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import csv
 from pathlib import Path
 from typing import Iterable
 
@@ -17,24 +18,39 @@ def _read_lines(path: Path) -> Iterable[str]:
     return lines
 
 
+def _read_csv(path: Path) -> list[dict[str, str]]:
+    if not path.exists():
+        return []
+
+    with path.open(newline="") as handle:
+        reader = csv.DictReader(handle)
+        rows: list[dict[str, str]] = []
+        for row in reader:
+            if not row:
+                continue
+            cleaned = {key: (value.strip() if isinstance(value, str) else value) for key, value in row.items()}
+            if any(cleaned.values()):
+                rows.append(cleaned)
+    return rows
+
+
 def parse_ratings(path: str | Path) -> list[dict[str, str]]:
     path = Path(path)
     players: list[dict[str, str]] = []
-    for row in _read_lines(path):
-        parts = row.split("|")
-        if len(parts) != 6:
+    for row in _read_csv(path):
+        try:
+            players.append(
+                {
+                    "id": int(row["id"]),
+                    "name": row["name"],
+                    "position": row["position"],
+                    "overall_rating": int(row["overall_rating"]),
+                    "team_abbr": row["team_abbr"],
+                    "age": int(row.get("age", 0) or 0) or 25,
+                }
+            )
+        except (KeyError, TypeError, ValueError):
             continue
-        player_id, name, position, overall, team_abbr, age = parts
-        players.append(
-            {
-                "id": int(player_id),
-                "name": name,
-                "position": position,
-                "overall_rating": int(overall),
-                "team_abbr": team_abbr,
-                "age": int(age),
-            }
-        )
 
     if players:
         return players
@@ -57,19 +73,18 @@ def parse_ratings(path: str | Path) -> list[dict[str, str]]:
 def parse_depth_charts(path: str | Path) -> list[dict[str, str]]:
     path = Path(path)
     entries: list[dict[str, str]] = []
-    for row in _read_lines(path):
-        parts = row.split("|")
-        if len(parts) != 4:
+    for row in _read_csv(path):
+        try:
+            entries.append(
+                {
+                    "team_abbr": row["team_abbr"],
+                    "position": row["position"],
+                    "player_id": int(row["player_id"]),
+                    "order": int(row["order"]),
+                }
+            )
+        except (KeyError, TypeError, ValueError):
             continue
-        team_abbr, position, player_id, order = parts
-        entries.append(
-            {
-                "team_abbr": team_abbr,
-                "position": position,
-                "player_id": int(player_id),
-                "order": int(order),
-            }
-        )
 
     if entries:
         return entries
@@ -91,20 +106,19 @@ def parse_depth_charts(path: str | Path) -> list[dict[str, str]]:
 def parse_free_agents(path: str | Path) -> list[dict[str, str]]:
     path = Path(path)
     agents: list[dict[str, str]] = []
-    for row in _read_lines(path):
-        parts = row.split("|")
-        if len(parts) != 5:
+    for row in _read_csv(path):
+        try:
+            agents.append(
+                {
+                    "id": int(row["id"]),
+                    "name": row["name"],
+                    "position": row["position"],
+                    "overall_rating": int(row["overall_rating"]),
+                    "age": int(row["age"]),
+                }
+            )
+        except (KeyError, TypeError, ValueError):
             continue
-        player_id, name, position, overall, age = parts
-        agents.append(
-            {
-                "id": int(player_id),
-                "name": name,
-                "position": position,
-                "overall_rating": int(overall),
-                "age": int(age),
-            }
-        )
 
     if agents:
         return agents
@@ -116,22 +130,21 @@ def parse_free_agents(path: str | Path) -> list[dict[str, str]]:
 
 
 def parse_schedule(path: str | Path) -> list[dict[str, str]]:
-    """Parse scheduled games from a pipe-delimited text file."""
+    """Parse scheduled games from a comma-delimited export."""
 
     path = Path(path)
     schedule: list[dict[str, str]] = []
-    for row in _read_lines(path):
-        parts = row.split("|")
-        if len(parts) != 3:
+    for row in _read_csv(path):
+        try:
+            schedule.append(
+                {
+                    "week": int(row["week"]),
+                    "home_abbr": row["home_abbr"],
+                    "away_abbr": row["away_abbr"],
+                }
+            )
+        except (KeyError, TypeError, ValueError):
             continue
-        week, home_abbr, away_abbr = parts
-        schedule.append(
-            {
-                "week": int(week),
-                "home_abbr": home_abbr,
-                "away_abbr": away_abbr,
-            }
-        )
 
     if schedule:
         return schedule

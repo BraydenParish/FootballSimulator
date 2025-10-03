@@ -35,7 +35,7 @@ flowchart LR
 - **Frontend**: React SPA served via Vite/CRA, Tailwind for styling, communicates with backend via REST.
 - **Backend**: FastAPI chosen for its fast development, async support, Pydantic models, and strong typing conducive to deterministic simulation engines. Python ecosystem aligns with rules-based simulation using structured data files.
 - **Database**: SQLite for MVP persistence, easily migrated to PostgreSQL via SQLAlchemy.
-- **File-Based Inputs**: `ratings.txt`, `depth_charts.txt`, `free_agents.txt`, `gamerules.txt`, `simulationrules.txt` feed deterministic engine.
+- **File-Based Inputs**: `ratings.csv`, `depth_charts.csv`, `schedule.csv`, annual `*_Free_Agents.csv`, `gamerules.txt`, `simulationrules.txt` feed deterministic engine.
 
 ## 2. File Structure
 
@@ -96,9 +96,11 @@ FootballSimulator/
 │   │       ├── transaction.py
 │   │       └── draft.py
 │   ├── data/
-│   │   ├── ratings.txt
-│   │   ├── depth_charts.txt
-│   │   ├── free_agents.txt
+│   │   ├── ratings.csv
+│   │   ├── depth_charts.csv
+│   │   ├── schedule.csv
+│   │   ├── 2025_Free_Agents.csv
+│   │   ├── 2026_Free_Agents.csv
 │   │   ├── gamerules.txt
 │   │   └── simulationrules.txt
 │   └── tests/
