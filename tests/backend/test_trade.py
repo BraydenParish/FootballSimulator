@@ -1,6 +1,11 @@
 from __future__ import annotations
 
+import os
+import sqlite3
+
 from fastapi.testclient import TestClient
+
+from shared.utils.rules import load_game_rules
 
 
 def _team_id(client: TestClient, abbr: str) -> int:
@@ -15,6 +20,13 @@ def _team_id(client: TestClient, abbr: str) -> int:
 def _roster_player_ids(client: TestClient, team_id: int) -> set[int]:
     roster = client.get(f"/teams/{team_id}").json()["roster"]
     return {player["id"] for player in roster}
+
+
+def _db_connection() -> sqlite3.Connection:
+    path = os.environ["NFL_GM_DB_PATH"]
+    connection = sqlite3.connect(path)
+    connection.row_factory = sqlite3.Row
+    return connection
 
 
 def test_trade_swaps_players_and_updates_rosters(api_client: TestClient) -> None:
@@ -60,5 +72,61 @@ def test_trade_blocks_duplicate_elite_qbs(api_client: TestClient) -> None:
     }
     response = api_client.post("/trade", json=trade_payload)
     assert response.status_code == 400
-    assert response.json()["detail"].startswith("Team")
+    assert "elite qb" in response.json()["detail"].lower()
+
+
+def test_trade_prevents_roster_overflow(api_client: TestClient) -> None:
+    rules = load_game_rules()
+    buf_id = _team_id(api_client, "BUF")
+    cin_id = _team_id(api_client, "CIN")
+
+    # Ensure Cincinnati hits the roster ceiling by adding depth players.
+    current_roster = len(_roster_player_ids(api_client, cin_id))
+    needed = max(0, rules.roster_max - current_roster)
+    if needed:
+        with _db_connection() as connection:
+            max_id_row = connection.execute("SELECT MAX(id) AS max_id FROM players").fetchone()
+            next_id = (max_id_row["max_id"] or 0) + 1
+            for index in range(needed):
+                connection.execute(
+                    """
+                    INSERT INTO players (
+                        id,
+                        name,
+                        position,
+                        overall_rating,
+                        age,
+                        team_id,
+                        salary,
+                        contract_years,
+                        status
+                    )
+                    VALUES (?, ?, 'LB', 60, 24, ?, 1000000, 1, 'active')
+                    """,
+                    (
+                        next_id + index,
+                        f"Depth Reserve {index + 1}",
+                        cin_id,
+                    ),
+                )
+            connection.commit()
+
+    assert len(_roster_player_ids(api_client, cin_id)) >= rules.roster_max
+
+    buf_roster = api_client.get(f"/teams/{buf_id}").json()["roster"]
+    cin_roster = api_client.get(f"/teams/{cin_id}").json()["roster"]
+
+    offer_players = [buf_roster[0]["id"], buf_roster[1]["id"]]
+    request_player = cin_roster[0]["id"]
+
+    trade_payload = {
+        "teamA": buf_id,
+        "teamB": cin_id,
+        "offer": [{"type": "player", "player_id": pid} for pid in offer_players],
+        "request": [{"type": "player", "player_id": request_player}],
+    }
+
+    response = api_client.post("/trade", json=trade_payload)
+    assert response.status_code == 400
+    assert "roster limit" in response.json()["detail"].lower()
 

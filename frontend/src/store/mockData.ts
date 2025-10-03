@@ -14,7 +14,8 @@ import {
 } from "../types/league";
 import { parseDepthChartFile, parseFreeAgentFile, parseScheduleCsv } from "../utils/parsers";
 
-const ROSTER_LIMIT = 53;
+export const ROSTER_LIMIT = 53;
+export const ROSTER_MIN = 46;
 const ELITE_QB_THRESHOLD = 90;
 const KEY_POSITIONS: string[] = ["QB", "RB", "WR"];
 
@@ -866,11 +867,28 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
       return player;
     });
 
+    const teamATotal = state.players.filter((player) => player.teamId === proposal.teamA).length;
+    const teamBTotal = state.players.filter((player) => player.teamId === proposal.teamB).length;
     const teamARoster = projectedPlayers.filter((player) => player.teamId === proposal.teamA);
     const teamBRoster = projectedPlayers.filter((player) => player.teamId === proposal.teamB);
 
-    if (teamARoster.length > ROSTER_LIMIT || teamBRoster.length > ROSTER_LIMIT) {
-      return { success: false, message: "Trade would exceed the roster limit for a team." };
+    if (teamARoster.length > ROSTER_LIMIT && teamARoster.length > teamATotal) {
+      return { success: false, message: `${teamA.name} would exceed the roster limit.` };
+    }
+    if (teamBRoster.length > ROSTER_LIMIT && teamBRoster.length > teamBTotal) {
+      return { success: false, message: `${teamB.name} would exceed the roster limit.` };
+    }
+    if (teamARoster.length < ROSTER_MIN && teamARoster.length < teamATotal) {
+      return {
+        success: false,
+        message: `${teamA.name} must retain at least ${ROSTER_MIN} players.`,
+      };
+    }
+    if (teamBRoster.length < ROSTER_MIN && teamBRoster.length < teamBTotal) {
+      return {
+        success: false,
+        message: `${teamB.name} must retain at least ${ROSTER_MIN} players.`,
+      };
     }
 
     for (const position of KEY_POSITIONS) {

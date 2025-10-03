@@ -11,6 +11,7 @@ from backend.app.db import get_connection, row_to_dict
 from backend.app.services.roster_service import RosterService
 from backend.app.services.box_score_service import BoxScoreService
 from backend.app.services.narrative_service import NarrativeService
+from backend.app.services.injury_service import InjuryService
 from backend.app.services.simulation_service import GameBoxScore, SimulationService
 from backend.app.services.stats_service import TeamStatsService
 from backend.app.services.trade_service import TradeService
@@ -21,8 +22,9 @@ GAME_RULES = load_game_rules()
 SIMULATION_RULES = load_simulation_rules()
 
 roster_service = RosterService(GAME_RULES)
+injury_service = InjuryService()
 trade_service = TradeService(GAME_RULES, roster_service)
-simulation_service = SimulationService(SIMULATION_RULES)
+simulation_service = SimulationService(SIMULATION_RULES, injury_service=injury_service)
 box_score_service = BoxScoreService()
 narrative_service = NarrativeService()
 team_stats_service = TeamStatsService()
