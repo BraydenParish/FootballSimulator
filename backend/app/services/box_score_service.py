@@ -280,4 +280,47 @@ class BoxScoreService:
             parts.append("No impact stats recorded")
         return ", ".join(parts), weight
 
+    def _game_events(self, connection, game_id: int) -> list[dict[str, Any]]:
+        rows = connection.execute(
+            """
+            SELECT
+                sequence,
+                quarter,
+                clock,
+                team_id,
+                player_id,
+                description,
+                highlight_type,
+                impact,
+                points,
+                home_score_after,
+                away_score_after
+            FROM game_events
+            WHERE game_id = ?
+            ORDER BY sequence
+            """,
+            (game_id,),
+        ).fetchall()
+
+        plays: list[dict[str, Any]] = []
+        for row in rows:
+            plays.append(
+                {
+                    "sequence": row["sequence"],
+                    "quarter": row["quarter"],
+                    "clock": row["clock"],
+                    "teamId": row["team_id"],
+                    "playerId": row["player_id"],
+                    "description": row["description"],
+                    "type": row["highlight_type"],
+                    "impact": row["impact"],
+                    "points": row["points"],
+                    "score": {
+                        "home": row["home_score_after"],
+                        "away": row["away_score_after"],
+                    },
+                }
+            )
+        return plays
+
 

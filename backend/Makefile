@@ -1,17 +1,22 @@
-.PHONY: test lint format
+PYTHON ?= python
+PIP ?= pip
+ROOT := $(abspath $(dir $(lastword $(MAKEFILE_LIST)))/..)
 
-TEST_TARGET?=.
-LINT_PATHS=app ../tests/backend
+.PHONY: install-deps test lint format check
 
-lint:
-black --check $(LINT_PATHS)
-isort --check-only $(LINT_PATHS)
-flake8 $(LINT_PATHS)
-mypy app
-
-format:
-black $(LINT_PATHS)
-isort $(LINT_PATHS)
+install-deps:
+	$(PIP) install -r requirements.txt
+	@if [ -f requirements-dev.txt ]; then \
+		$(PIP) install -r requirements-dev.txt; \
+	fi
 
 test:
-pytest -q ${TEST_TARGET}
+	cd $(ROOT) && PYTHONPATH=. $(PYTHON) -m pytest
+
+lint:
+	cd $(ROOT) && ruff check backend tests shared
+
+format:
+	cd $(ROOT) && ruff format backend tests shared
+
+check: lint test

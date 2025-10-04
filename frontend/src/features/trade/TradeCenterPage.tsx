@@ -40,8 +40,12 @@ export function TradeCenterPage() {
 
   const evaluateMutation = useMutation({
     mutationFn: (proposal: TradeProposal) => leagueApi.evaluateTrade(proposal),
-    onSuccess: (result) => setFeedback(formatTradeFeedback(result)),
-    onError: () => setFeedback("Trade validation failed. Please try again."),
+    onSuccess: (result) => {
+      setFeedback(result.success ? "Trade Accepted" : result.message);
+    },
+    onError: (error: unknown) => {
+      setFeedback(error instanceof Error ? error.message : "Trade evaluation failed.");
+    },
   });
 
   const executeMutation = useMutation({
@@ -72,11 +76,13 @@ export function TradeCenterPage() {
 
   const handleEvaluate = () => {
     const proposal: TradeProposal = { teamA, teamB, offer, request };
+    setFeedback(null);
     evaluateMutation.mutate(proposal);
   };
 
   const handleExecute = () => {
     const proposal: TradeProposal = { teamA, teamB, offer, request };
+    setFeedback(null);
     executeMutation.mutate(proposal);
   };
 
@@ -114,11 +120,14 @@ export function TradeCenterPage() {
       <Card>
         <h2 className="text-2xl font-semibold text-white">Trade center</h2>
         <p className="mt-2 text-sm text-slate-300">
-          Build trade offers between two teams. Validation is handled locally while backend trade logic
-          is under construction.
+          Build trade offers between two teams. All evaluations leverage the shared backend trade
+          engine, ensuring roster and salary validation before execution.
         </p>
         {feedback ? (
-          <div className="mt-3 rounded-lg bg-primary.accent/10 px-4 py-2 text-xs font-semibold text-primary.accent">
+          <div
+            className="mt-3 rounded-lg bg-primary.accent/10 px-4 py-2 text-xs font-semibold text-primary.accent"
+            data-test="trade-result"
+          >
             {feedback}
           </div>
         ) : null}
@@ -169,17 +178,11 @@ export function TradeCenterPage() {
           <div className="flex flex-col gap-2 sm:flex-row">
             <button
               type="button"
-              onClick={() => setFeedback("AI suggestions are coming soon.")}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary.accent"
-            >
-              Ask AI (Coming Soon)
-            </button>
-            <button
-              type="button"
               onClick={handleEvaluate}
-              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary.accent"
+              disabled={evaluateMutation.isPending}
+              className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary.accent disabled:cursor-not-allowed disabled:bg-slate-700/60"
             >
-              Validate Proposal
+              Propose Trade
             </button>
             <button
               type="button"

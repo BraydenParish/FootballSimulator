@@ -1,445 +1,159 @@
-"2025 NFL Free Agents"
-"Tracking the status and signings of all 2025 NFL free agents, including total value, average and guarantees."
-""
-"SEASON"
-""
-"2025"
-"TEAM"
-""
-"All Teams"
-"POSITON"
-""
-"All Positions"
-"FREE AGENT TYPE"
-""
-"All Types"
-""
-"SIGNED"
-"AVAILABLE"
-""
-"All"
-"entries per page"
-"Player (162)	Pos	Age	YOE	Prev Team	Prev AAV	Type	Market Value"
-"AAV"
-"Christian Wilkins	DL	29.7	6	LV	$27,500,000"
-"UFA"
-"Brandon Scherff	G	33.7	10	JAX	$16,500,000"
-"UFA"
-"$6,682,311"
-"Marcus Williams	FS	29.0	8	BAL	$14,000,000"
-"UFA"
-"Gabriel Davis	WR	26.4	5	JAX	$13,000,000"
-"UFA"
-"James Bradberry	CB	32.1	8	PHI	$12,666,667"
-"UFA"
-"Shaq Mason	G	32.0	10	HOU	$12,000,000"
-"UFA"
-"Za'Darius Smith	LB	33.0	10	DET	$11,500,000"
-"UFA"
-"Justin Simmons	FS	31.8	9	ATL	$7,500,000"
-"UFA"
-"$5,784,805"
-"Kendall Fuller	CB	30.6	8	MIA	$7,500,000"
-"UFA"
-"Darnell Savage	S	28.1	6	JAX	$7,250,000"
-"UFA"
-"Stephon Gilmore	CB	34.9	13	MIN	$7,000,000"
-"UFA"
-"$5,338,174"
-"Raekwon Davis	DL	28.0	5	IND	$7,000,000"
-"UFA"
-"DeMarcus Walker	ED	30.9	7	CHI	$7,000,000"
-"UFA"
-"Ja'whaun Bentley	LB	29.2	6	NE	$6,750,000"
-"UFA"
-"Josey Jewell	LB	30.7	7	CAR	$6,250,000"
-"UFA"
-"Gerald Everett	TE	31.2	7	CHI	$6,000,000"
-"UFA"
-"De'Vondre Campbell	LB	32.2	9	SF	$5,000,000"
-"UFA"
-"Kyzir White	LB	29.4	7	ARI	$5,000,000"
-"UFA"
-"$5,786,800"
-"Jedrick Wills	T	26.3	5	CLE	$4,925,729"
-"UFA"
-"$2,216,269"
-"Jordan Whitehead	SS	28.4	7	TB	$4,500,000"
-"UFA"
-"John Cominsky	ED	29.8	6	DET	$4,250,000"
-"UFA"
-"$2,500,859"
-"Zack Moss	RB	27.8	5	CIN	$4,000,000"
-"UFA"
-"Jamaal Williams	RB	30.4	8	NO	$4,000,000"
-"UFA"
-"Brandon Graham	DL	37.4	15	PHI	$4,000,000"
-"UFA"
-"George Odum	S	31.8	7	SF	$3,750,000"
-"UFA"
-"Jalen Reeves-Maybin	LB	30.6	8	DET	$3,750,000"
-"UFA"
-"Nelson Agholor	WR	32.2	10	BAL	$3,750,000"
-"UFA"
-"$1,871,676"
-"Matt Prater	K	41.1	18	ARI	$3,750,000"
-"UFA"
-"Gus Edwards	RB	30.4	7	LAC	$3,250,000"
-"UFA"
-"Michael Davis	CB	30.7	8	WAS	$3,200,000"
-"UFA"
-"Eric Kendricks	LB	33.5	10	DAL	$3,000,000"
-"UFA"
-"$6,787,063"
-"Emmanuel Moseley	CB	29.4	7	DET	$2,875,000"
-"UFA"
-"Jon Feliciano	G	33.6	10	SF	$2,750,000"
-"UFA"
-"$1,446,769"
-"Montravius Adams	DL	30.1	8	PIT	$2,625,000"
-"UFA"
-"Jerry Hughes	ED	37.1	15	HOU	$2,600,000"
-"UFA"
-"Linval Joseph	DL	36.9	15	DAL	$2,500,000"
-"UFA"
-"$1,965,547"
-"Cody Whitehair	G	33.2	9	LV	$2,500,000"
-"UFA"
-"$1,860,204"
-"Tyler Boyd	WR	30.8	9	TEN	$2,400,000"
-"UFA"
-"Nick Harris	C	26.8	5	CLE	$2,395,000"
-"UFA"
-"Neville Hewitt	LB	32.4	10	HOU	$2,300,000"
-"UFA"
-"$1,367,786"
-"Corey Ballentine	CB	29.4	6	IND	$2,100,000"
-"UFA"
-"Eddy Pineiro	K	30.0	7	CAR	$2,050,000"
-"UFA"
-"Marcedes Lewis	TE	41.2	19	CHI	$2,000,000"
-"UFA"
-"Jordan Poyer	FS	34.3	12	MIA	$2,000,000"
-"UFA"
-"Brandon Powell	WR	29.0	7	MIN	$2,000,000"
-"UFA"
-"$1,499,351"
-"Jordan Akins	TE	33.3	7	CLE	$1,950,000"
-"UFA"
-"$2,918,183"
-"Isaiah Wynn	T	28.8	7	MIA	$1,885,000"
-"UFA"
-"Ameer Abdullah	RB	32.2	10	LV	$1,850,000"
-"UFA"
-"$1,818,811"
-"Asante Samuel Jr.	CB	25.9	4	LAC	$1,805,737"
-"UFA"
-"$11,463,963"
-"Maurice Hurst	DL	30.3	7	CLE	$1,800,000"
-"UFA"
-"$2,123,471"
-"Jihad Ward	DL	31.3	9	MIN	$1,790,000"
-"UFA"
-"Daniel Ekuale	DL	31.7	7	NE	$1,700,000"
-"UFA"
-"Khalil Davis	DL	29.0	5	SF	$1,650,000"
-"UFA"
-"Chase Edmonds	RB	29.4	7	TB	$1,500,000"
-"UFA"
-"$1,229,084"
-"C.J. Uzomah	TE	32.7	10	PHI	$1,377,500"
-"UFA"
-"Marcus Maye	S	31.5	8	LAC	$1,377,500"
-"UFA"
-"$1,465,418"
-"John Johnson	SS	29.7	8	LAR	$1,377,500"
-"UFA"
-"William Gholston	DL	34.1	12	TB	$1,377,500"
-"UFA"
-"Kamu Grugier-Hill	ED	31.3	9	MIN	$1,377,500"
-"UFA"
-"Antonio Hamilton	CB	32.6	9	ATL	$1,377,500"
-"UFA"
-"Rodney McLeod	FS	35.2	13	CLE	$1,377,500"
-"UFA"
-"$1,164,005"
-"Patrick Scales	LS	37.6	9	CHI	$1,377,500"
-"UFA"
-"Taybor Pepper	LS	31.2	7	SF	$1,328,333"
-"UFA"
-"Jamison Crowder	WR	32.2	10	WAS	$1,310,000"
-"UFA"
-"$1,276,490"
-"Matthew Adams	LB	29.8	7	NYG	$1,292,500"
-"UFA"
-"Cameron Brown	LB	27.4	5	MIA	$1,292,500"
-"UFA"
-"Deonte Harty	WR	27.8	6	BAL	$1,292,500"
-"UFA"
-"James Smith-Williams	DL	28.1	5	ATL	$1,292,500"
-"UFA"
-"Michael Badgley	K	30.1	6	DET	$1,292,500"
-"UFA"
-"MyCole Pruitt	TE	33.4	10	PIT	$1,260,000"
-"UFA"
-"Rick Lovato	LS	33.0	10	PHI	$1,260,000"
-"UFA"
-"Le'Raven Clark	RT	32.3	8	PHI	$1,260,000"
-"UFA"
-"Troy Hill	CB	34.0	9	TB	$1,210,000"
-"UFA"
-"Shaquil Barrett	ED	32.8	9	TB	$1,210,000"
-"UFA"
-"Pat O'Donnell	P	34.5	10	SF	$1,210,000"
-"UFA"
-"Tashaun Gipson	FS	35.1	13	SF	$1,210,000"
-"UFA"
-"Chris Hubbard	RT	34.3	12	NYG	$1,210,000"
-"UFA"
-"$1,393,661"
-"Mark Glowinski	G	33.3	10	IND	$1,210,000"
-"UFA"
-"$1,656,688"
-"Allen Robinson	WR	32.0	11	DET	$1,210,000"
-"UFA"
-"Nick Vigil	LB	32.0	9	DAL	$1,210,000"
-"UFA"
-"Geoff Swaim	TE	32.0	10	CLE	$1,210,000"
-"UFA"
-"C.J. Beathard	QB	31.8	8	JAX	$1,210,000"
-"UFA"
-"Jordan Phillips	DL	32.9	11	BUF	$1,210,000"
-"UFA"
-"$1,730,194"
-"Quinton Jefferson	DL	32.4	10	BUF	$1,210,000"
-"UFA"
-"$1,353,346"
-"Tyler Matakevich	LB	32.7	9	PIT	$1,210,000"
-"UFA"
-"Cameron Sutton	CB	30.5	8	PIT	$1,210,000"
-"UFA"
-"Vonn Bell	SS	30.8	9	CIN	$1,210,000"
-"UFA"
-"$1,223,429"
-"Trayveon Williams	RB	27.8	6	NE	$1,125,000"
-"UFA"
-"Zane Gonzalez	K	30.3	8	WAS	$1,125,000"
-"UFA"
-"Austin Seibert	K	28.8	5	WAS	$1,125,000"
-"UFA"
-"Josh Kelley	RB	27.8	5	TEN	$1,125,000"
-"UFA"
-"Nick Gates	C	29.8	7	PHI	$1,125,000"
-"UFA"
-"Jack Driscoll	G	28.4	5	PHI	$1,125,000"
-"UFA"
-"Sam Eguavoen	LB	32.5	6	NYJ	$1,125,000"
-"UFA"
-"Armon Watts	DL	29.1	6	NYG	$1,125,000"
-"UFA"
-"Tyus Bowser	LB	30.2	7	MIA	$1,125,000"
-"UFA"
-"Shaq Quarterman	LB	27.8	5	LAC	$1,125,000"
-"UFA"
-"Sam Mustipher	C	29.1	6	LAC	$1,125,000"
-"UFA"
-"Carl Lawson	ED	30.2	8	DAL	$1,125,000"
-"UFA"
-"$3,770,293"
-"DeShawn Williams	DL	32.7	7	CAR	$1,125,000"
-"UFA"
-"$2,334,190"
-"Adrian Colbert	S	31.9	5	CHI	$1,125,000"
-"UFA"
-"Michael Palardy	P	33.2	6	ARI	$1,125,000"
-"UFA"
-"D'Onta Foreman	RB	29.3	8	CLE	$1,125,000"
-"UFA"
-"$2,691,900"
-"Ben Niemann	LB	30.1	7	DET	$1,125,000"
-"UFA"
-"Elijah Riley	CB	27.2	5	NYG	$1,125,000"
-"UFA"
-"Oshane Ximines	ED	28.8	5	NE	$1,125,000"
-"UFA"
-"Jeff Driskel	QB	32.3	9	WAS	$1,125,000"
-"UFA"
-"Hayden Hurst	TE	32.0	7	LAC	$1,125,000"
-"UFA"
-"Trayvon Mullen	CB	27.9	5	BAL	$1,125,000"
-"UFA"
-"Jody Fortson	TE	29.8	4	KC	$1,055,000"
-"UFA"
-"Ka'dar Hollman	CB	30.9	5	HOU	$1,055,000"
-"UFA"
-"Caleb Farley	CB	26.8	4	CAR	$1,055,000"
-"UFA"
-"John Kelly	RB	28.9	1	CLE	$1,055,000"
-"UFA"
-"Nsimba Webster	WR	29.6	4	CHI	$1,055,000"
-"UFA"
-"Andre Chachere	S	29.6	3	ARI	$1,002,500"
-"UFA"
-"Garret Wallow	LB	26.6	4	TEN	$997,500"
-"UFA"
-"D'ante Smith	T	27.2	4	CIN	$994,836"
-"UFA"
-"Ryan Neal	SS	29.7	4	TB	$985,000"
-"UFA"
-"Eric Banks	DL	27.6	4	TB	$985,000"
-"UFA"
-"Bruce Hector	DL	30.9	6	NYJ	$985,000"
-"UFA"
-"Peyton Hendershot	TE	26.3	3	KC	$985,000"
-"UFA"
-"Deven Thompkins	WR	25.7	3	CAR	$985,000"
-"UFA"
-"Cade York	K	24.6	2	CIN	$985,000"
-"UFA"
-"Jaelon Darden	WR	26.7	3	SEA	$985,000"
-"UFA"
-"Christian Matthew	CB	28.8	3	BAL	$985,000"
-"UFA"
-"Anthony Schwartz	WR	25.0	3	MIA	$985,000"
-"UFA"
-"Chandler Wooten	LB	27.3	3	CAR	$927,500"
-"UFA"
-"Janarius Robinson	ED	27.3	4	LV	$927,500"
-"UFA"
-"D.J. Turner	WR	28.6	3	LV	$927,500"
-"UFA"
-"Alex Barrett	ED	31.5	3	SF	$915,000"
-"UFA"
-"Carter O'Donnell	G	26.7	3	ARI	$915,000"
-"UFA"
-"Doug Kramer	C	27.2	3	CHI	$915,000"
-"UFA"
-"De’Shaan Dixon	LB	26.8	2	JAX	$915,000"
-"UFA"
-"Chris Evans	RB	27.9	4	CIN	$913,222"
-"UFA"
-"Quinn Bailey	T	29.8	4	DEN	$882,500"
-"UFA"
-"Jack Browning	P	23.8		TB	$877,500"
-"UFA"
-"Micah Abernathy	S	28.6	3	ATL	$870,000"
-"UFA"
-"Trevor Denbow	S	27.0	3	IND	$870,000"
-"UFA"
-"Luke Masterson	LB	27.7	3	LV	$856,667"
-"UFA"
-"Wesley French	C	28.8	3	IND	$856,667"
-"UFA"
-"Robert Burns	FB	26.9	1	ATL	$795,000"
-"UFA"
-"Joshua Onujiogu	ED	27.5	2	SEA	$795,000"
-"UFA"
-"Connor Galvin	RT	25.5	1	DET	$795,000"
-"UFA"
-"Grant DuBose	WR	24.2	1	MIA	$795,000"
-"UFA"
-"Owen Wright	RB	26.5	1	BAL	$795,000"
-"UFA"
-"Douglas Coleman	S	27.2	1	CHI	$795,000"
-"UFA"
-"Jesse Luketa	LB	26.7	3	ARI	$787,500"
-"UFA"
-"TK McLendon Jr.	DL	25.5	2	TEN	$750,000"
-"UFA"
-"Kwon Alexander	LB	31.1	10	DET	$383,400"
-"UFA"
-"Jordan Matthews	WR	33.2	7	CAR	$383,400"
-"UFA"
-"Tre Herndon	CB	29.5	5	IND	$302,400"
-"UFA"
-"Anthony Firkser	TE	30.5	5	KC	$302,400"
-"UFA"
-"Markus Bailey	LB	28.5	5	ARI	$302,400"
-"UFA"
-"Curtis Bolton	LB	29.7	2	TEN	$302,400"
-"UFA"
-"Jack Anderson	G	26.9	4	DAL	$302,400"
-"UFA"
-"Jake Fromm	QB	27.1	2	DET	$225,000"
-"UFA"
-"Dieter Eiselen	C	28.2	3	JAX	$225,000"
-"UFA"
-"Raekwon McMillan	LB	29.8	8	TEN	$0"
-"UFA"
-"Greg Stroman	CB	29.5	5	NYG	$0"
-"UFA"
-"Zach Triner	LS	34.7	5	DEN"
-"UFA"
-"Lil’jordan Humphrey	WR	27.3	6	DEN"
-"UFA"
-"$2,317,115"
-"Shaun Bradley	LB	28.4	3	KC"
-"UFA"
-""
-"THE SPOTRAC PODCAST"
-"Podcast image"
-"NFL Average Salaries, Jonathan Kuminga, & MLB Storylines"
-"Decompressing average NFL salaries by position for 2025, Jonathan Kuminga & the Golden State Warriors with Keith Smith, & MLB MVP discussions and end of year storylines with Dan Soemann. Presented by Bettor Edge"
-""
-""
-"TRENDING PLAYERS"
-"1 Carson Wentz (QB, MIN)"
-"2 Joe Flacco (QB, CLE)"
-"3 Aaron Rodgers (QB, PIT)"
-"4 Russell Wilson (QB, NYG)"
-"5 Marcus Mariota (QB, WAS)"
-"6 Kirk Cousins (QB, ATL)"
-"7 Baker Mayfield (QB, TB)"
-"8 Deshaun Watson (QB, CLE)"
-"9 Kenneth Gainwell (RB, PIT)"
-"10 Jaxson Dart (QB, NYG)"
-"11 D.K. Metcalf (WR, PIT)"
-"12 Justin Jefferson (WR, MIN)"
-"13 Jalen Hurts (QB, PHI)"
-"14 Jake Bates (K, DET)"
-"15 Saquon Barkley (RB, PHI)"
-"TRENDING PAGES"
-"1 2025 Wide Receiver Free Agents"
-"2 NFL Transactions"
-"3 2025 Wide Receiver Contract Average Rankings"
-"4 NFL Rankings"
-"5 Kicker Contracts"
-"Close Button"
-"Toggle Audio"
-"Leagues & Sports"
-"NFL"
-"NBA"
-"MLB"
-"NHL"
-"WNBA"
-"EPL"
-"MLS"
-"NWSL"
-"NAS"
-"F1"
-"ATP"
-"WTA"
-"Contact & Requests"
-"Contact Us"
-"Media Requests"
-"Advertise with Us"
-"About Spotrac"
-"About Spotrac"
-"Privacy Policy"
-"Terms of Service"
-"Google Privacy"
-"Accessibility"
-"Media"
-"Spotrac News"
-"Podcasts"
-"X/Twitter"
-"YouTube"
-"Facebook"
-"Instagram"
-"Spotrac"
-""
-"Partnered with the USA TODAY Sports Media Group |"
-"© Spotrac 2025. All rights reserved."
-"This website is not directly or indirectly affiliated, associated, or connected in any way to Major League Baseball, the National Basketball Association, the National Football League or the National Hockey League. Use of any marks, trademarks, or logos on this website shall not constitute a sponsorship or endorsement by the trademark holder."
-""
-"Close Button"
+Player,Position,Age,YOE,Previous Team,Previous AAV,Type,Market Value
+Christian Wilkins,DL,29.7,6,LV,"$27,500,000",UFA,
+Brandon Scherff,G,33.7,10,JAX,"$16,500,000",UFA,"$6,682,311"
+Marcus Williams,FS,29.0,8,BAL,"$14,000,000",UFA,
+Gabriel Davis,WR,26.4,5,JAX,"$13,000,000",UFA,
+James Bradberry,CB,32.1,8,PHI,"$12,666,667",UFA,
+Shaq Mason,G,32.0,10,HOU,"$12,000,000",UFA,
+Za'Darius Smith,LB,33.0,10,DET,"$11,500,000",UFA,
+Justin Simmons,FS,31.8,9,ATL,"$7,500,000",UFA,"$5,784,805"
+Kendall Fuller,CB,30.6,8,MIA,"$7,500,000",UFA,
+Darnell Savage,S,28.1,6,JAX,"$7,250,000",UFA,
+Stephon Gilmore,CB,34.9,13,MIN,"$7,000,000",UFA,"$5,338,174"
+Raekwon Davis,DL,28.0,5,IND,"$7,000,000",UFA,
+DeMarcus Walker,ED,30.9,7,CHI,"$7,000,000",UFA,
+Ja'whaun Bentley,LB,29.2,6,NE,"$6,750,000",UFA,
+Josey Jewell,LB,30.7,7,CAR,"$6,250,000",UFA,
+Gerald Everett,TE,31.2,7,CHI,"$6,000,000",UFA,
+De'Vondre Campbell,LB,32.2,9,SF,"$5,000,000",UFA,
+Kyzir White,LB,29.4,7,ARI,"$5,000,000",UFA,"$5,786,800"
+Jedrick Wills,T,26.3,5,CLE,"$4,925,729",UFA,"$2,216,269"
+Jordan Whitehead,SS,28.4,7,TB,"$4,500,000",UFA,
+John Cominsky,ED,29.8,6,DET,"$4,250,000",UFA,"$2,500,859"
+Zack Moss,RB,27.8,5,CIN,"$4,000,000",UFA,
+Jamaal Williams,RB,30.4,8,NO,"$4,000,000",UFA,
+Brandon Graham,DL,37.4,15,PHI,"$4,000,000",UFA,
+George Odum,S,31.8,7,SF,"$3,750,000",UFA,
+Jalen Reeves-Maybin,LB,30.6,8,DET,"$3,750,000",UFA,
+Nelson Agholor,WR,32.2,10,BAL,"$3,750,000",UFA,"$1,871,676"
+Matt Prater,K,41.1,18,ARI,"$3,750,000",UFA,
+Gus Edwards,RB,30.4,7,LAC,"$3,250,000",UFA,
+Michael Davis,CB,30.7,8,WAS,"$3,200,000",UFA,
+Eric Kendricks,LB,33.5,10,DAL,"$3,000,000",UFA,"$6,787,063"
+Emmanuel Moseley,CB,29.4,7,DET,"$2,875,000",UFA,
+Jon Feliciano,G,33.6,10,SF,"$2,750,000",UFA,"$1,446,769"
+Montravius Adams,DL,30.1,8,PIT,"$2,625,000",UFA,
+Jerry Hughes,ED,37.1,15,HOU,"$2,600,000",UFA,
+Linval Joseph,DL,36.9,15,DAL,"$2,500,000",UFA,"$1,965,547"
+Cody Whitehair,G,33.2,9,LV,"$2,500,000",UFA,"$1,860,204"
+Tyler Boyd,WR,30.8,9,TEN,"$2,400,000",UFA,
+Nick Harris,C,26.8,5,CLE,"$2,395,000",UFA,
+Neville Hewitt,LB,32.4,10,HOU,"$2,300,000",UFA,"$1,367,786"
+Corey Ballentine,CB,29.4,6,IND,"$2,100,000",UFA,
+Eddy Pineiro,K,30.0,7,CAR,"$2,050,000",UFA,
+Marcedes Lewis,TE,41.2,19,CHI,"$2,000,000",UFA,
+Jordan Poyer,FS,34.3,12,MIA,"$2,000,000",UFA,
+Brandon Powell,WR,29.0,7,MIN,"$2,000,000",UFA,"$1,499,351"
+Jordan Akins,TE,33.3,7,CLE,"$1,950,000",UFA,"$2,918,183"
+Isaiah Wynn,T,28.8,7,MIA,"$1,885,000",UFA,
+Ameer Abdullah,RB,32.2,10,LV,"$1,850,000",UFA,"$1,818,811"
+Asante Samuel Jr.,CB,25.9,4,LAC,"$1,805,737",UFA,"$11,463,963"
+Maurice Hurst,DL,30.3,7,CLE,"$1,800,000",UFA,"$2,123,471"
+Jihad Ward,DL,31.3,9,MIN,"$1,790,000",UFA,
+Daniel Ekuale,DL,31.7,7,NE,"$1,700,000",UFA,
+Khalil Davis,DL,29.0,5,SF,"$1,650,000",UFA,
+Chase Edmonds,RB,29.4,7,TB,"$1,500,000",UFA,"$1,229,084"
+C.J. Uzomah,TE,32.7,10,PHI,"$1,377,500",UFA,
+Marcus Maye,S,31.5,8,LAC,"$1,377,500",UFA,"$1,465,418"
+John Johnson,SS,29.7,8,LAR,"$1,377,500",UFA,
+William Gholston,DL,34.1,12,TB,"$1,377,500",UFA,
+Kamu Grugier-Hill,ED,31.3,9,MIN,"$1,377,500",UFA,
+Antonio Hamilton,CB,32.6,9,ATL,"$1,377,500",UFA,
+Rodney McLeod,FS,35.2,13,CLE,"$1,377,500",UFA,"$1,164,005"
+Patrick Scales,LS,37.6,9,CHI,"$1,377,500",UFA,
+Taybor Pepper,LS,31.2,7,SF,"$1,328,333",UFA,
+Jamison Crowder,WR,32.2,10,WAS,"$1,310,000",UFA,"$1,276,490"
+Matthew Adams,LB,29.8,7,NYG,"$1,292,500",UFA,
+Cameron Brown,LB,27.4,5,MIA,"$1,292,500",UFA,
+Deonte Harty,WR,27.8,6,BAL,"$1,292,500",UFA,
+James Smith-Williams,DL,28.1,5,ATL,"$1,292,500",UFA,
+Michael Badgley,K,30.1,6,DET,"$1,292,500",UFA,
+MyCole Pruitt,TE,33.4,10,PIT,"$1,260,000",UFA,
+Rick Lovato,LS,33.0,10,PHI,"$1,260,000",UFA,
+Le'Raven Clark,RT,32.3,8,PHI,"$1,260,000",UFA,
+Troy Hill,CB,34.0,9,TB,"$1,210,000",UFA,
+Shaquil Barrett,ED,32.8,9,TB,"$1,210,000",UFA,
+Pat O'Donnell,P,34.5,10,SF,"$1,210,000",UFA,
+Tashaun Gipson,FS,35.1,13,SF,"$1,210,000",UFA,
+Chris Hubbard,RT,34.3,12,NYG,"$1,210,000",UFA,"$1,393,661"
+Mark Glowinski,G,33.3,10,IND,"$1,210,000",UFA,"$1,656,688"
+Allen Robinson,WR,32.0,11,DET,"$1,210,000",UFA,
+Nick Vigil,LB,32.0,9,DAL,"$1,210,000",UFA,
+Geoff Swaim,TE,32.0,10,CLE,"$1,210,000",UFA,
+C.J. Beathard,QB,31.8,8,JAX,"$1,210,000",UFA,
+Jordan Phillips,DL,32.9,11,BUF,"$1,210,000",UFA,"$1,730,194"
+Quinton Jefferson,DL,32.4,10,BUF,"$1,210,000",UFA,"$1,353,346"
+Tyler Matakevich,LB,32.7,9,PIT,"$1,210,000",UFA,
+Cameron Sutton,CB,30.5,8,PIT,"$1,210,000",UFA,
+Vonn Bell,SS,30.8,9,CIN,"$1,210,000",UFA,"$1,223,429"
+Trayveon Williams,RB,27.8,6,NE,"$1,125,000",UFA,
+Zane Gonzalez,K,30.3,8,WAS,"$1,125,000",UFA,
+Austin Seibert,K,28.8,5,WAS,"$1,125,000",UFA,
+Josh Kelley,RB,27.8,5,TEN,"$1,125,000",UFA,
+Nick Gates,C,29.8,7,PHI,"$1,125,000",UFA,
+Jack Driscoll,G,28.4,5,PHI,"$1,125,000",UFA,
+Sam Eguavoen,LB,32.5,6,NYJ,"$1,125,000",UFA,
+Armon Watts,DL,29.1,6,NYG,"$1,125,000",UFA,
+Tyus Bowser,LB,30.2,7,MIA,"$1,125,000",UFA,
+Shaq Quarterman,LB,27.8,5,LAC,"$1,125,000",UFA,
+Sam Mustipher,C,29.1,6,LAC,"$1,125,000",UFA,
+Carl Lawson,ED,30.2,8,DAL,"$1,125,000",UFA,"$3,770,293"
+DeShawn Williams,DL,32.7,7,CAR,"$1,125,000",UFA,"$2,334,190"
+Adrian Colbert,S,31.9,5,CHI,"$1,125,000",UFA,
+Michael Palardy,P,33.2,6,ARI,"$1,125,000",UFA,
+D'Onta Foreman,RB,29.3,8,CLE,"$1,125,000",UFA,"$2,691,900"
+Ben Niemann,LB,30.1,7,DET,"$1,125,000",UFA,
+Elijah Riley,CB,27.2,5,NYG,"$1,125,000",UFA,
+Oshane Ximines,ED,28.8,5,NE,"$1,125,000",UFA,
+Jeff Driskel,QB,32.3,9,WAS,"$1,125,000",UFA,
+Hayden Hurst,TE,32.0,7,LAC,"$1,125,000",UFA,
+Trayvon Mullen,CB,27.9,5,BAL,"$1,125,000",UFA,
+Jody Fortson,TE,29.8,4,KC,"$1,055,000",UFA,
+Ka'dar Hollman,CB,30.9,5,HOU,"$1,055,000",UFA,
+Caleb Farley,CB,26.8,4,CAR,"$1,055,000",UFA,
+John Kelly,RB,28.9,1,CLE,"$1,055,000",UFA,
+Nsimba Webster,WR,29.6,4,CHI,"$1,055,000",UFA,
+Andre Chachere,S,29.6,3,ARI,"$1,002,500",UFA,
+Garret Wallow,LB,26.6,4,TEN,"$997,500",UFA,
+D'ante Smith,T,27.2,4,CIN,"$994,836",UFA,
+Ryan Neal,SS,29.7,4,TB,"$985,000",UFA,
+Eric Banks,DL,27.6,4,TB,"$985,000",UFA,
+Bruce Hector,DL,30.9,6,NYJ,"$985,000",UFA,
+Peyton Hendershot,TE,26.3,3,KC,"$985,000",UFA,
+Deven Thompkins,WR,25.7,3,CAR,"$985,000",UFA,
+Cade York,K,24.6,2,CIN,"$985,000",UFA,
+Jaelon Darden,WR,26.7,3,SEA,"$985,000",UFA,
+Christian Matthew,CB,28.8,3,BAL,"$985,000",UFA,
+Anthony Schwartz,WR,25.0,3,MIA,"$985,000",UFA,
+Chandler Wooten,LB,27.3,3,CAR,"$927,500",UFA,
+Janarius Robinson,ED,27.3,4,LV,"$927,500",UFA,
+D.J. Turner,WR,28.6,3,LV,"$927,500",UFA,
+Alex Barrett,ED,31.5,3,SF,"$915,000",UFA,
+Carter O'Donnell,G,26.7,3,ARI,"$915,000",UFA,
+Doug Kramer,C,27.2,3,CHI,"$915,000",UFA,
+De’Shaan Dixon,LB,26.8,2,JAX,"$915,000",UFA,
+Chris Evans,RB,27.9,4,CIN,"$913,222",UFA,
+Quinn Bailey,T,29.8,4,DEN,"$882,500",UFA,
+Micah Abernathy,S,28.6,3,ATL,"$870,000",UFA,
+Trevor Denbow,S,27.0,3,IND,"$870,000",UFA,
+Luke Masterson,LB,27.7,3,LV,"$856,667",UFA,
+Wesley French,C,28.8,3,IND,"$856,667",UFA,
+Robert Burns,FB,26.9,1,ATL,"$795,000",UFA,
+Joshua Onujiogu,ED,27.5,2,SEA,"$795,000",UFA,
+Connor Galvin,RT,25.5,1,DET,"$795,000",UFA,
+Grant DuBose,WR,24.2,1,MIA,"$795,000",UFA,
+Owen Wright,RB,26.5,1,BAL,"$795,000",UFA,
+Douglas Coleman,S,27.2,1,CHI,"$795,000",UFA,
+Jesse Luketa,LB,26.7,3,ARI,"$787,500",UFA,
+TK McLendon Jr.,DL,25.5,2,TEN,"$750,000",UFA,
+Kwon Alexander,LB,31.1,10,DET,"$383,400",UFA,
+Jordan Matthews,WR,33.2,7,CAR,"$383,400",UFA,
+Tre Herndon,CB,29.5,5,IND,"$302,400",UFA,
+Anthony Firkser,TE,30.5,5,KC,"$302,400",UFA,
+Markus Bailey,LB,28.5,5,ARI,"$302,400",UFA,
+Curtis Bolton,LB,29.7,2,TEN,"$302,400",UFA,
+Jack Anderson,G,26.9,4,DAL,"$302,400",UFA,
+Jake Fromm,QB,27.1,2,DET,"$225,000",UFA,
+Dieter Eiselen,C,28.2,3,JAX,"$225,000",UFA,
+Raekwon McMillan,LB,29.8,8,TEN,$0,UFA,
+Greg Stroman,CB,29.5,5,NYG,$0,UFA,

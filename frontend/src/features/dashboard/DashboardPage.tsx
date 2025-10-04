@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { leagueApi } from "../../api/client";
 import { queryKeys } from "../../api/queryKeys";
-import { BoxScore, GameSummary, Player, Standing, TeamStats } from "../../types/league";
+import { BoxScore, GameSummary, Player, TeamStats } from "../../types/league";
 import { Card } from "../../components/ui/Card";
 import { Modal } from "../../components/ui/Modal";
 import { SimulationControls } from "./components/SimulationControls";
@@ -75,10 +75,10 @@ export function DashboardPage() {
   const { standingsQuery, scheduleQuery, boxScoresQuery, rosterQuery, statsQuery } =
     useFocusTeamData();
 
-  const standings = standingsQuery.data ?? [];
-  const schedule = scheduleQuery.data ?? [];
-  const boxScores = boxScoresQuery.data ?? [];
-  const roster = rosterQuery.data ?? [];
+  const standings = useMemo(() => standingsQuery.data ?? [], [standingsQuery.data]);
+  const schedule = useMemo(() => scheduleQuery.data ?? [], [scheduleQuery.data]);
+  const boxScores = useMemo(() => boxScoresQuery.data ?? [], [boxScoresQuery.data]);
+  const roster = useMemo(() => rosterQuery.data ?? [], [rosterQuery.data]);
   const starters = useMemo(() => extractStarters(roster), [roster]);
 
   const upcomingGame = useMemo(() => determineUpcomingGame(schedule), [schedule]);
@@ -92,6 +92,10 @@ export function DashboardPage() {
 
   const [boxScoreOpen, setBoxScoreOpen] = useState(false);
   const [playerStatsOpen, setPlayerStatsOpen] = useState(false);
+  const [simulationMessage, setSimulationMessage] = useState<string | null>(null);
+  const [detailedLog, setDetailedLog] = useState<string[]>([]);
+  const [latestWeek, setLatestWeek] = useState<number | null>(null);
+  const [latestSummaries, setLatestSummaries] = useState<BoxScore[]>([]);
 
   const simulationMutation = useMutation({
     mutationFn: leagueApi.simulateWeek,
@@ -100,7 +104,9 @@ export function DashboardPage() {
       queryClient.invalidateQueries({ queryKey: queryKeys.standings });
       queryClient.invalidateQueries({ queryKey: queryKeys.boxScores(FOCUS_TEAM_ID) });
       queryClient.invalidateQueries({ queryKey: queryKeys.teamStats(FOCUS_TEAM_ID) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.weekResults(variables.week) });
+      setDetailedLog(result.playByPlay);
+      setLatestWeek(result.week);
+      setLatestSummaries(result.summaries);
     },
   });
 
@@ -137,11 +143,28 @@ export function DashboardPage() {
             focusTeamId={FOCUS_TEAM_ID}
             onViewBoxScore={() => setBoxScoreOpen(true)}
           />
+          {latestWeek ? (
+            <Card data-test="simulation-results">
+              <h2 className="text-lg font-semibold text-white">Week {latestWeek} Results</h2>
+              <ul className="mt-3 space-y-2">
+                {latestSummaries.map((summary) => (
+                  <li
+                    key={summary.gameId}
+                    className="rounded-lg border border-white/10 bg-slate-900/60 px-4 py-3 text-sm text-slate-200"
+                    data-test="game-result"
+                  >
+                    {summary.homeTeam.name} {summary.homeTeam.points} – {summary.awayTeam.points} {" "}
+                    {summary.awayTeam.name}
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          ) : null}
           <Card>
             <h2 className="text-lg font-semibold text-white">League Narrative</h2>
             <p className="mt-2 text-sm text-slate-300">
               The league office reports balanced competition this season. Use the detailed simulator to
-              craft your own storylines while the mock data keeps transactions deterministic.
+              craft your own storylines while live results synchronize across trades and roster moves.
             </p>
           </Card>
         </div>
