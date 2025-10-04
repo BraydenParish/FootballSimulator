@@ -192,8 +192,17 @@ class SimulationService:
         away_score = self._clamp_score(away_points)
 
         if home_score == away_score:
-            home_score += 3 if rng.random() > 0.5 else -3
-            home_score = self._clamp_score(home_score)
+            adjustment = 3 if rng.random() > 0.5 else -3
+            for delta in (adjustment, -adjustment):
+                candidate = self._clamp_score(home_score + delta)
+                if candidate != away_score:
+                    home_score = candidate
+                    break
+            else:
+                fallback = self._clamp_score(away_score - adjustment)
+                if fallback == home_score:
+                    fallback = self._clamp_score(away_score + adjustment)
+                away_score = fallback
         return home_score, away_score
 
     def _clamp_score(self, value: float) -> int:

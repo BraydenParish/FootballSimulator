@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import random
 import sqlite3
 
 import pytest
@@ -13,6 +14,18 @@ from shared.utils.rules import load_simulation_rules
 def simulation_service() -> SimulationService:
     rules = load_simulation_rules()
     return SimulationService(rules)
+
+
+class _StubRandom:
+    def __init__(self, gauss_values: list[float], random_values: list[float]):
+        self._gauss = list(gauss_values)
+        self._random = list(random_values)
+
+    def gauss(self, _mu: float, _sigma: float) -> float:
+        return self._gauss.pop(0)
+
+    def random(self) -> float:
+        return self._random.pop(0)
 
 
 def test_simulate_game_produces_reasonable_scores(db_connection: sqlite3.Connection, simulation_service: SimulationService) -> None:
@@ -64,3 +77,49 @@ def test_simulate_game_is_deterministic_with_seed(tmp_path, simulation_service: 
     second_connection.close()
 
     assert second_payload == first_payload
+
+
+@pytest.mark.parametrize(
+    "gauss_values, breaker",
+    [([-3.0, 3.0], 0.8), ([-20.0, -15.0], 0.2)],
+    ids=["mid_range", "clamped_min"],
+)
+def test_generate_scores_breaks_ties(
+    simulation_service: SimulationService, gauss_values: list[float], breaker: float
+) -> None:
+    rng = _StubRandom(gauss_values=gauss_values, random_values=[breaker])
+
+    home_score, away_score = simulation_service._generate_scores(rng, home_rating=80, away_rating=80)
+
+    assert home_score != away_score
+    assert simulation_service.rules.min_score <= home_score <= simulation_service.rules.max_score
+    assert simulation_service.rules.min_score <= away_score <= simulation_service.rules.max_score
+
+
+def test_impact_label_takes_lead_and_ties(simulation_service: SimulationService) -> None:
+    takes_lead = simulation_service._impact_label(
+        home_before=24,
+        away_before=20,
+        home_after=24,
+        away_after=27,
+        scoring_team="away",
+    )
+    assert takes_lead == "takes_lead"
+
+    ties_game = simulation_service._impact_label(
+        home_before=17,
+        away_before=20,
+        home_after=20,
+        away_after=20,
+        scoring_team="home",
+    )
+    assert ties_game == "ties_game"
+
+
+def test_score_breakdown_conserves_points_property(simulation_service: SimulationService) -> None:
+    for score in range(0, simulation_service.rules.max_score + 1):
+        rng = random.Random(score)
+        segments = simulation_service._score_breakdown(rng, score)
+
+        assert sum(segments) == score
+        assert all(segment > 0 for segment in segments)
