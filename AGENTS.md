@@ -24,6 +24,8 @@
    complexity, and security. If gaps, add 1–2 tests or a tiny follow-up diff, then re-run.
 6) **REPORT**: produce required outputs (below).
 
+Unless I reply “stop” or “revise”, auto-continue from PLAN → TESTS-FIRST → IMPLEMENT → VERIFY in the same task.
+
 ## Constraints
 - **Diff-only**: don’t reformat untouched lines; no unrelated refactors.
 - **No new deps** unless strictly required; justify and update lockfiles/scripts.
