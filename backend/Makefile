@@ -20,3 +20,9 @@ format:
 	cd $(ROOT) && ruff format backend tests shared
 
 check: lint test
+
+# --- Database Seeding ---
+seed:
+	@echo "📦 Seeding local database with parsed CSV data..."
+	@python -m app.db --seed ../shared/data
+	@echo "✅ Database seeding complete!"
