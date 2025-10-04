@@ -1,0 +1,294 @@
+{
+  "seasonYear": 2025,
+  "teams": [
+    {
+      "id": 1,
+      "name": "Metro Sharks",
+      "abbreviation": "MSH",
+      "conference": "Coastal",
+      "division": "East",
+      "rating": 90,
+      "salaryCap": 200,
+      "salarySpent": 150
+    },
+    {
+      "id": 2,
+      "name": "Desert Scorpions",
+      "abbreviation": "DSC",
+      "conference": "Coastal",
+      "division": "West",
+      "rating": 83,
+      "salaryCap": 200,
+      "salarySpent": 146
+    },
+    {
+      "id": 3,
+      "name": "Lake Guardians",
+      "abbreviation": "LGD",
+      "conference": "Heartland",
+      "division": "North",
+      "rating": 80,
+      "salaryCap": 200,
+      "salarySpent": 138
+    }
+  ],
+  "players": [
+    {
+      "id": 1,
+      "name": "Marcus Major",
+      "position": "QB",
+      "overall": 92,
+      "age": 28,
+      "contractValue": 24,
+      "contractYears": 3,
+      "teamId": 1,
+      "depthChartSlot": "QB1",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "name": "Darius Dash",
+      "position": "RB",
+      "overall": 84,
+      "age": 26,
+      "contractValue": 6,
+      "contractYears": 2,
+      "teamId": 1,
+      "depthChartSlot": "RB1",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "name": "Walter Wave",
+      "position": "WR",
+      "overall": 88,
+      "age": 27,
+      "contractValue": 11,
+      "contractYears": 3,
+      "teamId": 1,
+      "depthChartSlot": "WR1",
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "name": "Leo Lock",
+      "position": "TE",
+      "overall": 82,
+      "age": 29,
+      "contractValue": 6,
+      "contractYears": 2,
+      "teamId": 1,
+      "depthChartSlot": "TE1",
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "name": "Sam Strong",
+      "position": "LB",
+      "overall": 83,
+      "age": 28,
+      "contractValue": 5,
+      "contractYears": 2,
+      "teamId": 1,
+      "depthChartSlot": "LB1",
+      "status": "active"
+    },
+    {
+      "id": 6,
+      "name": "Carl Cover",
+      "position": "CB",
+      "overall": 82,
+      "age": 27,
+      "contractValue": 5,
+      "contractYears": 2,
+      "teamId": 1,
+      "depthChartSlot": "CB1",
+      "status": "active"
+    },
+    {
+      "id": 7,
+      "name": "Caleb Coyote",
+      "position": "QB",
+      "overall": 88,
+      "age": 29,
+      "contractValue": 22,
+      "contractYears": 3,
+      "teamId": 2,
+      "depthChartSlot": "QB1",
+      "status": "active"
+    },
+    {
+      "id": 8,
+      "name": "Logan Lanes",
+      "position": "RB",
+      "overall": 83,
+      "age": 27,
+      "contractValue": 6,
+      "contractYears": 2,
+      "teamId": 2,
+      "depthChartSlot": "RB1",
+      "status": "active"
+    },
+    {
+      "id": 9,
+      "name": "Victor Viper",
+      "position": "WR",
+      "overall": 85,
+      "age": 26,
+      "contractValue": 10,
+      "contractYears": 3,
+      "teamId": 2,
+      "depthChartSlot": "WR1",
+      "status": "active"
+    },
+    {
+      "id": 10,
+      "name": "Trent Talon",
+      "position": "WR",
+      "overall": 82,
+      "age": 27,
+      "contractValue": 8,
+      "contractYears": 2,
+      "teamId": 2,
+      "depthChartSlot": "WR2",
+      "status": "active"
+    },
+    {
+      "id": 11,
+      "name": "Henry Hammer",
+      "position": "LB",
+      "overall": 82,
+      "age": 28,
+      "contractValue": 4,
+      "contractYears": 1,
+      "teamId": 2,
+      "depthChartSlot": "LB1",
+      "status": "active"
+    },
+    {
+      "id": 12,
+      "name": "Corey Cliff",
+      "position": "CB",
+      "overall": 81,
+      "age": 27,
+      "contractValue": 4,
+      "contractYears": 2,
+      "teamId": 2,
+      "depthChartSlot": "CB1",
+      "status": "active"
+    },
+    {
+      "id": 13,
+      "name": "Aaron Anchor",
+      "position": "QB",
+      "overall": 80,
+      "age": 28,
+      "contractValue": 16,
+      "contractYears": 2,
+      "teamId": 3,
+      "depthChartSlot": "QB1",
+      "status": "active"
+    },
+    {
+      "id": 14,
+      "name": "Benny Brook",
+      "position": "RB",
+      "overall": 79,
+      "age": 25,
+      "contractValue": 5,
+      "contractYears": 2,
+      "teamId": 3,
+      "depthChartSlot": "RB1",
+      "status": "active"
+    },
+    {
+      "id": 15,
+      "name": "Mason Mist",
+      "position": "WR",
+      "overall": 81,
+      "age": 26,
+      "contractValue": 7,
+      "contractYears": 2,
+      "teamId": 3,
+      "depthChartSlot": "WR1",
+      "status": "active"
+    },
+    {
+      "id": 16,
+      "name": "Toby Tide",
+      "position": "TE",
+      "overall": 78,
+      "age": 29,
+      "contractValue": 4,
+      "contractYears": 1,
+      "teamId": 3,
+      "depthChartSlot": "TE1",
+      "status": "active"
+    },
+    {
+      "id": 17,
+      "name": "Drake Drift",
+      "position": "LB",
+      "overall": 80,
+      "age": 27,
+      "contractValue": 4,
+      "contractYears": 2,
+      "teamId": 3,
+      "depthChartSlot": "LB1",
+      "status": "active"
+    },
+    {
+      "id": 18,
+      "name": "Colin Current",
+      "position": "CB",
+      "overall": 79,
+      "age": 26,
+      "contractValue": 4,
+      "contractYears": 2,
+      "teamId": 3,
+      "depthChartSlot": "CB1",
+      "status": "active"
+    }
+  ],
+  "freeAgents": [
+    {
+      "id": 101,
+      "name": "Ricky Rocket",
+      "position": "RB",
+      "overall": 87,
+      "age": 25,
+      "contractValue": 7,
+      "contractYears": 2,
+      "teamId": null,
+      "depthChartSlot": null,
+      "status": "free-agent"
+    },
+    {
+      "id": 102,
+      "name": "Derek Drift",
+      "position": "CB",
+      "overall": 80,
+      "age": 28,
+      "contractValue": 3,
+      "contractYears": 1,
+      "teamId": null,
+      "depthChartSlot": null,
+      "status": "free-agent"
+    }
+  ],
+  "schedule": [
+    {
+      "id": 201,
+      "week": 1,
+      "homeTeamId": 1,
+      "awayTeamId": 2
+    },
+    {
+      "id": 202,
+      "week": 2,
+      "homeTeamId": 2,
+      "awayTeamId": 1
+    }
+  ],
+  "injuryLog": {}
+}

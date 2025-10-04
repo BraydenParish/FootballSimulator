@@ -12,6 +12,14 @@ CREATE TABLE IF NOT EXISTS players (
     id INTEGER PRIMARY KEY,
     name TEXT NOT NULL,
     position TEXT NOT NULL,
+    team TEXT NOT NULL DEFAULT 'FA',
+    ovr INTEGER NOT NULL DEFAULT 60,
+    spd INTEGER,
+    strength INTEGER,
+    agi INTEGER,
+    cod INTEGER,
+    inj INTEGER,
+    awr INTEGER,
     overall_rating INTEGER NOT NULL,
     age INTEGER DEFAULT 25,
     team_id INTEGER,
@@ -23,6 +31,39 @@ CREATE TABLE IF NOT EXISTS players (
     free_agent_year INTEGER,
     injury_status TEXT DEFAULT 'healthy',
     FOREIGN KEY (team_id) REFERENCES teams (id)
+);
+
+CREATE TABLE IF NOT EXISTS depth_charts (
+    id INTEGER PRIMARY KEY,
+    team TEXT NOT NULL,
+    position TEXT NOT NULL,
+    player_name TEXT NOT NULL,
+    depth INTEGER NOT NULL,
+    player_id INTEGER,
+    FOREIGN KEY (player_id) REFERENCES players (id)
+);
+
+CREATE TABLE IF NOT EXISTS free_agents (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    position TEXT NOT NULL,
+    age REAL,
+    yoe INTEGER,
+    prev_team TEXT,
+    prev_aav REAL,
+    contract_type TEXT,
+    market_value REAL,
+    year INTEGER NOT NULL,
+    player_id INTEGER,
+    FOREIGN KEY (player_id) REFERENCES players (id)
+);
+
+CREATE TABLE IF NOT EXISTS schedule (
+    id INTEGER PRIMARY KEY,
+    team TEXT NOT NULL,
+    week INTEGER NOT NULL,
+    opponent TEXT NOT NULL,
+    home_game INTEGER NOT NULL DEFAULT 1
 );
 
 CREATE TABLE IF NOT EXISTS games (

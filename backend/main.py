@@ -11,6 +11,7 @@ from backend.app.db import get_connection, row_to_dict
 from backend.app.services.box_score_service import BoxScoreService
 from backend.app.services.narrative_service import NarrativeService
 from backend.app.services.injury_service import InjuryService
+from backend.app.services.roster_service import RosterService
 from backend.app.services.simulation_service import GameBoxScore, SimulationService
 from backend.app.services.stats_service import TeamStatsService
 from backend.app.services.trade_service import TradeResult, TradeService

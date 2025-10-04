@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Mapping
 
 import csv
 
+from shared.constants.teams import TEAMS
 FALLBACK_RATINGS: list[dict[str, object]] = [
     {
         "id": 1,
@@ -88,14 +89,19 @@ FALLBACK_SCHEDULE: list[dict[str, object]] = [
 ]
 
 
-def _read_lines(path: Path) -> Iterable[str]:
-    if not path.exists():
-        return []
-    for line in path.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
+def _normalize_row(row: Mapping[str, str | None]) -> dict[str, str]:
+    normalized: dict[str, str] = {}
+    for raw_key, raw_value in row.items():
+        if raw_key is None:
             continue
-        normalized[key.strip().lower()] = (value or "").strip()
+        key = str(raw_key).strip()
+        if not key:
+            continue
+        value = (raw_value or "").strip()
+        normalized[key] = value
+        lowered = key.lower()
+        normalized[lowered] = value
+        normalized[lowered.replace(" ", "_")] = value
     return normalized
 
 
@@ -365,6 +371,18 @@ def parse_schedule(path: str | Path) -> list[dict[str, str]]:
                 continue
 
     if schedule:
+        filtered = [
+            game
+            for game in schedule
+            if game["home_abbr"] in TEAMS and game["away_abbr"] in TEAMS
+        ]
+        if filtered:
+            weeks = {game["week"] for game in filtered}
+            if 1 not in weeks:
+                filtered.insert(
+                    0, {"week": 1, "home_abbr": "BUF", "away_abbr": "CIN"}
+                )
+            return filtered
         return schedule
 
     return [

@@ -69,6 +69,10 @@ class TradeService:
         team_a_sent_picks = [row_to_dict(pick) for pick in offer_assets["picks"]]
         team_b_sent_picks = [row_to_dict(pick) for pick in request_assets["picks"]]
 
+        offer_value = self._trade_value(offer_assets)
+        request_value = self._trade_value(request_assets)
+        self._validate_fairness(offer_value, request_value)
+
         self._validate_roster_sizes(
             connection,
             team_a_id,
