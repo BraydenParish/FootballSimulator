@@ -8,7 +8,7 @@ type SimulationControlsProps = {
   standings: Standing[];
   upcomingGame: GameSummary | null;
   focusTeamId: number;
-  onOpenSimulation: () => void;
+  onSimulateWeek: () => void;
   onOpenPlayerStats: () => void;
 };
 
@@ -34,7 +34,7 @@ export function SimulationControls({
   standings,
   upcomingGame,
   focusTeamId,
-  onOpenSimulation,
+  onSimulateWeek,
   onOpenPlayerStats,
 }: SimulationControlsProps) {
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ export function SimulationControls({
         <div className="flex flex-col gap-2 sm:flex-row">
           <button
             type="button"
-            onClick={onOpenSimulation}
+            onClick={onSimulateWeek}
             disabled={isLoading}
             className="rounded-xl bg-primary.accent px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-primary.accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary.accent disabled:cursor-wait disabled:bg-primary.accent/60"
           >
@@ -78,6 +78,13 @@ export function SimulationControls({
             className="rounded-xl bg-slate-800 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary.accent"
           >
             View Player Stats
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate(`/results/${Math.max(1, nextWeek - 1)}`)}
+            className="rounded-xl bg-slate-800 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary.accent"
+          >
+            Recent Results
           </button>
         </div>
       </div>

@@ -26,9 +26,10 @@ def test_team_stats_returns_starter_aggregates(api_client: TestClient) -> None:
     starters = payload["starters"]
     assert starters, "Expected starters to be returned"
 
-    qb_stats = next((starter for starter in starters if starter["position"] == "QB"), None)
+    qb_stats = next(
+        (starter for starter in starters if starter["position"] == "QB"), None
+    )
     assert qb_stats is not None
     assert qb_stats["games_played"] >= 1
     assert qb_stats["totals"]["passing_yards"] >= 0
     assert qb_stats["per_game"]["passing_yards"] >= 0
-

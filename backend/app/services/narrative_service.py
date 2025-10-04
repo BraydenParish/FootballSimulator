@@ -9,7 +9,9 @@ from ..db import row_to_dict
 class NarrativeService:
     """Derive and persist weekly league narratives from simulation outputs."""
 
-    def record_week(self, connection, *, week: int, box_scores: Sequence[Any]) -> list[dict[str, Any]]:
+    def record_week(
+        self, connection, *, week: int, box_scores: Sequence[Any]
+    ) -> list[dict[str, Any]]:
         narratives = self._build_narratives(week, box_scores)
         connection.execute("DELETE FROM week_narratives WHERE week = ?", (week,))
         timestamp = datetime.now(UTC).isoformat(timespec="seconds")
@@ -32,7 +34,9 @@ class NarrativeService:
             )
         return narratives
 
-    def list_narratives(self, connection, week: int | None = None) -> list[dict[str, Any]]:
+    def list_narratives(
+        self, connection, week: int | None = None
+    ) -> list[dict[str, Any]]:
         params: list[Any] = []
         where: list[str] = []
         if week is not None:
@@ -67,7 +71,9 @@ class NarrativeService:
 
     # Narrative heuristics --------------------------------------------
 
-    def _build_narratives(self, week: int, box_scores: Sequence[Any]) -> list[dict[str, Any]]:
+    def _build_narratives(
+        self, week: int, box_scores: Sequence[Any]
+    ) -> list[dict[str, Any]]:
         if not box_scores:
             return []
 
@@ -80,10 +86,14 @@ class NarrativeService:
                     "gameId": blowout.game_id,
                     "headline": f"{winner['name']} rout {loser['name']} {winner['score']}-{loser['score']}",
                     "body": (
-                        f"{winner['name']} dominated from start to finish, piling up {winner['total_yards']} yards "
-                        f"while holding {loser['name']} to {loser['total_yards']}.")
-                    if winner.get("total_yards") is not None and loser.get("total_yards") is not None
-                    else None,
+                        (
+                            f"{winner['name']} dominated from start to finish, piling up {winner['total_yards']} yards "
+                            f"while holding {loser['name']} to {loser['total_yards']}."
+                        )
+                        if winner.get("total_yards") is not None
+                        and loser.get("total_yards") is not None
+                        else None
+                    ),
                     "tags": ["blowout", "momentum"],
                 }
             )
@@ -111,7 +121,9 @@ class NarrativeService:
         return narratives[:4]
 
     def _margin(self, box_score) -> int:
-        return abs(box_score.home_team.get("score", 0) - box_score.away_team.get("score", 0))
+        return abs(
+            box_score.home_team.get("score", 0) - box_score.away_team.get("score", 0)
+        )
 
     def _winner_loser(self, box_score) -> tuple[dict[str, Any], dict[str, Any]]:
         home_id = box_score.home_team["id"]
@@ -132,7 +144,9 @@ class NarrativeService:
             return home, away
         return away, home
 
-    def _find_star_performance(self, box_scores: Sequence[Any]) -> dict[str, Any] | None:
+    def _find_star_performance(
+        self, box_scores: Sequence[Any]
+    ) -> dict[str, Any] | None:
         top_entry: dict[str, Any] | None = None
         best_score = 0
         for box in box_scores:
@@ -180,13 +194,22 @@ class NarrativeService:
             parts.append(f"{player['forced_turnovers']} takeaways")
         return ", ".join(parts)
 
-    def _major_injury(self, box_scores: Sequence[Any], week: int) -> dict[str, Any] | None:
+    def _major_injury(
+        self, box_scores: Sequence[Any], week: int
+    ) -> dict[str, Any] | None:
         for box in box_scores:
             if not box.injuries:
                 continue
             injury = box.injuries[0]
-            home_ids = {player.get("player_id") for player in box.team_stats.get(box.home_team["id"], {}).get("players", [])}
-            team = box.home_team if injury.get("player_id") in home_ids else box.away_team
+            home_ids = {
+                player.get("player_id")
+                for player in box.team_stats.get(box.home_team["id"], {}).get(
+                    "players", []
+                )
+            }
+            team = (
+                box.home_team if injury.get("player_id") in home_ids else box.away_team
+            )
             return {
                 "gameId": box.game_id,
                 "headline": f"{team['name']} face setback as {injury['name']} leaves injured",

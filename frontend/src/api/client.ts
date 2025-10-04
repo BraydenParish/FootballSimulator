@@ -10,8 +10,10 @@ import {
   Standing,
   Team,
   TeamStats,
-  TradeEvaluation,
+  TradeExecutionResult,
   TradeProposal,
+  TradeProposalResult,
+  WeeklyGameResult,
 } from "../types/league";
 import * as mockAdapter from "./mockAdapter";
 
@@ -134,6 +136,7 @@ export const leagueApi = API_MODE === "mock"
       fetchSchedule: mockAdapter.fetchSchedule,
       fetchBoxScores: mockAdapter.fetchBoxScores,
       simulateWeek: mockAdapter.simulateWeek,
+      fetchWeekResults: mockAdapter.fetchWeekResults,
       fetchFreeAgents: mockAdapter.fetchFreeAgents,
       signFreeAgent: mockAdapter.signFreeAgent,
       evaluateTrade: mockAdapter.evaluateTrade,
@@ -163,6 +166,9 @@ export const leagueApi = API_MODE === "mock"
         const query = teamId ? `?team_id=${teamId}` : "";
         return request<BoxScore[]>(`/games/box-scores${query}`);
       },
+      async fetchWeekResults(week: number): Promise<WeeklyGameResult[]> {
+        return request<WeeklyGameResult[]>(`/games/week/${week}`);
+      },
       async simulateWeek(payload: SimulationRequest): Promise<SimulationResult> {
         return request<SimulationResult>("/simulate-week", {
           method: "POST",
@@ -179,7 +185,7 @@ export const leagueApi = API_MODE === "mock"
       async signFreeAgent(teamId: number, playerId: number): Promise<SignResult> {
         const result = await request<RawSignResponse>(`/teams/${teamId}/sign`, {
           method: "POST",
-          body: JSON.stringify({ player_id: playerId }),
+          body: JSON.stringify({ teamId, playerId }),
         });
         return {
           message: `Signed ${result.player.name} to the roster`,
@@ -187,14 +193,14 @@ export const leagueApi = API_MODE === "mock"
           team: result.team,
         };
       },
-      async evaluateTrade(proposal: TradeProposal): Promise<TradeEvaluation> {
-        return request<TradeEvaluation>("/trade/validate", {
+      async evaluateTrade(proposal: TradeProposal): Promise<TradeProposalResult> {
+        return request<TradeProposalResult>("/trades/propose", {
           method: "POST",
           body: JSON.stringify(proposal),
         });
       },
-      async executeTrade(proposal: TradeProposal): Promise<TradeEvaluation> {
-        return request<TradeEvaluation>("/trade", {
+      async executeTrade(proposal: TradeProposal): Promise<TradeExecutionResult> {
+        return request<TradeExecutionResult>("/trades/execute", {
           method: "POST",
           body: JSON.stringify(proposal),
         });

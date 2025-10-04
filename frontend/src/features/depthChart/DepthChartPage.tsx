@@ -38,6 +38,9 @@ export function DepthChartPage() {
       setFeedback("Depth chart saved.");
       queryClient.invalidateQueries({ queryKey: queryKeys.roster(teamId) });
     },
+    onError: () => {
+      setFeedback("Unable to save depth chart. Please retry.");
+    },
   });
 
   const teams = teamsQuery.data ?? [];
@@ -46,7 +49,32 @@ export function DepthChartPage() {
   const slotOptions = useMemo(() => slots, []);
 
   const handleEntryChange = (player: Player, slotValue: string) => {
-    setEntries((prev) => ({ ...prev, [player.id]: slotValue }));
+    setEntries((prev) => {
+      const next = { ...prev };
+      const previousSlot = prev[player.id] ?? "";
+
+      if (previousSlot === slotValue) {
+        return next;
+      }
+
+      if (!slotValue) {
+        delete next[player.id];
+        return next;
+      }
+
+      const conflict = Object.entries(prev).find(([otherId, slot]) => Number(otherId) !== player.id && slot === slotValue);
+      if (conflict) {
+        const [conflictId] = conflict;
+        if (previousSlot) {
+          next[Number(conflictId)] = previousSlot;
+        } else {
+          delete next[Number(conflictId)];
+        }
+      }
+
+      next[player.id] = slotValue;
+      return next;
+    });
   };
 
   const handleSave = () => {

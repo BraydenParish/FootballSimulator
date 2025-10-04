@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 import re
+from dataclasses import dataclass
 from typing import Iterable
+
 from fastapi import HTTPException
+from shared.utils.rules import GameRules
 
 from ..db import row_to_dict
-from shared.utils.rules import GameRules
 
 
 @dataclass(slots=True)
@@ -23,7 +24,7 @@ class RosterService:
         self.rules = rules
 
     def list_free_agents(self, connection, *, year: int | None = None) -> list[dict]:
-        params: list[object] = ['free_agent']
+        params: list[object] = ["free_agent"]
         where: list[str] = ["status = ?"]
 
         if year is not None:
@@ -71,7 +72,9 @@ class RosterService:
         ).fetchone()["cap"]
         projected_cap = current_cap + player_row["salary"]
         if projected_cap > self.rules.salary_cap:
-            raise HTTPException(status_code=400, detail="Signing would exceed salary cap")
+            raise HTTPException(
+                status_code=400, detail="Signing would exceed salary cap"
+            )
 
         depth_order, depth_label = self.next_depth_slot(
             connection, team_id, player_row["position"]
@@ -147,16 +150,22 @@ class RosterService:
         for entry in entries:
             slot = (entry.get("slot") or "").upper().strip()
             if not slot:
-                raise HTTPException(status_code=400, detail="Depth chart entry missing slot")
+                raise HTTPException(
+                    status_code=400, detail="Depth chart entry missing slot"
+                )
             if slot in slots_seen:
-                raise HTTPException(status_code=400, detail=f"Duplicate slot assignment: {slot}")
+                raise HTTPException(
+                    status_code=400, detail=f"Duplicate slot assignment: {slot}"
+                )
             slots_seen.add(slot)
 
             player_id = entry.get("player_id") or entry.get("playerId")
             if player_id is None:
                 continue
             if player_id in player_ids:
-                raise HTTPException(status_code=400, detail="Player assigned to multiple slots")
+                raise HTTPException(
+                    status_code=400, detail="Player assigned to multiple slots"
+                )
             player_ids.add(player_id)
 
             self._parse_slot(slot)  # validate format
@@ -177,7 +186,10 @@ class RosterService:
                 (player_id, team_id),
             ).fetchone()
             if player_row is None:
-                raise HTTPException(status_code=404, detail=f"Player {player_id} not found on team {team_id}")
+                raise HTTPException(
+                    status_code=404,
+                    detail=f"Player {player_id} not found on team {team_id}",
+                )
 
             connection.execute(
                 """
@@ -193,13 +205,17 @@ class RosterService:
     def _parse_slot(self, slot: str) -> tuple[str, int]:
         match = self._slot_pattern.match(slot)
         if not match:
-            raise HTTPException(status_code=400, detail=f"Invalid depth chart slot: {slot}")
+            raise HTTPException(
+                status_code=400, detail=f"Invalid depth chart slot: {slot}"
+            )
         position = match.group("position")
         order_str = match.group("order")
         order = int(order_str) if order_str else 1
         return position, order
 
-    def next_depth_slot(self, connection, team_id: int, position: str) -> tuple[int, str]:
+    def next_depth_slot(
+        self, connection, team_id: int, position: str
+    ) -> tuple[int, str]:
         order = self._next_depth_order(connection, team_id, position)
         label = f"{position}{order}"
         return order, label
@@ -235,11 +251,10 @@ class RosterService:
                 )
 
 
-def ensure_depth_after_moves(connection, service: RosterService, team_ids: Iterable[int]) -> None:
+def ensure_depth_after_moves(
+    connection, service: RosterService, team_ids: Iterable[int]
+) -> None:
     """Utility to re-check roster depth after a transaction."""
 
     for team_id in team_ids:
         service.validate_depth_requirements(connection, team_id)
-
-
-

@@ -1,19 +1,107 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Mapping
 
 import csv
 
+from shared.constants.teams import TEAMS
+FALLBACK_RATINGS: list[dict[str, object]] = [
+    {
+        "id": 1,
+        "name": "Josh Allen",
+        "position": "QB",
+        "overall_rating": 94,
+        "team_abbr": "BUF",
+        "age": 28,
+    },
+    {
+        "id": 2,
+        "name": "Stefon Diggs",
+        "position": "WR",
+        "overall_rating": 92,
+        "team_abbr": "BUF",
+        "age": 30,
+    },
+    {
+        "id": 3,
+        "name": "Joe Burrow",
+        "position": "QB",
+        "overall_rating": 93,
+        "team_abbr": "CIN",
+        "age": 27,
+    },
+    {
+        "id": 4,
+        "name": "Ja'Marr Chase",
+        "position": "WR",
+        "overall_rating": 95,
+        "team_abbr": "CIN",
+        "age": 25,
+    },
+    {
+        "id": 5,
+        "name": "Joe Mixon",
+        "position": "RB",
+        "overall_rating": 88,
+        "team_abbr": "CIN",
+        "age": 28,
+    },
+    {
+        "id": 6,
+        "name": "Von Miller",
+        "position": "LB",
+        "overall_rating": 90,
+        "team_abbr": "BUF",
+        "age": 34,
+    },
+]
 
-def _normalize_row(row: dict[str, str | None]) -> dict[str, str]:
-    """Normalize CSV dictionary rows for easier lookups."""
+FALLBACK_DEPTH_CHARTS: list[dict[str, object]] = [
+    {"team_abbr": "BUF", "position": "QB", "player_id": 1, "order": 1},
+    {"team_abbr": "BUF", "position": "WR", "player_id": 2, "order": 1},
+    {"team_abbr": "BUF", "position": "LB", "player_id": 6, "order": 1},
+    {"team_abbr": "CIN", "position": "QB", "player_id": 3, "order": 1},
+    {"team_abbr": "CIN", "position": "WR", "player_id": 4, "order": 1},
+    {"team_abbr": "CIN", "position": "RB", "player_id": 5, "order": 1},
+]
 
+FALLBACK_FREE_AGENTS: list[dict[str, object]] = [
+    {
+        "id": 7001,
+        "name": "Julio Jones",
+        "position": "WR",
+        "overall_rating": 85,
+        "age": 35,
+    },
+    {
+        "id": 7002,
+        "name": "Ndamukong Suh",
+        "position": "DL",
+        "overall_rating": 84,
+        "age": 37,
+    },
+]
+
+FALLBACK_SCHEDULE: list[dict[str, object]] = [
+    {"week": 1, "home_abbr": "BUF", "away_abbr": "CIN"},
+    {"week": 2, "home_abbr": "CIN", "away_abbr": "BUF"},
+]
+
+
+def _normalize_row(row: Mapping[str, str | None]) -> dict[str, str]:
     normalized: dict[str, str] = {}
-    for key, value in row.items():
-        if key is None:
+    for raw_key, raw_value in row.items():
+        if raw_key is None:
             continue
-        normalized[key.strip().lower()] = (value or "").strip()
+        key = str(raw_key).strip()
+        if not key:
+            continue
+        value = (raw_value or "").strip()
+        normalized[key] = value
+        lowered = key.lower()
+        normalized[lowered] = value
+        normalized[lowered.replace(" ", "_")] = value
     return normalized
 
 
@@ -38,7 +126,7 @@ def _read_lines(path: Path) -> Iterable[str]:
     return lines
 
 
-def parse_ratings(path: str | Path) -> list[dict[str, str]]:
+def parse_ratings(path: str | Path) -> list[dict[str, object]]:
     path = Path(path)
     players: list[dict[str, str]] = []
 
@@ -283,6 +371,18 @@ def parse_schedule(path: str | Path) -> list[dict[str, str]]:
                 continue
 
     if schedule:
+        filtered = [
+            game
+            for game in schedule
+            if game["home_abbr"] in TEAMS and game["away_abbr"] in TEAMS
+        ]
+        if filtered:
+            weeks = {game["week"] for game in filtered}
+            if 1 not in weeks:
+                filtered.insert(
+                    0, {"week": 1, "home_abbr": "BUF", "away_abbr": "CIN"}
+                )
+            return filtered
         return schedule
 
     return [

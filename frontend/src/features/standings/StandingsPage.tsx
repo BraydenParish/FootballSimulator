@@ -1,11 +1,45 @@
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+
 import { leagueApi } from "../../api/client";
 import { queryKeys } from "../../api/queryKeys";
 import { Card } from "../../components/ui/Card";
+import { Standing } from "../../types/league";
+
+type DivisionGroup = {
+  id: string;
+  title: string;
+  teams: Standing[];
+};
 
 export function StandingsPage() {
   const standingsQuery = useQuery({ queryKey: queryKeys.standings, queryFn: () => leagueApi.fetchStandings() });
   const standings = standingsQuery.data ?? [];
+
+  const grouped = useMemo<DivisionGroup[]>(() => {
+    const map = new Map<string, DivisionGroup>();
+    standings.forEach((team) => {
+      const key = `${team.conference}-${team.division}`;
+      if (!map.has(key)) {
+        map.set(key, {
+          id: key,
+          title: `${team.conference} · ${team.division}`,
+          teams: [],
+        });
+      }
+      const winPct = typeof team.winPct === "number" ? team.winPct : 0;
+      map.get(key)!.teams.push({ ...team, winPct });
+    });
+    return Array.from(map.values()).map((group) => ({
+      ...group,
+      teams: group.teams.sort((a, b) => {
+        if (b.winPct !== a.winPct) {
+          return b.winPct - a.winPct;
+        }
+        return b.wins - a.wins || a.losses - b.losses || a.teamId - b.teamId;
+      }),
+    }));
+  }, [standings]);
 
   return (
     <Card>

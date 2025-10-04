@@ -25,9 +25,13 @@ export function FreeAgencyPage() {
       leagueApi.signFreeAgent(teamId, playerId),
     onSuccess: (result: SignResult) => {
       setFeedback(result.message);
-      setLastActionSuccess(true);
-      queryClient.invalidateQueries({ queryKey: queryKeys.freeAgents });
-      queryClient.invalidateQueries({ queryKey: queryKeys.roster(selectedTeam) });
+      if (result.status === "signed") {
+        queryClient.invalidateQueries({ queryKey: queryKeys.freeAgents });
+        queryClient.invalidateQueries({ queryKey: queryKeys.roster(selectedTeam) });
+      }
+    },
+    onError: () => {
+      setFeedback("Signing failed. Please try again.");
     },
     onError: (error: unknown) => {
       setFeedback(error instanceof Error ? error.message : "Signing failed.");
