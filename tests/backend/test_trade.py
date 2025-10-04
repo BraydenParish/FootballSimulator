@@ -35,6 +35,8 @@ def _json(client: TestClient, path: str) -> Dict[str, Any]:
     assert response.status_code == 200, f"GET {path} failed: {response.text}"
     return response.json()
 
+from shared.utils.rules import load_game_rules
+
 
 def _team_id(client: TestClient, abbr: str) -> int:
     teams = _json(client, "/teams")
@@ -109,7 +111,14 @@ def _db_connection() -> sqlite3.Connection:
     return connection
 
 
-def test_trade_blocks_duplicate_elite_qbs(api_client: TestClient) -> None:
+def _db_connection() -> sqlite3.Connection:
+    path = os.environ["NFL_GM_DB_PATH"]
+    connection = sqlite3.connect(path)
+    connection.row_factory = sqlite3.Row
+    return connection
+
+
+def test_trade_swaps_players_and_updates_rosters(api_client: TestClient) -> None:
     buf_id = _team_id(api_client, "BUF")
     cin_id = _team_id(api_client, "CIN")
 
@@ -130,16 +139,25 @@ def test_trade_blocks_duplicate_elite_qbs(api_client: TestClient) -> None:
     trade_payload = {
         "teamA": buf_id,
         "teamB": cin_id,
-        "offer": [{"type": "player", "playerId": diggs_id}],
-        "request": [{"type": "player", "playerId": burrow_id}],
+        "offer": [{"type": "player", "playerId": 2}],
+        "request": [{"type": "player", "playerId": julio_id}],
     }
-    response = api_client.post("/trades/propose", json=trade_payload)
-    assert response.status_code == 200
-    body = response.json()
-    status = _k(body, "status", "result")
-    message = _k(body, "message", "reason", default="")
-    assert status == "rejected", f"expected rejected, got {status}: {body}"
-    assert "Team" in message or "duplicate" in message.lower()
+    proposal = api_client.post("/trades/propose", json=trade_payload)
+    assert proposal.status_code == 200
+    assert proposal.json()["status"] == "accepted"
+
+    trade_response = api_client.post("/trades/execute", json=trade_payload)
+    assert trade_response.status_code == 200, trade_response.text
+    trade_body = trade_response.json()
+
+    assert any(player["id"] == julio_id for player in trade_body["teamA_received"]["players"])
+    assert any(player["id"] == 2 for player in trade_body["teamB_received"]["players"])
+
+    buf_roster = _roster_player_ids(api_client, buf_id)
+    cin_roster = _roster_player_ids(api_client, cin_id)
+    assert julio_id in buf_roster
+    assert 2 not in buf_roster
+    assert 2 in cin_roster
 
 
 def test_trade_preserves_combined_roster_sizes(api_client: TestClient) -> None:
@@ -158,18 +176,68 @@ def test_trade_preserves_combined_roster_sizes(api_client: TestClient) -> None:
     trade_payload = {
         "teamA": buf_id,
         "teamB": cin_id,
-        "offer": [
-            {
-                "type": "player",
-                "playerId": _player_id(
-                    api_client, buf_id, "James Cook", position="RB"
-                ),
-            }
-        ],
-        "request": [{"type": "player", "playerId": julio_id}],
+        "offer": [{"type": "player", "playerId": 2}],
+        "request": [{"type": "player", "playerId": 3}],
     }
-    trade_response = api_client.post("/trades/execute", json=trade_payload)
-    assert trade_response.status_code == 200, trade_response.text
+    response = api_client.post("/trade", json=trade_payload)
+    assert response.status_code == 400
+    assert "elite qb" in response.json()["detail"].lower()
+
+
+def test_trade_prevents_roster_overflow(api_client: TestClient) -> None:
+    rules = load_game_rules()
+    buf_id = _team_id(api_client, "BUF")
+    cin_id = _team_id(api_client, "CIN")
+
+    # Ensure Cincinnati hits the roster ceiling by adding depth players.
+    current_roster = len(_roster_player_ids(api_client, cin_id))
+    needed = max(0, rules.roster_max - current_roster)
+    if needed:
+        with _db_connection() as connection:
+            max_id_row = connection.execute("SELECT MAX(id) AS max_id FROM players").fetchone()
+            next_id = (max_id_row["max_id"] or 0) + 1
+            for index in range(needed):
+                connection.execute(
+                    """
+                    INSERT INTO players (
+                        id,
+                        name,
+                        position,
+                        overall_rating,
+                        age,
+                        team_id,
+                        salary,
+                        contract_years,
+                        status
+                    )
+                    VALUES (?, ?, 'LB', 60, 24, ?, 1000000, 1, 'active')
+                    """,
+                    (
+                        next_id + index,
+                        f"Depth Reserve {index + 1}",
+                        cin_id,
+                    ),
+                )
+            connection.commit()
+
+    assert len(_roster_player_ids(api_client, cin_id)) >= rules.roster_max
+
+    buf_roster = api_client.get(f"/teams/{buf_id}").json()["roster"]
+    cin_roster = api_client.get(f"/teams/{cin_id}").json()["roster"]
+
+    offer_players = [buf_roster[0]["id"], buf_roster[1]["id"]]
+    request_player = cin_roster[0]["id"]
+
+    trade_payload = {
+        "teamA": buf_id,
+        "teamB": cin_id,
+        "offer": [{"type": "player", "player_id": pid} for pid in offer_players],
+        "request": [{"type": "player", "player_id": request_player}],
+    }
+
+    response = api_client.post("/trade", json=trade_payload)
+    assert response.status_code == 400
+    assert "roster limit" in response.json()["detail"].lower()
 
     total_after = _roster_size(api_client, buf_id) + _roster_size(api_client, cin_id)
     assert total_after == total_before
