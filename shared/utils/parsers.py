@@ -9,11 +9,12 @@ def _read_lines(path: Path) -> Iterable[str]:
         return []
 
     lines: list[str] = []
-    for line in path.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        lines.append(line)
+    with path.open(encoding="utf-8", errors="replace") as handle:
+        for line in handle:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            lines.append(line)
     return lines
 
 
