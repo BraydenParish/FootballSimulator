@@ -6,6 +6,7 @@ import {
   GameSummary,
   InjuryReport,
   Player,
+  SignResult,
   SimulationMode,
   SimulationResult,
   Standing,
@@ -18,7 +19,8 @@ import {
 } from "../types/league";
 import { parseDepthChartFile, parseFreeAgentFile, parseScheduleCsv } from "../utils/parsers";
 
-const ROSTER_LIMIT = 53;
+export const ROSTER_LIMIT = 53;
+export const ROSTER_MIN = 46;
 const ELITE_QB_THRESHOLD = 90;
 const KEY_POSITIONS: string[] = ["QB", "RB", "WR"];
 
@@ -399,6 +401,14 @@ function sumContractValue(players: Player[]): number {
   return players.reduce((total, player) => total + player.contractValue, 0);
 }
 
+function getSalaryCap(team: Team): number {
+  return team.salaryCap ?? Number.POSITIVE_INFINITY;
+}
+
+function getSalarySpent(team: Team): number {
+  return team.salarySpent ?? 0;
+}
+
 function countEliteQuarterbacks(roster: Player[]): number {
   return roster.filter((player) => player.position === "QB" && player.overall >= ELITE_QB_THRESHOLD).length;
 }
@@ -597,9 +607,9 @@ type MockDataState = {
   loadRules: (text: string) => void;
   loadSimulationRules: (text: string) => void;
   simulateWeek: (week: number, mode: SimulationMode) => SimulationResult;
-  signFreeAgent: (teamId: number, playerId: number) => FreeAgentSigningResult;
-  evaluateTrade: (proposal: TradeProposal) => TradeProposalResult;
-  executeTrade: (proposal: TradeProposal) => TradeExecutionResult;
+  signFreeAgent: (teamId: number, playerId: number) => SignResult;
+  evaluateTrade: (proposal: TradeProposal) => TradeEvaluation;
+  executeTrade: (proposal: TradeProposal) => TradeEvaluation;
   updateDepthChart: (teamId: number, entries: DepthChartEntry[]) => void;
   computeStandings: () => Standing[];
   getTeamRoster: (teamId: number) => Player[];
@@ -621,7 +631,6 @@ function computeStandingsFromGames(games: GameSummary[], teams: Team[]): Standin
       wins: 0,
       losses: 0,
       ties: 0,
-      winPct: 0,
     });
   });
 
@@ -959,37 +968,51 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
     const state = get();
     const player = state.freeAgents.find((candidate) => candidate.id === playerId);
     if (!player) {
-      return { status: "error", message: "Player is no longer available." };
+      throw new Error("Player is no longer available.");
     }
 
     const team = state.teams.find((candidate) => candidate.id === teamId);
     if (!team) {
-      return { status: "error", message: "Team not found." };
+      throw new Error("Team not found.");
     }
 
     const rosterCount = state.players.filter((candidate) => candidate.teamId === teamId).length;
-    if (rosterCount >= ROSTER_LIMIT) {
-      return { status: "error", message: "Roster limit reached." };
+    if (rosterCount >= 53) {
+      throw new Error("Roster limit reached.");
     }
 
-    if (team.salarySpent + player.contractValue > team.salaryCap) {
-      return { status: "error", message: "Signing would exceed salary cap." };
+    const currentSalarySpent = getSalarySpent(team);
+    const salaryCap = getSalaryCap(team);
+
+    if (currentSalarySpent + player.contractValue > salaryCap) {
+      throw new Error("Signing would exceed salary cap.");
     }
+
+    const updatedPlayer: Player = {
+      ...player,
+      teamId,
+      status: "active",
+      depthChartSlot: `${player.position}2`,
+    };
+
+    const updatedTeam = {
+      ...team,
+      salarySpent: currentSalarySpent + player.contractValue,
+    };
 
     set({
       freeAgents: state.freeAgents.filter((candidate) => candidate.id !== playerId),
-      players: [
-        ...state.players,
-        { ...player, teamId, status: "active", depthChartSlot: `${player.position}2` },
-      ],
+      players: [...state.players, updatedPlayer],
       teams: state.teams.map((candidate) =>
-        candidate.id === teamId
-          ? { ...candidate, salarySpent: candidate.salarySpent + player.contractValue }
-          : candidate
+        candidate.id === teamId ? updatedTeam : candidate
       ),
     });
 
-    return { status: "signed", message: "Player signed to roster.", player: { ...player, teamId } };
+    return {
+      message: `Signed ${player.name} to the roster`,
+      player: updatedPlayer,
+      team: updatedTeam,
+    };
   },
   evaluateTrade: (proposal: TradeProposal) => {
     const state = get();
@@ -1034,11 +1057,28 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
       return player;
     });
 
+    const teamATotal = state.players.filter((player) => player.teamId === proposal.teamA).length;
+    const teamBTotal = state.players.filter((player) => player.teamId === proposal.teamB).length;
     const teamARoster = projectedPlayers.filter((player) => player.teamId === proposal.teamA);
     const teamBRoster = projectedPlayers.filter((player) => player.teamId === proposal.teamB);
 
-    if (teamARoster.length > ROSTER_LIMIT || teamBRoster.length > ROSTER_LIMIT) {
-      return { status: "rejected", message: "Trade would exceed the roster limit for a team." };
+    if (teamARoster.length > ROSTER_LIMIT && teamARoster.length > teamATotal) {
+      return { success: false, message: `${teamA.name} would exceed the roster limit.` };
+    }
+    if (teamBRoster.length > ROSTER_LIMIT && teamBRoster.length > teamBTotal) {
+      return { success: false, message: `${teamB.name} would exceed the roster limit.` };
+    }
+    if (teamARoster.length < ROSTER_MIN && teamARoster.length < teamATotal) {
+      return {
+        success: false,
+        message: `${teamA.name} must retain at least ${ROSTER_MIN} players.`,
+      };
+    }
+    if (teamBRoster.length < ROSTER_MIN && teamBRoster.length < teamBTotal) {
+      return {
+        success: false,
+        message: `${teamB.name} must retain at least ${ROSTER_MIN} players.`,
+      };
     }
 
     for (const position of KEY_POSITIONS) {
@@ -1052,13 +1092,13 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
 
     const offerValue = sumContractValue(offerPlayers);
     const requestValue = sumContractValue(requestPlayers);
-    const teamASalary = teamA.salarySpent - offerValue + requestValue;
-    const teamBSalary = teamB.salarySpent - requestValue + offerValue;
-    if (teamASalary > teamA.salaryCap) {
-      return { status: "rejected", message: `Trade would exceed salary cap for ${teamA.name}.` };
+    const teamASalary = getSalarySpent(teamA) - offerValue + requestValue;
+    const teamBSalary = getSalarySpent(teamB) - requestValue + offerValue;
+    if (teamASalary > getSalaryCap(teamA)) {
+      return { success: false, message: `Trade would exceed salary cap for ${teamA.name}.` };
     }
-    if (teamBSalary > teamB.salaryCap) {
-      return { status: "rejected", message: `Trade would exceed salary cap for ${teamB.name}.` };
+    if (teamBSalary > getSalaryCap(teamB)) {
+      return { success: false, message: `Trade would exceed salary cap for ${teamB.name}.` };
     }
 
     if (countEliteQuarterbacks(teamARoster) > 1) {
@@ -1100,13 +1140,15 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
       if (team.id === proposal.teamA) {
         return {
           ...team,
-          salarySpent: team.salarySpent - sumContractValue(offerPlayers) + sumContractValue(requestPlayers),
+          salarySpent:
+            getSalarySpent(team) - sumContractValue(offerPlayers) + sumContractValue(requestPlayers),
         };
       }
       if (team.id === proposal.teamB) {
         return {
           ...team,
-          salarySpent: team.salarySpent - sumContractValue(requestPlayers) + sumContractValue(offerPlayers),
+          salarySpent:
+            getSalarySpent(team) - sumContractValue(requestPlayers) + sumContractValue(offerPlayers),
         };
       }
       return team;

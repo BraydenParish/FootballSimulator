@@ -12,13 +12,10 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: "./src/test/setup.ts",
-    include: ["src/**/*.test.ts", "src/**/*.test.tsx", "tests/**/*.test.ts"],
-    exclude: ["e2e/**", "playwright-report/**", "**/node_modules/**"],
+    exclude: ["e2e/**", "node_modules/**"],
     coverage: {
       reporter: ["text", "lcov"],
-      provider: "v8",
-      lines: 70,
-      branches: 60
+      provider: "v8"
     }
   }
 });

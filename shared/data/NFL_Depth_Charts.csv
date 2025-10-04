@@ -1,0 +1,1886 @@
+team,position,depth,jersey,player_name,metadata
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+ARZ,LWR,1,18,Harrison Jr. Marvin 24/1,80
+ARZ,RWR,1,14,Wilson Michael 23/3,89
+ARZ,SWR,1,17,Jones Zay Cc/Jax,4
+ARZ,LT,1,70,Johnson Jr. Paris 23/1,68
+ARZ,LG,1,63,Brown Evan U/Sea,
+ARZ,C,1,72,Froholdt Hjalte U/Cle,71
+ARZ,RG,1,74,Adams Isaiah 24/3,76
+ARZ,RT,1,73,Williams Jonah U/Cin,66
+ARZ,RT,2,"Jacobs, Demontrey SF25",78,"Fryar, Josh CF25"
+ARZ,TE,1,85,Mcbride Trey 22/2,87
+ARZ,TE,2,"Reiman, Tip 24/3",84,"Higgins, Elijah W/Mia"
+ARZ,TE,3,81,Vokolek Travis P/Bal,
+ARZ,QB,1,1,Murray Kyler 19/1,7
+ARZ,RB,1,33,Benson Trey 24/3,31
+ARZ,RB,2,"Demercado, Emari CF23",20,"Knight, Bam SF25"
+ARZ,LDE,1,93,Campbell Calais U/Mia,
+ARZ,NT,1,94,Tomlinson Dalvin Cc/Cle,79
+ARZ,RDE,1,56,Robinson Darius 24/1,55
+ARZ,LOLB,1,5,Browning Baron T/Den,25
+ARZ,WLB,1,2,Wilson Sr. Mack U/Ne,50
+ARZ,MLB,1,27,Davis-Gaither Akeem U/Cin,44
+ARZ,ROLB,1,10,Sweat Josh U/Phi,52
+ARZ,ROLB,2,"Burch, Jordan 25/3",54,"Thomas, Xavier 24/5"
+ARZ,LCB,1,0,Johnson Will 25/2,29
+ARZ,SS,1,3,Baker Budda 17/2,36
+ARZ,FS,1,42,Taylor-Demerson Dadrion 24/4,30
+ARZ,RCB,1,16,Melton Max 24/2,28
+ARZ,NB,1,34,Thompson Jalen 19 S/5,13
+ARZ,PT,1,12,Gillikin Blake Sf23,
+ARZ,PK,1,38,Ryland Chad Sf24,
+ARZ,LS,1,46,Brewer Aaron Sf16,
+ARZ,H,1,12,Gillikin Blake Sf23,
+ARZ,KO,1,38,Ryland Chad Sf24,
+ARZ,PR,1,4,Dortch Greg Sf20,89
+ARZ,KR,1,4,Dortch Greg Sf20,31
+ARZ,KR,2,"Demercado, Emari CF23",20,"Knight, Bam SF25"
+ARZ,WR,1,82,Baccellia Andre Sf21,83
+ARZ,OT,1,67,Byers Jeremiah Cf25,
+ARZ,OG,1,60,Leverett Nick Sf24,64
+ARZ,TE,1,45,Deguara Josiah U/Jax,
+ARZ,QB,1,19,Slovis Kedon Sf25,
+ARZ,RB,1,22,Carter Michael W/Nyj,
+ARZ,ED,1,41,Brown Elliott Sf25,
+ARZ,DI,1,59,Daxon Denzel Sf25*,90
+ARZ,DI,2,"Carter, Zachary SF25",95,"Goodlow, Anthony SF24"
+ARZ,LB,1,48,Bartlett Jared Sf25,47
+ARZ,CB,1,26,Anusiem Chigozie Sf25,35
+ARZ,S,1,39,Mcmorris Patrick Sf25,
+ARZ,PUP,1,97,Nolen Iii Walter De^,9
+ARZ,PUP,2,"Ojulari, BJ OLB^",92,"Nichols, Bilal DE^"
+ARZ,NFI,1,23,Murphy-Bunting Sean Cb,
+ARZ,IR,1,98,Jones Justin De^,58
+ARZ,IR,2,"Conner, Hayden OG^",75,"Jones, Christian OT^"
+ARZ,IR,3,32,Blount Joey S^,91
+ARZ,IR,1,21,Williams Garrett Cb^,6
+ARZ,IR,2,"CONNER, JAMES RB",24,"Thomas V, Starling CB"
+ARZ,IR,3,51,Russell J.J. Lb,69
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+ATL,LWR,1,1,Mooney Darnell U/Chi,82
+ATL,RWR,1,5,London Drake 22/1,4
+ATL,SWR,1,34,Mccloud Iii Ray-Ray U/Sf,87
+ATL,SWR,2,"Sills V, David SF25",14,"AGNEW, JAMAL SF25"
+ATL,LT,1,70,Matthews Jake 14/1,69
+ATL,LG,1,65,Bergeron Matthew 23/2,
+ATL,C,1,64,Neuzil Ryan Cf21,52
+ATL,RG,1,63,Lindstrom Chris 19/1,68
+ATL,RT,1,71,Wilkinson Elijah Sf24,72
+ATL,TE,1,8,Pitts Sr. Kyle 21/1,89
+ATL,TE,2,"Woerner, Charlie U/SF",85,"Quitoriano, Teagan U/Hou"
+ATL,TE,3,84,Franks Feleipe U/Car,
+ATL,QB,1,9,Penix Jr. Michael 24/1,18
+ATL,RB,1,7,Robinson Bijan 23/1,25
+ATL,RB,2,"Allgeier, Tyler 22/5",38,"Carter, Nathan CF25"
+ATL,LDE,1,56,Floyd Leonard Cc/Sf,27
+ATL,LDT,1,90,Onyemata David U/No,54
+ATL,LDT,2,"Dorlus, Brandon 24/4",94,"London, LaCale SF23"
+ATL,RDT,1,96,Harrison Zach 23/3,98
+ATL,RDT,2,"Orhorhoro, Ruke 24/2",99,"Roberts, Sam P/Car"
+ATL,RDE,1,17,Ebiketie Arnold 22/2,11
+ATL,WLB,1,55,Elliss Kaden U/No,51
+ATL,WLB,2,"Malone, DeAngelo 22/3",42,"Woods, Josh SF24"
+ATL,MLB,1,0,Deablo Divine U/Lv,40
+ATL,LCB,1,21,Hughes Mike U/Det,35
+ATL,SS,1,3,Bates Iii Jessie U/Cin,23
+ATL,FS,1,31,Watts Xavier 25/3,
+ATL,RCB,1,24,Terrell Jr. A.J. 20/1,20
+ATL,RCB,2,"Alford, Dee SF22",22,"Phillips III, Clark 23/4"
+ATL,NB,1,33,Bowman Jr. Billy 25/4,28
+ATL,PT,1,13,Pinion Bradley Sf22,
+ATL,PK,1,39,Romo Parker Sf25,
+ATL,LS,1,49,Mccullough Liam Sf22,
+ATL,H,1,13,Pinion Bradley Sf22,
+ATL,KO,1,39,Romo Parker Sf25,
+ATL,PR,1,14,Agnew Jamal Sf25,34
+ATL,PR,2,"McCloud III, Ray-Ray U/SF",35,"Brooks, Natrone CF23"
+ATL,PR,3,20,Alford Dee Sf22,
+ATL,KR,1,14,Agnew Jamal Sf25,34
+ATL,KR,2,"McCloud III, Ray-Ray U/SF",35,"Brooks, Natrone CF23"
+ATL,KR,3,20,Alford Dee Sf22,
+ATL,WR,1,19,Blair Chris Sf23,81
+ATL,WR,2,"Drummond, Dylan SF24",80,"Nash, Nick CF25"
+ATL,OT,1,66,Warren Carter Sf25,73
+ATL,OG,1,67,Gray Joshua Cf25,
+ATL,TE,1,47,Simon Joshua Cf25,
+ATL,QB,1,12,Stick Easton U/Lac,
+ATL,RB,1,26,Washington Jr. Carlos Cf23,
+ATL,ED,1,92,Kareem Khalid Sf24,
+ATL,DI,1,93,Street Kentavius T/Phi,
+ATL,CB,1,37,Bryant Cobee Cf25,32
+ATL,S,1,36,Harrison Ronnie U/Ind,
+ATL,PK,1,46,Krieg Lenny Sf25*,"Sauls, Ben SF25"
+ATL,PUP,1,44,Andersen Troy Lb^,
+ATL,NFI,1,43,Verdon Malik Lb^,
+ATL,IR,1,95,Graham Ta'Quon Dt^,77
+ATL,IR,2,"NORTON, STORM OT^",48,"Trice, Bralen DE^"
+ATL,IR,3,29,Fuller Jordan S^,15
+ATL,IR,1,74,Wheatley Jr. Tyrone Ot,76
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+BAL,LWR,1,81,Walker Devontez 24/4,10
+BAL,RWR,1,7,Bateman Rashod 21/1,16
+BAL,SWR,1,4,Flowers Zay 23/1,83
+BAL,LT,1,79,Stanley Ronnie 16/1,71
+BAL,LG,1,72,Vorhees Andrew 23/7,66
+BAL,C,1,64,Linderbaum Tyler 22/1,67
+BAL,RG,1,77,Faalele Daniel 22/4,
+BAL,RT,1,70,Rosengarten Roger 24/2,68
+BAL,TE,1,89,Andrews Mark 18/3,80
+BAL,TE,2,"Likely, Isaiah 22/4",88,"Kolar, Charlie 22/4"
+BAL,TE,3,84,Mitchell-Paden Zaire Sf24,
+BAL,QB,1,8,Jackson Lamar 18/1,15
+BAL,RB,1,22,Henry Derrick U/Ten,43
+BAL,RB,2,"Hill, Justice 19/4",26,"Ali, Rasheen 24/5"
+BAL,RB,3,34,Mitchell Keaton Cf23,
+BAL,FB,1,42,Ricard Patrick Cf17,
+BAL,DE,1,97,Urban Brent U/Dal,93
+BAL,NT,1,94,Jenkins John U/Lv,91
+BAL,DT,1,98,Jones Travis 22/3,69
+BAL,RUSH,1,95,Robinson Tavius 23/4,99
+BAL,RUSH,2,"Oweh, Odafe 21/1",90,"Ojabo, David 22/2"
+BAL,WLB,1,40,Buchanan Teddye 25/4,32
+BAL,MLB,1,0,Smith Roquan T/Chi,35
+BAL,MLB,2,"Hummel, Jake U/LAR",49,"Higgins IV, Jay CF25"
+BAL,SLB,1,53,Van Noy Kyle Sf23,45
+BAL,LCB,1,2,Wiggins Nate 24/1,23
+BAL,SS,1,14,Hamilton Kyle 22/1,21
+BAL,FS,1,24,Starks Malaki 25/1,30
+BAL,RCB,1,3,Awuzie Chidobe Cc/Ten,27
+BAL,NB,1,44,Humphrey Marlon 17/1,38
+BAL,PT,1,11,Stout Jordan 22/4,
+BAL,PK,1,33,Loop Tyler 25/6,
+BAL,LS,1,46,Moore Nick Sf20,
+BAL,H,1,11,Stout Jordan 22/4,
+BAL,KO,1,33,Loop Tyler 25/6,
+BAL,PR,1,83,Wester Lajohntay 25/6,16
+BAL,KR,1,26,Ali Rasheen 24/5,16
+BAL,KR,2,"Wallace, Tylan 21/4",43,"Hill, Justice 19/4"
+BAL,WR,1,18,Kirkwood Keith U/No,86
+BAL,OT,1,78,Lichtenhan Gerad Cf25,
+BAL,OG,1,63,Penning Jared Cf25,
+BAL,C,1,67,Mustipher Sam Sf25,
+BAL,QB,1,17,Huntley Tyler Sf25,
+BAL,FB,1,47,Scott Lucas Cf25,
+BAL,ED,1,56,Rucker Kaimon Cf25,59
+BAL,DI,1,58,Bryan Taven Sf25,
+BAL,LB,1,54,Martin Chandler Cf25,
+BAL,CB,1,28,Robinson Marquise Cf25,
+BAL,S,1,39,Jackson Keondre Cf25,
+BAL,PUP,1,29,Washington Ar'Darius S^,
+BAL,NFI,1,51,Jones Jr. Emery Og^,
+BAL,PS/IR,1,48,Gray J.T. S^,
+BAL,IR,1,50,Isaac Adisa Olb^,92
+BAL,IR,2,"Madubuike, Nnamdi DT^",96,"Washington Jr., Broderick DE^"
+BAL,IR,3,37,Longerbeam Robert Cb,31
+BAL,IR,1,82,Wade Dayton Wr,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+BUF,LWR,1,5,Palmer Joshua U/Lac,14
+BUF,RWR,1,0,Coleman Keon 24/2,1
+BUF,SWR,1,10,Shakir Khalil 22/5,18
+BUF,LT,1,73,Dawkins Dion 17/2,74
+BUF,LG,1,76,Edwards David U/Lar,
+BUF,C,1,66,Mcgovern Connor U/Dal,62
+BUF,RG,1,64,Torrence O'Cyrus 23/2,70
+BUF,RT,1,79,Brown Spencer 21/3,77
+BUF,TE,1,86,Kincaid Dalton 23/1,88
+BUF,TE,2,"Knox, Dawson 19/3",85,"Hawes, Jackson 25/5"
+BUF,QB,1,17,Allen Josh 18/1,11
+BUF,RB,1,4,Cook Iii James 22/2,26
+BUF,RB,2,"Johnson, Ty SF23",22,"Davis, Ray 24/4"
+BUF,FB,1,41,Gilliam Reggie Cf20,
+BUF,LDE,1,50,Rousseau Greg 21/1,57
+BUF,LDE,2,"Epenesa, A.J. 20/2",94,"Jackson, Landon 25/3"
+BUF,NT,1,92,Jones Daquan U/Car,96
+BUF,DT,1,91,Oliver Ed 19/1,98
+BUF,DT,2,"Sanders, T.J. 25/2",52,"PHILLIPS, JORDAN SF24"
+BUF,RDE,1,97,Bosa Joey Cc/Lac,56
+BUF,WLB,1,58,Milano Matt 17/5,42
+BUF,MLB,1,8,Bernard Terrel 22/3,45
+BUF,MLB,2,"THOMPSON, SHAQ U/Car",44,"Andreessen, Joe CF24"
+BUF,LCB,1,47,Benford Christian 22/6,46
+BUF,SS,1,24,Bishop Cole 24/2,3
+BUF,FS,1,9,Rapp Taylor U/Lar,28
+BUF,FS,2,"Franklin Jr., Sam SF25",37,"Hancock, Jordan 25/5"
+BUF,RCB,1,27,White Tre'Davious U/Bal,43
+BUF,NB,1,7,Johnson Taron 18/4,39
+BUF,NB,2,"Lewis, Cam CF19",29,"Codrington, Brandon T/NYJ"
+BUF,PT,1,16,Johnston Cameron Sf25,
+BUF,PK,1,15,Prater Matt U/Arz,
+BUF,LS,1,69,Ferguson Reid Cf16,
+BUF,H,1,16,Johnston Cameron Sf25,
+BUF,KO,1,15,Prater Matt U/Arz,
+BUF,PR,1,29,Codrington Brandon T/Nyj,10
+BUF,KR,1,29,Codrington Brandon T/Nyj,26
+BUF,KR,2,"Johnson, Ty SF23",18,"Moore, Elijah U/Cle"
+BUF,WR,1,82,Wilkerson Kristian Sf25,89
+BUF,OT,1,67,Clayton Travis 24/7*,
+BUF,OG,1,53,Green Kendrick U/Hou,67
+BUF,TE,1,83,Latu Keleki Cf25,
+BUF,QB,1,6,Buechele Shane Sf23,
+BUF,RB,1,20,Gore Jr. Frank Cf24,
+BUF,ED,1,59,Jones Jr. Andre Sf25,
+BUF,DI,1,72,Mathis Phidarian Sf25,93
+BUF,LB,1,35,Ciarlo Jimmy Sf25,49
+BUF,LB,2,"Jenkins, Keonta CF25",40,"Reese IV, Otis SF25"
+BUF,CB,1,23,Jackson Dane Cc/Car,
+BUF,S,1,21,Poyer Jordan U/Mia,
+BUF,IR,1,31,Hairston Maxwell Cb^,68
+BUF,IR,2,"Grable, Tylan OT^",2,"Bass, Tyler PK^"
+BUF,IR,3,90,Carter Dewayne Dt,30
+BUF,PS/IR,1,13,Davis Gabe Wr,
+BUF,SUS,1,55,Hoecht Michael De,99
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+CAR,LWR,1,4,Mcmillan Tetairoa 25/1,87
+CAR,LWR,2,"Tremayne, Brycen SF25",81,"Campbell, Dalevon W/LAC"
+CAR,RWR,1,17,Legette Xavier 24/1,83
+CAR,SWR,1,13,Renfrow Hunter Cc/Lv,15
+CAR,LT,1,79,Ekwonu Ikem 22/1,77
+CAR,LG,1,68,Lewis Damien U/Sea,73
+CAR,C,1,64,Mays Cade P/Nyg,60
+CAR,RG,1,62,Zavala Chandler 23/4,
+CAR,RT,1,72,Moton Taylor 17/2,70
+CAR,TE,1,0,Sanders Ja'Tavion 24/4,82
+CAR,TE,2,"Tremble, Tommy 21/3",84,"Evans, Mitchell 25/5"
+CAR,TE,3,85,Mitchell James Sf25,
+CAR,QB,1,9,Young Bryce 23/1,14
+CAR,RB,1,30,Hubbard Chuba 21/4,5
+CAR,RB,2,"Dowdle, Rico U/Dal",23,"Etienne, Trevor 25/4"
+CAR,LDE,1,95,Brown Derrick 20/1,96
+CAR,NT,1,97,Brown Iii Bobby U/Lar,92
+CAR,RDE,1,94,Robinson A'Shawn U/Nyg,99
+CAR,LOLB,1,91,Jones Ii Patrick U/Min,11
+CAR,LOLB,2,"Scourton, Nic 25/2",52,"Johnson, DJ 23/3"
+CAR,LOLB,3,54,Basham Boogie Sf25,
+CAR,LILB,1,32,Wallace Trevin 24/3,53
+CAR,LILB,2,"Cherelus, Claudin W/NYJ",55,"Njongmeta, Maema P/Cin"
+CAR,RILB,1,56,Rozeboom Christian U/Lar,57
+CAR,ROLB,1,98,Wonnum D.J. U/Min,3
+CAR,ROLB,2,"Umanmielen, Princely 25/3",48,"Incoom, Thomas SF24"
+CAR,LCB,1,2,Jackson Mike T/Sea,31
+CAR,SS,1,7,Moehrig Tre'Von U/Lv,22
+CAR,FS,1,21,Scott Nick Cc/Cin,36
+CAR,RCB,1,8,Horn Jaycee 21/1,29
+CAR,NB,1,26,Smith-Wade Chau 24/5,
+CAR,PT,1,6,Martin Sam Cc/Buf,
+CAR,PK,1,10,Fitzgerald Ryan Cf25,
+CAR,LS,1,44,Jansen Jj T/Gb,
+CAR,H,1,6,Martin Sam Cc/Buf,
+CAR,KO,1,10,Fitzgerald Ryan Cf25,
+CAR,PR,1,23,Etienne Trevor 25/4,83
+CAR,PR,2,"MOORE, DAVID U/TB",15,"Horn Jr., Jimmy 25/6"
+CAR,KR,1,23,Etienne Trevor 25/4,5
+CAR,KR,2,"Dowdle, Rico U/Dal",83,"MOORE, DAVID U/TB"
+CAR,KR,3,15,Horn Jr. Jimmy 25/6,
+CAR,WR,1,86,Reed Ja'Seem Sf25,80
+CAR,WR,2,"Smith, Ainias SF25",88,"Chisena, Dan SF24"
+CAR,OT,1,71,Tarquin Michael Cf25,
+CAR,OG,1,61,Kingston Jarrett W/Sf,
+CAR,TE,1,45,Pierre Bryce Cf25,
+CAR,QB,1,12,Hooker Hendon Sf25,
+CAR,RB,1,20,Dallas Deejay Sf25,
+CAR,DI,1,75,Harrison-Hunte Jared Cf25,
+CAR,LB,1,40,Barnes Krys U/Arz,58
+CAR,CB,1,35,Reid Michael Cf25,25
+CAR,S,1,42,Thomas Trevian Cf25,27
+CAR,PUP,1,24,Brooks Jonathon Rb,
+CAR,IR,1,93,Ray Labryan De^,18
+CAR,IR,2,"Coker, Jalen WR^",63,"CORBETT, AUSTIN OC^"
+CAR,IR,3,50,Hunt Robert Og^,78
+CAR,IR,1,28,Mathis Damarri Cb,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+CHI,LWR,1,15,Odunze Rome 24/1,20
+CHI,RWR,1,2,Moore Dj T/Car,12
+CHI,SWR,1,14,Zaccheaus Olamide U/Was,10
+CHI,LT,1,70,Jones Braxton 22/5,75
+CHI,LG,1,62,Thuney Joe T/Kc,65
+CHI,C,1,52,Dalman Drew U/Atl,71
+CHI,RG,1,73,Jackson Jonah T/Lar,
+CHI,RT,1,58,Wright Darnell 23/1,79
+CHI,TE,1,85,Kmet Cole 20/2,84
+CHI,TE,2,"Loveland, Colston 25/1",81,"SMYTHE, DURHAM CC/Mia"
+CHI,TE,3,88,Carlson Stephen Sf23,
+CHI,QB,1,18,Williams Caleb 24/1,17
+CHI,QB,2,"Bagent, Tyson CF23",11,"KEENUM, CASE U/Hou"
+CHI,RB,1,4,Swift D'Andre U/Phi,25
+CHI,RB,2,"Monangai, Kyle 25/7",23,"Johnson, Roschon 23/4"
+CHI,LDE,1,98,Sweat Montez T/Was,69
+CHI,LDE,2,"KPASSAGNON, TANOH U/NO",92,"Hardy, Daniel SF23"
+CHI,LDT,1,99,Dexter Sr. Gervon 23/2,97
+CHI,LDT,2,"BILLINGS, ANDREW U/LV",96,"Ford, Jonathan P/GB"
+CHI,RDT,1,50,Jarrett Grady Cc/Atl,91
+CHI,RDT,2,"Williams, Chris T/Cle",95,"Turner, Shemar 25/2"
+CHI,RDE,1,55,Odeyingbo Dayo U/Ind,90
+CHI,WLB,1,53,Edwards T.J. U/Phi,44
+CHI,WLB,2,"Sewell, Noah 23/5",48,"Jackson, D'Marco W/NO"
+CHI,MLB,1,49,Edmunds Tremaine U/Buf,47
+CHI,MLB,2,"Hyppolite II, Ruben 25/4",43,"Jones, Carl CF24"
+CHI,LCB,1,29,Stevenson Tyrique 23/2,33
+CHI,SS,1,9,Brisker Jaquan 22/2,36
+CHI,FS,1,31,Byard Iii Kevin Cc/Phi,22
+CHI,RCB,1,26,Wright Nahshon Sf25,
+CHI,NB,1,6,Gordon Kyler 22/2,24
+CHI,NB,2,"McCloud, Nick U/SF",39,"Blackwell, Josh W/Phi"
+CHI,PT,1,19,Taylor Tory 24/4,
+CHI,PK,1,8,Santos Cairo Sf20,
+CHI,LS,1,46,Daly Scott Sf24,
+CHI,H,1,19,Taylor Tory 24/4,
+CHI,KO,1,8,Santos Cairo Sf20,
+CHI,PR,1,12,Duvernay Devin Cc/Jax,39
+CHI,PR,2,"Blackwell, Josh W/Phi",10,"Burden III, Luther 25/2"
+CHI,KR,1,10,Burden Iii Luther 25/2,12
+CHI,KR,2,"Duvernay, Devin CC/Jax",25,"Monangai, Kyle 25/7"
+CHI,WR,1,80,Boykin Miles Sf25,13
+CHI,WR,2,"Alexander, Maurice SF25",83,"Richardson, JP CF25"
+CHI,OG,1,74,Mcfadden Jordan W/Lac,
+CHI,C,1,67,Stromberg Ricky Sf24,"Hill, Trey SF25"
+CHI,TE,1,86,Kalinic Nikola Sf25,
+CHI,RB,1,38,Brown Brittain Sf25,
+CHI,ED,1,59,Kromah Jamree Cf24,
+CHI,CB,1,27,Manning Dontae Sf25,37
+CHI,S,1,30,Owens Gervarrius Sf25,
+CHI,PK,1,16,Moody Jake Sf25,
+CHI,NFI,1,35,Frazier Zah Cb,
+CHI,PS/IR,1,93,Carlton Xavier De^,
+CHI,IR,1,21,Homer Travis Rb^,45
+CHI,IR,2,"Ogbongbemiga, Amen LB^",94,"Booker, Austin DE^"
+CHI,IR,3,1,Johnson Jaylon Cb^,72
+CHI,IR,1,32,Smith Terell Cb,35
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+CIN,LWR,1,1,Chase Ja'Marr 21/1,81
+CIN,RWR,1,5,Higgins Tee 20/2,15
+CIN,SWR,1,80,Iosivas Andrei 23/6,82
+CIN,LT,1,75,Brown Jr. Orlando U/Kc,
+CIN,LG,1,63,Fairchild Dylan 25/3,
+CIN,C,1,64,Karras Ted U/Ne,65
+CIN,RG,1,66,Risner Dalton U/Min,74
+CIN,RT,1,71,Mims Amarius 24/1,61
+CIN,TE,1,89,Sample Drew 19/2,88
+CIN,TE,2,"GESICKI, MIKE U/NE",86,"Fant, Noah CC/Sea"
+CIN,TE,3,85,Grandy Cam Cf24,87
+CIN,QB,1,6,Browning Jake Sf21,11
+CIN,RB,1,30,Brown Chase 23/5,34
+CIN,RB,2,"PERINE, SAMAJE U/KC",25,"Brooks, Tahj 25/6"
+CIN,LDE,1,58,Ossai Joseph 21/3,97
+CIN,LDT,1,98,Slaton Jr. T.J. U/Gb,69
+CIN,LDT,2,"PENNEL, MIKE SF25",93,"Jackson, McKinnley 24/3"
+CIN,RDT,1,92,Hill B.J. T/Nyg,90
+CIN,RDT,2,"Jenkins Jr., Kris 24/2",95,"Cross III, Howard CF25"
+CIN,RDE,1,91,Hendrickson Trey U/No,99
+CIN,RDE,2,"Murphy, Myles 23/1",96,"Sample, Cam 21/4"
+CIN,WLB,1,44,Knight Jr. Demetrius 25/2,42
+CIN,WLB,2,"BURKS, OREN U/Phi",50,"Heyward, Shaka CF23"
+CIN,MLB,1,55,Wilson Logan 20/3,49
+CIN,LCB,1,20,Turner Ii Dj 23/2,24
+CIN,SS,1,27,Battle Jordan 23/3,37
+CIN,FS,1,22,Stone Geno U/Bal,26
+CIN,RCB,1,29,Taylor-Britt Cam 22/2,28
+CIN,RCB,2,"Newton, Josh 24/5",38,"Ivey, DJ 23/7"
+CIN,NB,1,23,Hill Dax 22/1,
+CIN,PT,1,8,Rehkow Ryan Sf24,
+CIN,PK,1,2,Mcpherson Evan 21/5,
+CIN,LS,1,46,Wagner William Cf25,
+CIN,H,1,8,Rehkow Ryan Sf24,
+CIN,KO,1,2,Mcpherson Evan 21/5,
+CIN,PR,1,15,Jones Charlie 23/4,81
+CIN,KR,1,34,Perine Samaje U/Kc,15
+CIN,KR,2,"Jones, Charlie 23/4",81,"Burton, Jermaine 24/3"
+CIN,KR,3,30,Brown Chase 23/5,
+CIN,WR,1,14,Moore Jordan Cf25,19
+CIN,OT,1,79,Coker Andrew Sf24,73
+CIN,OG,1,60,Kirkland Jaxson Cf23,
+CIN,C,1,68,Mclaughlin Seth Cf25,
+CIN,QB,1,4,Clifford Sean Sf25,4
+CIN,RB,1,32,Brightwell Gary Sf24,36
+CIN,ED,1,56,Cole Myles Sf25,51
+CIN,LB,1,43,Giles-Harris Joe U/Jax,
+CIN,CB,1,35,Davis Jalen Sf20,21
+CIN,S,1,39,Yeast Russ Sf25,
+CIN,PUP,1,83,All Jr. Erick Te^,
+CIN,IR,1,33,Anthony Daijahn S^,52
+CIN,IR,2,"Johnson, Cedric DE^",62,"PATRICK, LUCAS OG^"
+CIN,IR,3,9,Burrow Joe Qb^,67
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+CLE,LWR,1,19,Tillman Cedric 23/3,
+CLE,RWR,1,3,Jeudy Jerry T/Den,2
+CLE,SWR,1,16,Bond Isaiah Cf25,80
+CLE,LT,1,71,Lucas Cornelius U/Was,64
+CLE,LG,1,75,Bitonio Joel 14/2,74
+CLE,C,1,55,Pocic Ethan U/Sea,56
+CLE,RG,1,77,Teller Wyatt T/Buf,70
+CLE,RT,1,78,Conklin Jack U/Ten,72
+CLE,TE,1,85,Njoku David 17/1,44
+CLE,TE,2,"Fannin Jr., Harold 25/3",86,"Whiteheart, Blake SF24"
+CLE,QB,1,15,Flacco Joe U/Ind,8
+CLE,QB,2,"Gabriel, Dillon 25/3",12,"Sanders, Shedeur 25/5"
+CLE,RB,1,10,Judkins Quinshon 25/2,34
+CLE,RB,2,"Ford, Jerome 22/5",22,"Sampson, Dylan 25/4"
+CLE,RB,3,35,Sanders Raheim W/Lac,
+CLE,LDE,1,57,Mcguire Isaiah 23/4,91
+CLE,LDT,1,96,Collins Maliek Cc/Sf,93
+CLE,RDT,1,94,Graham Mason 25/1,51
+CLE,RDT,2,"Hall Jr., Mike 24/2",98,"Huntington, Adin CF25"
+CLE,RDE,1,95,Garrett Myles 17/1,99
+CLE,RDE,2,"Thomas, Cameron W/KC",90,"Tryon-Shoyinka, Joe U/TB"
+CLE,WLB,1,30,Bush Devin U/Sea,43
+CLE,MLB,1,49,Schwesinger Carson 25/2,17
+CLE,MLB,2,"Baker, Jerome U/Ten",42,"Mascarenas-Arnold, Easton CF25"
+CLE,LCB,1,21,Ward Denzel 18/1,37
+CLE,LCB,2,"Jones, Dom CF25",28,"Avery, Tre SF25"
+CLE,SS,1,9,Delpit Grant 20/2,5
+CLE,FS,1,33,Hickman Ronnie Cf23,31
+CLE,FS,2,"McMillon, Donovan CF25",23,"KAZEE, DAMONTAE U/Pit"
+CLE,RCB,1,0,Newsome Ii Greg 21/1,20
+CLE,NB,1,26,Harden Myles 24/7,29
+CLE,PT,1,13,Bojorquez Corey U/Gb,
+CLE,PK,1,25,Szmyt Andre Sf24,
+CLE,LS,1,50,Sunahara Rex Sf24,
+CLE,H,1,13,Bojorquez Corey U/Gb,
+CLE,KO,1,25,Szmyt Andre Sf24,
+CLE,PR,1,2,Carter Deandre U/Chi,16
+CLE,KR,1,2,Carter Deandre U/Chi,34
+CLE,WR,1,84,Larvadain Gage Cf25,83
+CLE,WR,2,"Corley, Malachi SF25",89,"Davis, Kaden SF24"
+CLE,WR,3,81,Floriea Luke Cf25,
+CLE,OT,1,66,Miles Joshua Sf25,69
+CLE,OG,1,52,Dellinger Garrett Sf25,
+CLE,TE,1,87,Cannella Sal Sf25,
+CLE,QB,1,11,Zappe Bailey Sf25,
+CLE,RB,1,39,Marshall Ahmani Cf25,
+CLE,ED,1,53,Okwara Julian U/Arz,
+CLE,DI,1,92,Kamara Sam Sf22,
+CLE,LB,1,54,Ulofoshio Edefuan Sf25,
+CLE,S,1,41,Edmonds Christopher Cf24,
+CLE,PUP,1,4,Watson Deshaun Qb^,6
+CLE,NFI,1,18,Bell David Wr^,
+CLE,IR,1,59,Reid Winston Lb^,1
+CLE,IR,2,"Emerson Jr., Martin CB",62,"Osborne, Justin OC"
+CLE,IR,3,44,Kendall Anthony Cb,40
+CLE,IR,1,31,Mcdonald Cade Wr,79
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+DAL,LWR,1,3,Pickens George T/Pit,19
+DAL,RWR,1,1,Tolbert Jalen 22/3,16
+DAL,SWR,1,88,Lamb Ceedee 20/1,9
+DAL,LT,1,60,Guyton Tyler 24/1,71
+DAL,LG,1,73,Smith Tyler 22/1,76
+DAL,C,1,67,Hoffman Brock Sf22,
+DAL,RG,1,52,Booker Tyler 25/1,66
+DAL,RT,1,78,Steele Terence Cf20,75
+DAL,RT,2,"Adeniji, Hakeem U/Cle",69,"Cornelius, Ajani 25/6"
+DAL,TE,1,87,Ferguson Jake 22/4,86
+DAL,TE,2,"Schoonmaker, Luke 23/2",89,"Spann-Ford, Brevyn CF24"
+DAL,QB,1,4,Prescott Dak 16/4,10
+DAL,RB,1,33,Williams Javonte U/Den,24
+DAL,RB,2,"Sanders, Miles CC/Car",23,"Blue, Jaydon 25/5"
+DAL,FB,1,40,Luepke Hunter Cf23,
+DAL,LDE,1,54,Williams Sam 22/2,41
+DAL,LDE,2,"Ezeiruaku, Donovan 25/2",42,"CLOWNEY, JADEVEON CC/Car"
+DAL,NT,1,95,Clark Kenny T/Gb,58
+DAL,NT,2,"Smith, Mazi 23/1",93,"Toia, Jay 25/7"
+DAL,DT,1,97,Odighizuwa Osa 21/3,90
+DAL,RDE,1,13,Fowler Jr. Dante U/Was,94
+DAL,RDE,2,"Kneeland, Marshawn 24/2",53,"Houston, James U/Cle"
+DAL,WLB,1,57,Sanborn Jack U/Chi,18
+DAL,WLB,2,"Clark, Damone 22/5",50,"James, Shemar 25/5"
+DAL,MLB,1,59,Murray Jr. Kenneth T/Ten,35
+DAL,LCB,1,7,Diggs Trevon 20/2,25
+DAL,SS,1,6,Wilson Donovan 19/6,14
+DAL,FS,1,28,Hooker Malik Sf21,2
+DAL,RCB,1,20,Elam Kaiir T/Buf,29
+DAL,NB,1,26,Bland Daron 22/5,27
+DAL,PT,1,5,Anger Bryan Cc/Hou,
+DAL,PK,1,17,Aubrey Brandon Sf23,
+DAL,LS,1,44,Sieg Trent Sf23,
+DAL,H,1,5,Anger Bryan Cc/Hou,
+DAL,KO,1,17,Aubrey Brandon Sf23,
+DAL,PR,1,9,Turpin Kavontae Sf22,1
+DAL,KR,1,9,Turpin Kavontae Sf22,1
+DAL,KR,2,"Tolbert, Jalen 22/3",24,"Sanders, Miles CC/Car"
+DAL,KR,3,23,Blue Jaydon 25/5,
+DAL,WR,1,83,Brooks Jalen 23/7,80
+DAL,OT,1,79,Christian Geron U/Cle,
+DAL,C,1, ,French Wesley Sf25,
+DAL,TE,1,85,Fant Princeton Cf23,84
+DAL,QB,1,15,Grier Will Sf24,
+DAL,RB,1,21,Davis Malik Cf22,
+DAL,ED,1,91,Land Isaiah Sf25,
+DAL,DI,1,51,Brown Iv Earnest P/Tb,92
+DAL,LB,1,55,Barron Justin Cf25,32
+DAL,CB,1,30,Rochell Robert Sf25,"Ballentine, Corey SF25"
+DAL,S,1,38,Clark Alijah Cf25,
+DAL,PUP,1,0,Overshown Demarvion Lb^,31
+DAL,NFI,1,34,Revel Jr. Shavon Cb^,
+DAL,IR,1,37,Mafah Phil Rb^,21
+DAL,IR,2,"Carson, Caelen CB^",98,"Turner, Payton DE^"
+DAL,IR,3,81,Mingo Jonathan Wr^,99
+DAL,IR,1,56,Beebe Cooper Oc^,65
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+DEN,LWR,1,14,Sutton Courtland 18/2,13
+DEN,RWR,1,19,Mims Jr. Marvin 23/2,5
+DEN,SWR,1,11,Franklin Troy 24/4,
+DEN,LT,1,72,Bolles Garett 17/1,79
+DEN,LG,1,74,Powers Ben U/Bal,
+DEN,C,1,60,Wattenberg Luke 22/5,54
+DEN,RG,1,77,Meinerz Quinn 21/3,63
+DEN,RT,1,69,Mcglinchey Mike U/Sf,73
+DEN,TE,1,82,Trautman Adam T/No,1
+DEN,TE,2,"ENGRAM, EVAN CC/Jax",85,"Krull, Lucas SF23"
+DEN,TE,3,45,Adkins Nate Cf23,
+DEN,QB,1,10,Nix Bo 24/1,8
+DEN,QB,2,"Stidham, Jarrett U/LV",4,"Ehlinger, Sam U/Ind"
+DEN,RB,1,27,Dobbins J.K. U/Lac,12
+DEN,RB,2,"Harvey, RJ 25/2",28,"Badie, Tyler P/Bal"
+DEN,RB,3,38,Mclaughlin Jaleel Cf23,
+DEN,FB,1,46,Prentice Adam U/No,
+DEN,LDE,1,99,Allen Zach U/Arz,94
+DEN,NT,1,93,Jones D.J. U/Sf,96
+DEN,RDE,1,98,Franklin-Myers John T/Nyj,95
+DEN,LOLB,1,0,Cooper Jonathon 21/7,52
+DEN,LILB,1,40,Strnad Justin 20/5,
+DEN,RILB,1,49,Singleton Alex U/Phi,47
+DEN,ROLB,1,15,Bonitto Nik 22/2,92
+DEN,ROLB,2,"Tillman, Dondrea SF24",51,"Robinson, Que 25/4"
+DEN,LCB,1,2,Surtain Ii Pat 21/1,
+DEN,SS,1,9,Hufanga Talanoa U/Sf,6
+DEN,SS,2,"Locke, P.J. SF19",34,"Skinner, JL 23/6"
+DEN,FS,1,22,Jones Brandon U/Mia,26
+DEN,RCB,1,21,Moss Riley 23/3,31
+DEN,NB,1,29,Mcmillian Ja'Quan Cf22,23
+DEN,PT,1,16,Crawshaw Jeremy 25/6,
+DEN,PK,1,3,Lutz Wil T/No,
+DEN,LS,1,48,Fraboni Mitchell Sf22,
+DEN,H,1,16,Crawshaw Jeremy 25/6,
+DEN,KO,1,3,Lutz Wil T/No,
+DEN,PR,1,19,Mims Jr. Marvin 23/2,21
+DEN,KR,1,19,Mims Jr. Marvin 23/2,12
+DEN,KR,2,"Harvey, RJ 25/2",28,"Badie, Tyler P/Bal"
+DEN,KR,3,38,Mclaughlin Jaleel Cf23,
+DEN,WR,1,83,Bandy Michael U/Lac,87
+DEN,WR,2,"Perry, A.T. SF24",89,"Thomas, Thayer SF25"
+DEN,OG,1,76,Throckmorton Calvin U/Ten,
+DEN,C,1,68,Michalski Joe Cf25,
+DEN,TE,1,84,Lohner Caleb 25/7,86
+DEN,RB,1,42,Vaughn Deuce Sf25,
+DEN,DI,1,90,Miller Jordan Cf24,
+DEN,LB,1,56,Bailey Levelle Cf24,55
+DEN,LB,2,"Turner, Jordan CF25",50,"Wallow, Garret U/Ten"
+DEN,CB,1,35,Taylor Reese Sf23,33
+DEN,CB,2,"Robinson, Jaden CF25",Woods A.J. Sf25,
+DEN,S,1,32,Turner-Yell Delarrin 22/5,43
+DEN,IR,1,41,Sanders Drew Ilb^,97
+DEN,IR,2,"Roach, Malcolm DT^",57,"Greenlaw, Dre ILB^"
+DEN,IR,3,59,Walker Johnny Olb,91
+DEN,IR,1,20,Burton Michael Fb,66
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+DET,LWR,1,11,Raymond Kalif U/Ten,18
+DET,RWR,1,1,Williams Jameson 22/1,83
+DET,SWR,1,14,St. Brown Amon-Ra 21/4,19
+DET,LT,1,68,Decker Taylor 16/1,59
+DET,LG,1,73,Mahogany Christian 24/6,
+DET,C,1,60,Glasgow Graham Cc/Den,65
+DET,RG,1,69,Ratledge Tate 25/2,74
+DET,RT,1,58,Sewell Penei 21/1,
+DET,TE,1,87,Laporta Sam 23/2,89
+DET,TE,2,"Wright, Brock CF21",82,"DWELLEY, ROSS SF25"
+DET,QB,1,16,Goff Jared T/Lar,8
+DET,RB,1,0,Gibbs Jahmyr 23/1,5
+DET,RB,2,"Montgomery, David U/Chi",33,"Vaki, Sione 24/4"
+DET,RB,3,25,Saylors Jacob Sf25,13
+DET,LDE,1,97,Hutchinson Aidan 22/1,99
+DET,NT,1,98,Reader Dj U/Cin,51
+DET,NT,2,"Lopez, Roy U/Arz",90,"Smith, Chris CF23"
+DET,DT,1,91,Williams Tyleik 25/1,78
+DET,DT,2,"Lacy, Tyler W/Jax",94,"Wingo, Mekhi 24/6"
+DET,RDE,1,96,Muhammad Al-Quadin Sf24,95
+DET,WLB,1,34,Anzalone Alex U/No,15
+DET,MLB,1,46,Campbell Jack 23/1,52
+DET,SLB,1,55,Barnes Derrick 21/4,53
+DET,LCB,1,6,Arnold Terrion 24/1,30
+DET,SS,1,32,Branch Brian 23/2,
+DET,FS,1,31,Joseph Kerby 22/3,12
+DET,RCB,1,4,Reed D.J. U/Nyj,23
+DET,NB,1,21,Robertson Amik U/Lv,29
+DET,PT,1,3,Fox Jack Cf19,
+DET,PK,1,39,Bates Jake Sf24,
+DET,LS,1,49,Hatten Hogan Cf24,
+DET,H,1,3,Fox Jack Cf19,
+DET,KO,1,3,Fox Jack Cf19,
+DET,PR,1,11,Raymond Kalif U/Ten,19
+DET,KR,1,25,Saylors Jacob Sf25,15
+DET,KR,2,"Stuard, Grant U/Ind",11,"RAYMOND, KALIF U/Ten"
+DET,WR,1,85,Kennedy Tom Cf19,10
+DET,WR,2,"Bell, Ronnie SF25",80,"Cunningham, Malik SF25"
+DET,OT,1,70,Skipper Dan Sf23,77
+DET,OG,1,63,Miller Mason Cf25,
+DET,C,1,62,Niese Michael Sf23,57
+DET,TE,1,40,Horton Zach Cf25,
+DET,QB,1,17,Beathard C.J. U/Jax,
+DET,ED,1,50,Carter Ii Andre Sf25,
+DET,DI,1,66,Adams Myles P/Sea,64
+DET,DI,2,"Cooper Jr., Keith CF25",Jefferson Quinton U/Buf,
+DET,CB,1,36,Hallett Erick Sf24,
+DET,S,1,24,Strickland Loren Cf24,
+DET,PUP,1,54,Mcneill Alim Dt^,44
+DET,PUP,2,"Rodriguez, Malcolm LB^",71,"Frazier, Miles OG^"
+DET,PUP,3,78,Onwuzurike Levi Dt,
+DET,NFI,1,93,Paschal Josh De^,
+DET,IR,1,72,Jones Jamarco Ot^,84
+DET,IR,2,"Zylstra, Shane TE^",92,"Davenport, Marcus DE^"
+DET,IR,3,2,Thomas Daniel S^,75
+DET,IR,1,88,Yeboah Kenny Te,47
+DET,IR,2,"Turner, Ezekiel LB",28,"Jackson, Dan S"
+DET,IR,3,25,Robichaux Kye Rb,76
+DET,IR,1,9,Rakestraw Jr. Ennis Cb,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+GB,LWR,1,87,Doubs Romeo 22/4,83
+GB,RWR,1,0,Golden Matthew 25/1,18
+GB,SWR,1,13,Wicks Dontayvion 23/5,
+GB,LT,1,63,Walker Rasheed 22/7,71
+GB,LT,2,"Belton, Anthony 25/2",72,"Banks, Brant CF25"
+GB,LG,1,65,Banks Aaron U/Sf,77
+GB,C,1,74,Jenkins Elgton 19/2,64
+GB,RG,1,75,Rhyan Sean 22/3,67
+GB,RT,1,50,Tom Zach 22/4,70
+GB,TE,1,85,Kraft Tucker 23/3,88
+GB,TE,2,"Musgrave, Luke 23/2",86,"FitzPatrick, John P/Atl"
+GB,TE,3,89,Sims Ben W/Min,
+GB,QB,1,10,Love Jordan 20/1,2
+GB,RB,1,8,Jacobs Josh U/Lv,23
+GB,RB,2,"Wilson, Emanuel SF23",30,"Brooks, Chris SF24"
+GB,LDE,1,52,Gary Rashan 19/1,55
+GB,LDT,1,95,Wyatt Devonte 22/1,96
+GB,LDT,2,"Wooden, Colby 23/4",91,"Brinson, Warren 25/6"
+GB,RDT,1,94,Brooks Karl 23/6,93
+GB,RDE,1,1,Parsons Micah T/Dal,90
+GB,RDE,2,"Van Ness, Lukas 23/1",99,"Sorrell, Barryn 25/4"
+GB,WLB,1,56,Cooper Edgerrin 24/2,59
+GB,WLB,2,"Hopper, Ty'Ron 24/3",31,"Niemann, Nick SF25"
+GB,MLB,1,7,Walker Quay 22/1,58
+GB,LCB,1,25,Nixon Keisean U/Lv,16
+GB,LCB,2,"Melton, Bo P/Sea",36,"Hadden, Kamal SF24"
+GB,SS,1,29,Mckinney Xavier U/Nyg,27
+GB,FS,1,33,Williams Evan 24/4,39
+GB,RCB,1,21,Hobbs Nate U/Lv,24
+GB,NB,1,20,Bullard Javon 24/2,
+GB,PT,1,19,Whelan Daniel Sf23,
+GB,PK,1,17,Mcmanus Brandon Sf24,
+GB,LS,1,42,Orzech Matt U/Lar,
+GB,H,1,19,Whelan Daniel Sf23,
+GB,KO,1,17,Mcmanus Brandon Sf24,
+GB,PR,1,0,Golden Matthew 25/1,25
+GB,KR,1,83,Williams Savion 25/3,23
+GB,KR,2,"Wilson, Emanuel SF23",13,"Wicks, Dontayvion 23/5"
+GB,WR,1,80,Neyor Isaiah Sf25,82
+GB,WR,2,"Sheppard, Will CF25",84,"Keeney-James, Jakobie SF25"
+GB,OG,1,78,Cooper Dalton Sf25,
+GB,TE,1,81,Whyle Josh Sf25,
+GB,QB,1,19,Tune Clayton Sf25,
+GB,RB,1,22,Strong Jr. Pierre Sf25,
+GB,ED,1,49,Alexandre Deslin Sf24,53
+GB,DI,1,98,Ester James Cf24,
+GB,LB,1,54,Welch Kristian U/Bal,48
+GB,CB,1,26,Robinson Micah 25/7,
+GB,S,1,37,Baldwin Johnathan Cf25,38
+GB,PK,1,41,Mcnamee Mark Sf25*,
+GB,PUP,1,9,Watson Christian Wr^,45
+GB,PUP,2,"Oliver, Collin DE^",73,"Williams, John OG^"
+GB,IR,1,32,Lloyd Marshawn Rb^,62
+GB,IR,2,"Monk, Jacob OC^",57,"Cox Jr., Brenton DE^"
+GB,IR,3,11,Reed Jayden Wr^,79
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+HOU,LWR,1,12,Collins Nico 21/3,19
+HOU,RWR,1,81,Higgins Jayden 25/2,14
+HOU,SWR,1,13,Kirk Christian T/Jax,17
+HOU,LT,1,79,Ersery Aireontae 25/2,74
+HOU,LG,1,75,Tomlinson Laken U/Sea,
+HOU,C,1,60,Andrews Jake W/Ne,54
+HOU,RG,1,69,Ingram Ed T/Min,70
+HOU,RT,1,71,Howard Tytus 19/1,57
+HOU,TE,1,86,Schultz Dalton U/Dal,88
+HOU,TE,2,"Bryant, Harrison T/Phi",82,"Bates, Brenden P/Cle"
+HOU,QB,1,7,Stroud C.J. 23/1,10
+HOU,QB,2,"Mills, Davis 21/3",18,"Mertz, Graham 25/6"
+HOU,RB,1,21,Chubb Nick U/Cle,27
+HOU,RB,2,"Marks, Woody 25/4",33,"OGUNBOWALE, DARE CF17"
+HOU,RB,3,31,Pierce Dameon 22/4,
+HOU,FB,1,44,Brooks British Cf24,
+HOU,LDE,1,51,Anderson Jr. Will 23/1,95
+HOU,LDT,1,90,Rankins Sheldon Cc/Cin,97
+HOU,RDT,1,98,Settle Jr. Tim U/Buf,91
+HOU,RDT,2,"FATUKASI, FOLORUNSO CC/Jax",72,"Togiai, Tommy SF24"
+HOU,RDE,1,55,Hunter Danielle U/Min,92
+HOU,RDE,2,"Horton, Dylan 23/4",52,"Taylor, Darrell U/Chi"
+HOU,WLB,1,39,To'Oto'O Henry 23/5,48
+HOU,WLB,2,"Harris, Christian 22/3",35,"Hansen, Jake CF22"
+HOU,MLB,1,0,Al-Shaair Azeez U/Ten,45
+HOU,MLB,2,"SPEED, E.J. U/Ind",56,"Hill, Jamal 24/6"
+HOU,LCB,1,24,Stingley Jr. Derek 22/1,11
+HOU,SS,1,29,Stewart M.J. U/Cle,
+HOU,FS,1,2,Bullock Calen 24/3,
+HOU,RCB,1,4,Lassiter Kamari 24/2,37
+HOU,NB,1,5,Pitre Jalen 22/2,25
+HOU,NB,2,"Bryant, Myles U/NE",38,"Childress, Zion P/Dal"
+HOU,PT,1,6,Townsend Tommy U/Kc,
+HOU,PK,1,15,Fairbairn Ka'Imi Cf16,
+HOU,LS,1,40,Brinkman Austin Cf25,
+HOU,H,1,6,Townsend Tommy U/Kc,
+HOU,KO,1,15,Fairbairn Ka'Imi Cf16,
+HOU,PR,1,14,Noel Jaylin 25/3,17
+HOU,PR,2,"BERRIOS, BRAXTON U/Mia",13,"Kirk, Christian T/Jax"
+HOU,KR,1,14,Noel Jaylin 25/3,11
+HOU,KR,2,"Smith, Tremon U/Den",17,"BERRIOS, BRAXTON U/Mia"
+HOU,KR,3,31,Pierce Dameon 22/4,
+HOU,WR,1,89,Wayne Jared Cf23,85
+HOU,WR,2,"Kelly, Josh SF25",16,"Cephus, Quintez SF25"
+HOU,OT,1,77,Brown Trent U/Cin,
+HOU,OG,1,62,Sow Sidy Sf25,
+HOU,C,1,65,Cox Eli Cf25,
+HOU,TE,1,83,Lachey Luke 25/7,
+HOU,RB,1,26,Jordan Jawhar 24/6,
+HOU,ED,1,50,Byrd Solomon 24/7,
+HOU,DI,1,53,Tafuna Junior Cf25,64
+HOU,LB,1,32,Woodard Jackson W/Sea,
+HOU,CB,1,41,Arnette Damon Sf25,34
+HOU,S,1,30,Mills Jalen U/Nyj,
+HOU,PUP,1,96,Autry Denico De^,93
+HOU,PUP,2,"Hinish, Kurt DT^",3,"Dell, Tank WR^"
+HOU,PUP,3,20,Ward Jimmie S^,
+HOU,NFI,1,28,Mixon Joe Rb^,36
+HOU,IR,1,23,Reed Jaylen S^,87
+HOU,IR,2,"Stover, Cade TE^",84,"WATSON, JUSTIN WR^"
+HOU,IR,3,22,Smith Jaylin Cb^,43
+HOU,IR,1,15,Winfree Juwann Wr,58
+HOU,IR,2,"Hamilton, Kyonte DT",Smith Jr. Irv Te,9
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+IND,LWR,1,11,Pittman Jr. Michael 20/2,16
+IND,RWR,1,14,Pierce Alec 22/2,10
+IND,SWR,1,1,Downs Josh 23/3,6
+IND,LT,1,79,Raimann Bernhard 22/3,75
+IND,LG,1,56,Nelson Quenton 18/1,66
+IND,C,1,60,Bortolini Tanor 24/4,63
+IND,RG,1,71,Goncalves Matt 24/3,68
+IND,RT,1,72,Smith Braden 18/2,67
+IND,TE,1,84,Warren Tyler 25/1,81
+IND,TE,2,"ALIE-COX, MO SF17",85,"Ogletree, Drew 22/6"
+IND,TE,3,86,Mallory Will 23/5,
+IND,QB,1,17,Jones Daniel U/Min,5
+IND,QB,2,"Richardson Sr., Anthony 23/1",15,"Leonard, Riley 25/6"
+IND,RB,1,28,Taylor Jonathan 20/2,21
+IND,RB,2,"Giddens, DJ 25/5",31,"Goodson, Tyler SF23"
+IND,LDE,1,51,Paye Kwity 21/1,94
+IND,LDE,2,"LEWIS, TYQUAN 18/2",91,"Tuimoloau, JT 25/2"
+IND,NT,1,90,Stewart Grover 17/4,92
+IND,NT,2,"Gallimore, Neville U/LAR",98,"Johnson II, Eric W/NE"
+IND,DT,1,99,Buckner Deforest T/Sf,95
+IND,RDE,1,97,Latu Laiatu 24/1,52
+IND,WLB,1,48,Bachie Joe U/Cin,59
+IND,WLB,2,"McGrone, Cameron P/NE",50,"Olubi, Segun SF22"
+IND,MLB,1,44,Franklin Zaire 18/7,58
+IND,MLB,2,"Ajiake, Austin SF23",55,"Muma, Chad W/Jax"
+IND,LCB,1,7,Ward Charvarius U/Sf,35
+IND,SS,1,20,Cross Nick 22/3,32
+IND,FS,1,0,Bynum Cam U/Min,25
+IND,RCB,1,4,Howard Xavien Cc/Mia,
+IND,NB,1,23,Moore Ii Kenny W/Ne,29
+IND,NB,2,"Blackmon, Mekhi T/Min",33,"HILTON, MIKE SF25"
+IND,PT,1,8,Sanchez Rigoberto Cf17,
+IND,PK,1,3,Shrader Spencer U/Kc,
+IND,LS,1,46,Rhodes Luke Sf16,
+IND,H,1,8,Sanchez Rigoberto Cf17,
+IND,KO,1,3,Shrader Spencer U/Kc,
+IND,PR,1,6,Gould Anthony 24/5,1
+IND,KR,1,6,Gould Anthony 24/5,16
+IND,KR,2,"Dulin, Ashton CF19",21,"Giddens, DJ 25/5"
+IND,WR,1,13,Treadwell Laquon Sf24,9
+IND,OT,1,71,Johnson Marcellus Sf25,
+IND,C,1,65,Morrissey Jimmy Sf25,
+IND,TE,1,49,Mckeon Sean Sf24,45
+IND,RB,1,26,Abdullah Ameer Sf25,37
+IND,ED,1,74,Nchami Durell Sf24,
+IND,DI,1,93,Smith Tim 25/6,
+IND,LB,1,54,Walker Anthony Sf25,
+IND,CB,1,39,Calligan Keydrain Sf25,38
+IND,S,1,34,Nikkel Ben Sf25,41
+IND,IR,1,57,Carlies Jaylon Lb^,40
+IND,IR,2,"Jones, Jaylon CB^",27,"Walley, Justin CB"
+IND,IR,3,2,Montgomery D.J. Wr,73
+IND,IR,1,30,Wohler Hunter S,54
+IND,IR,2,"Phillips, Jacob LB",36,"Ahmed, Salvon RB"
+IND,IR,3,76,Wilson Jack Ot,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+JAX,LWR,1,7,Thomas Jr. Brian 24/1,17
+JAX,RWR,1,5,Brown Dyami U/Was,11
+JAX,SWR,1,12,Hunter Travis 25/1,81
+JAX,LT,1,72,Little Walker 21/2,70
+JAX,LG,1,76,Cleveland Ezra T/Min,64
+JAX,C,1,73,Hainsey Robert U/Tb,60
+JAX,RG,1,65,Mekari Patrick U/Bal,
+JAX,RT,1,77,Harrison Anton 23/1,55
+JAX,TE,1,85,Strange Brenton 23/2,86
+JAX,TE,2,"MUNDT, JOHNNY U/Min",84,"Long, Hunter U/LAR"
+JAX,TE,3,80,Morris Quintin U/Buf,
+JAX,QB,1,16,Lawrence Trevor 21/1,14
+JAX,RB,1,1,Etienne Jr. Travis 21/1,33
+JAX,RB,2,"Tuten, Bhayshul 25/4",36,"Allen Jr., LeQuint 25/7"
+JAX,RB,3,32,Schrader Cody P/Lar,
+JAX,LDE,1,44,Walker Travon 22/1,90
+JAX,LDE,2,"OGBAH, EMMANUEL U/Mia",95,"Green II, B.J. CF25"
+JAX,NT,1,52,Hamilton Davon 20/3,99
+JAX,DT,1,91,Armstead Arik Cc/Sf,94
+JAX,DT,2,"Smith, Maason 24/2",96,"Saunders Sr., Khalen T/NO"
+JAX,RDE,1,41,Hines-Allen Josh 19/1,98
+JAX,RDE,2,"SMOOT, DAWUANE U/Buf",92,"Striggow, Danny CF25"
+JAX,WLB,1,23,Oluokun Foyesade U/Atl,47
+JAX,WLB,2,"GARDECK, DENNIS U/Arz",56,"Abdullah, Yasir 23/5"
+JAX,MLB,1,0,Lloyd Devin 22/1,51
+JAX,MLB,2,"Miller, Ventrell 23/4",54,"Kiser, Jack 25/4"
+JAX,LCB,1,22,Jones Jarrian 24/3,12
+JAX,SS,1,42,Wingard Andrew Cf19,26
+JAX,FS,1,29,Murray Eric U/Hou,25
+JAX,FS,2,"Lane III, Rayuan 25/6",20,"Hailassie, Kahlef P/Min"
+JAX,RCB,1,3,Campbell Tyson 21/2,30
+JAX,NB,1,2,Lewis Jourdan U/Dal,21
+JAX,PT,1,9,Cooke Logan 18/7,
+JAX,PK,1,39,Little Cam 24/6,
+JAX,LS,1,46,Matiscik Ross Cf20,
+JAX,H,1,9,Cooke Logan 18/7,
+JAX,KO,1,39,Little Cam 24/6,
+JAX,PR,1,11,Washington Parker 23/6,
+JAX,KR,1,11,Washington Parker 23/6,36
+JAX,KR,2,"Allen Jr., LeQuint 25/7",33,"Tuten, Bhayshul 25/4"
+JAX,WR,1,15,Brayboy Chandler Cf25,89
+JAX,OT,1,66,Lee Ricky Sf25,
+JAX,OG,1,61,Wormley Sal Cf25,
+JAX,C,1,79,Carvin Jerome Sf25,
+JAX,TE,1,88,Herbert Patrick Cf25,
+JAX,QB,1,19,Henigan Seth Cf25,
+JAX,RB,1,38,Jackson Ja'Quinden Cf25,
+JAX,DI,1,97,Rose Keivie Cf25,93
+JAX,LB,1,50,Combs Branson Cf25,
+JAX,CB,1,37,Muhammad Jabbar Cf25,31
+JAX,S,1,24,Silmon-Craig Cam'Ron Cf25,
+JAX,PUP,1,75,Hodges Cooper Og,
+JAX,IR,1,35,Mcleod Jalen Lb^,27
+JAX,IR,2,"Ransaw, Caleb S",18,"Cephus, Joshua WR"
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+KC,LWR,1,80,Thornton Tyquan Sf24,89
+KC,RWR,1,1,Worthy Xavier 24/1,9
+KC,SWR,1,5,Brown Hollywood U/Arz,11
+KC,SWR,2,"Royals, Jalen 25/4",81,"Remigio, Nikko CF23"
+KC,LT,1,71,Simmons Josh 25/1,64
+KC,LG,1,76,Suamataia Kingsley 24/2,66
+KC,C,1,52,Humphrey Creed 21/2,60
+KC,RG,1,65,Smith Trey 21/6,
+KC,RT,1,74,Taylor Jawaan U/Jax,77
+KC,TE,1,87,Kelce Travis 13/3,83
+KC,TE,2,"Gray, Noah 21/5",85,"TONYAN, ROBERT SF24"
+KC,TE,3,12,Wiley Jared 24/4,
+KC,QB,1,15,Mahomes Patrick 17/1,17
+KC,RB,1,10,Pacheco Isiah 22/7,29
+KC,RB,2,"HUNT, KAREEM 17/3",24,"Smith, Brashard 25/7"
+KC,RB,3,25,Mitchell Elijah U/Sf,
+KC,LDE,1,56,Karlaftis George 22/1,97
+KC,LDT,1,95,Jones Chris 16/2,99
+KC,LDT,2,"Tillery, Jerry U/Min",93,"Martin, Brodric SF25"
+KC,RDT,1,55,Norman-Lott Omarr 25/2,92
+KC,RDE,1,51,Danna Mike 20/5,90
+KC,RDE,2,"Omenihu, Charles U/SF",94,"Herring, Malik CF21"
+KC,WLB,1,23,Tranquill Drue U/Lac,31
+KC,MLB,1,32,Bolton Nick 21/2,43
+KC,SLB,1,54,Chenal Leo 22/3,59
+KC,LCB,1,35,Watson Jaylen 22/7,20
+KC,SS,1,21,Hicks Jaden 24/4,30
+KC,FS,1,6,Cook Bryan 22/2,
+KC,RCB,1,22,Mcduffie Trent 22/1,8
+KC,RCB,2,"Fulton, Kristian U/LAC",2,"Williams, Joshua 22/4"
+KC,NB,1,27,Conner Chamarri 23/4,38
+KC,PT,1,14,Araiza Matt Sf24,
+KC,PK,1,7,Butker Harrison P/Car,
+KC,LS,1,41,Winchester James Sf15,
+KC,H,1,14,Araiza Matt Sf24,
+KC,KO,1,7,Butker Harrison P/Car,
+KC,PR,1,81,Remigio Nikko Cf23,24
+KC,KR,1,81,Remigio Nikko Cf23,24
+KC,KR,2,"Smith, Brashard 25/7",80,"Thornton, Tyquan SF24"
+KC,WR,1,82,Holiday Jimmy Cf25,
+KC,OT,1,72,Godrick Chukwuebuka Sf23*,
+KC,OG,1,61,Hanson C.J. 24/7,
+KC,TE,1,49,Watson Tre Cf25,
+KC,QB,1,19,Oladokun Chris Sf22,
+KC,RB,1,44,Edwards-Helaire Clyde Sf25,
+KC,FB,1,42,Steele Carson Cf24,
+KC,ED,1,40,Downs Ethan Sf25,57
+KC,DI,1,96,Tuipulotu Marlon Sf24,79
+KC,LB,1,48,Christiansen Cole Sf22,
+KC,CB,1,39,Smith Jr. Melvin Cf25,
+KC,S,1,34,Edwards Mike U/Tb,26
+KC,NFI,1,75,Driskell Ethan Ot^,
+KC,IR,1,13,Johnson Nazeeh Cb^,88
+KC,IR,2,"Briningstool, Jake TE^",50,"George, Brandon LB"
+KC,IR,3,26,Bush Deon S,91
+KC,IR,1, ,Ingram Keaontay Rb,45
+KC,IR,2,"Scott, Eric CB",98,"Robinson, Janarius DE"
+KC,SUS,1,4,Rice Rashee Wr^,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+LAC,LWR,1,1,Johnston Quentin 23/1,84
+LAC,RWR,1,13,Allen Keenan U/Chi,9
+LAC,SWR,1,15,Mcconkey Ladd 24/2,12
+LAC,LT,1,76,Alt Joe 24/1,74
+LAC,LG,1,77,Johnson Zion 22/1,67
+LAC,C,1,75,Bozeman Bradley Cc/Car,78
+LAC,RG,1,73,Becton Mekhi U/Phi,68
+LAC,RT,1,79,Pipkins Iii Trey 19/3,
+LAC,TE,1,89,Dissly Will Cc/Sea,83
+LAC,TE,2,"CONKLIN, TYLER U/NYJ",86,"Gadsden, Oronde 25/5"
+LAC,TE,3,42,Fisk Tucker Sf24,
+LAC,QB,1,10,Herbert Justin 20/1,5
+LAC,RB,1,8,Hampton Omarion 25/1,28
+LAC,RB,2,"Haskins, Hassan W/Ten",30,"Vidal, Kimani 24/6"
+LAC,FB,1,44,Matlock Scott 23/6,
+LAC,DE,1,91,Hand Da'Shawn U/Mia,92
+LAC,NT,1,99,Caldwell Jamaree 25/3,96
+LAC,DT,1,90,Tart Teair Sf24,93
+LAC,LOLB,1,45,Tuipulotu Tuli 23/2,50
+LAC,LILB,1,43,Dye Troy U/Min,53
+LAC,RILB,1,0,Henley Daiyan 23/3,58
+LAC,ROLB,1,48,Dupree Bud U/Atl,54
+LAC,LCB,1,26,Jackson Donte U/Pit,24
+LAC,SS,1,2,Molden Elijah T/Ten,23
+LAC,SS,2,"JEFFERSON, TONY SF24",40,"Williamson, Kendall SF24"
+LAC,FS,1,32,Gilman Alohi 20/6,27
+LAC,RCB,1,29,Still Tarheeb 24/5,20
+LAC,RCB,2,"Hart, Cam 24/5",46,"Reed, Nikko CF25"
+LAC,NB,1,3,James Jr. Derwin 18/1,36
+LAC,PT,1,16,Scott Jk U/Jax,
+LAC,PK,1,11,Dicker Cameron Sf22,
+LAC,LS,1,41,Lovato Rick U/Phi,
+LAC,H,1,16,Scott Jk U/Jax,
+LAC,KO,1,11,Dicker Cameron Sf22,
+LAC,PR,1,12,Davis Derius 23/4,15
+LAC,PR,2,"McConkey, Ladd 24/2",84,"Lambert-Smith, KeAndre 25/5"
+LAC,KR,1,28,Haskins Hassan W/Ten,12
+LAC,KR,2,"Davis, Derius 23/4",8,"Hampton, Omarion 25/1"
+LAC,WR,1,82,Jackson Jaquae Sf25,87
+LAC,OT,1,72,Sharpe David Sf25,
+LAC,OG,1,71,Taylor Branson 25/6,
+LAC,C,1,63,Kaltenberger Josh Cf25,
+LAC,TE,1,49,Yassmin Thomas Sf25*,
+LAC,QB,1,7,Uiagalelei Dj Cf25,
+LAC,RB,1,34,Johnson Amar Sf25,
+LAC,ED,1,97,Randolph Garmon Cf25,51
+LAC,ED,2,"Weaver, Rashad SF25",57,"Ferrell, Clelin SF25"
+LAC,DI,1,94,Edwards Terah Cf25,
+LAC,LB,1,56,Mauga Kana'I Sf25,38
+LAC,CB,1,35,Purchase Myles Cf25,
+LAC,PUP,1,67,Washington Savion Ot,
+LAC,IR,1,47,Harris Josh Ls^,33
+LAC,IR,2,"Leonard, Deane CB^",6,"PERRYMAN, DENZEL ILB^"
+LAC,IR,3,52,Mack Khalil Olb^,37
+LAC,IR,1,70,Slater Rashawn Ot,39
+LAC,IR,2,"Rogers, Eric CB",25,"Colson, Junior LB"
+LAC,IR,3,69,Fuga Josh Dt,22
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+LAR,LWR,1,17,Adams Davante Cc/Nyj,19
+LAR,RWR,1,12,Nacua Puka 23/5,15
+LAR,SWR,1,88,Whittington Jordan 24/6,5
+LAR,LT,1,77,Jackson Alaric Cf21,68
+LAR,LT,2,"QUESSENBERRY, DAVID U/Min",72,"HUMPHRIES, D.J. U/KC"
+LAR,LG,1,73,Avila Steve 23/2,67
+LAR,C,1,65,Shelton Coleman U/Chi,50
+LAR,RG,1,69,Dotson Kevin T/Pit,
+LAR,RT,1,79,Havenstein Rob 15/2,71
+LAR,TE,1,89,Higbee Tyler 16/4,84
+LAR,TE,2,"Parkinson, Colby U/Sea",87,"Allen, Davis 23/5"
+LAR,TE,3,18,Ferguson Terrance 25/2,
+LAR,QB,1,9,Stafford Matthew T/Det,11
+LAR,QB,2,"GAROPPOLO, JIMMY CC/LV",13,"Bennett IV, Stetson 23/4"
+LAR,RB,1,23,Williams Kyren 22/5,22
+LAR,RB,2,"Corum, Blake 24/3",27,"Hunter, Jarquez 25/4"
+LAR,DE,1,55,Fiske Braden 24/2,52
+LAR,DE,2,"Murchison, Larrell W/Ten",94,"Johnson, Desjuan 23/7"
+LAR,NT,1,95,Ford Poona U/Lac,57
+LAR,DT,1,91,Turner Kobie 23/3,90
+LAR,LOLB,1,0,Young Byron 23/3,10
+LAR,LILB,1,53,Landman Nate U/Atl,51
+LAR,RILB,1,48,Speights Omar Cf24,56
+LAR,ROLB,1,8,Verse Jared 24/1,6
+LAR,LCB,1,14,Durant Cobie 22/4,31
+LAR,SS,1,3,Curl Kam U/Was,2
+LAR,FS,1,26,Kinchens Kamren 24/3,
+LAR,RCB,1,1,Forbes Jr. Emmanuel W/Was,25
+LAR,NB,1,37,Lake Quentin 22/6,30
+LAR,PT,1,42,Evans Ethan 23/7,
+LAR,PK,1,16,Karty Joshua 24/6,
+LAR,LS,1,47,Ward Alex Cf23,
+LAR,H,1,42,Evans Ethan 23/7,
+LAR,KO,1,42,Evans Ethan 23/7,
+LAR,PR,1,19,Smith Xavier Cf23,15
+LAR,KR,1,22,Corum Blake 24/3,88
+LAR,WR,1,82,Edwards Tru Cf25,81
+LAR,OT,1,61,Arcuri Aj 22/7,
+LAR,OG,1,60,Bowles Wyatt Cf25,
+LAR,C,1,63,Mcmahon Dylan P/Phi,
+LAR,TE,1,83,Redman Mark Cf25,
+LAR,RB,1,20,Rivers Ronnie Sf22,
+LAR,ED,1,45,Muhammad Jamil Cf25,
+LAR,DI,1,93,Heflin Jack Sf24,97
+LAR,LB,1,24,Neal Elias Cf24,
+LAR,CB,1,33,Lampkin Cam Cf24,21
+LAR,S,1,34,Ingle Tanner Cf23,43
+LAR,IR,1,4,Witherspoon Ahkello Cb^,96
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+LV,LWR,1,10,Thornton Jr. Dont'E 25/4,88
+LV,RWR,1,1,Tucker Tre 23/3,
+LV,SWR,1,16,Meyers Jakobi U/Ne,18
+LV,LT,1,74,Miller Kolton 18/1,60
+LV,LG,1,66,Parham Dylan 22/3,76
+LV,C,1,61,Meredith Jordan Sf22,67
+LV,RG,1,65,Cappa Alex Cc/Cin,58
+LV,RT,1,71,Glaze Dj 24/3,70
+LV,TE,1,89,Bowers Brock 24/1,87
+LV,TE,2,"Mayer, Michael 23/2",80,"Thomas, Ian U/Car"
+LV,TE,3,86,Okwuegbunam Jr. Albert Sf25,46
+LV,QB,1,7,Smith Geno T/Sea,15
+LV,RB,1,2,Jeanty Ashton 25/1,3
+LV,RB,2,"White, Zamir 22/4",23,"Laube, Dylan 24/6"
+LV,RB,3,31,Mostert Raheem Cc/Mia,
+LV,LDE,1,98,Crosby Maxx 19/4,9
+LV,LDT,1,69,Butler Adam Sf23,95
+LV,LDT,2,"Fotu, Leki U/NYJ",97,"Hemingway, Tonka 25/4"
+LV,RDT,1,99,Booker Iv Thomas T/Phi,96
+LV,RDT,2,"Laulu, Jonah W/Ind",92,"Pegues, JJ 25/6"
+LV,RDE,1,51,Koonce Malcolm 21/3,54
+LV,RDE,2,"Jackson, Brennan W/LAR",49,"Snowden, Charles SF23"
+LV,WLB,1,57,Pratt Germaine Cc/Cin,33
+LV,MLB,1,52,Roberts Elandon U/Pit,44
+LV,SLB,1,45,White Devin U/Hou,55
+LV,LCB,1,22,Stokes Eric U/Gb,25
+LV,SS,1,11,Chinn Jeremy U/Was,29
+LV,FS,1,20,Pola-Mao Isaiah Cf22,27
+LV,RCB,1,36,Kelly Kyu Blu Sf24,26
+LV,NB,1,30,Holmes Darnay Sf24,
+LV,PT,1,6,Cole Aj Cf19,
+LV,PK,1,8,Carlson Daniel Sf18,
+LV,LS,1,50,Bobenmoyer Jacob U/Den,
+LV,H,1,6,Cole Aj Cf19,
+LV,KO,1,8,Carlson Daniel Sf18,
+LV,PR,1,1,Tucker Tre 23/3,23
+LV,KR,1,23,Laube Dylan 24/6,3
+LV,KR,2,"White, Zamir 22/4",1,"Tucker, Tre 23/3"
+LV,WR,1,13,Dorsett Ii Phillip Sf25,4
+LV,WR,2,"Jackson, Shedrick SF24",81,"Bachman, Alex SF24"
+LV,OT,1,78,Wagner Dalton Cf23,
+LV,OG,1,56,Mafi Atonio Sf25,79
+LV,QB,1,5,Miller Cam 25/6,17
+LV,RB,1,35,Collier Chris Sf24,
+LV,ED,1,91,Harvey Jahfari Cf25,
+LV,DI,1,68,Ma'Ae Treven Cf25,
+LV,LB,1,53,Asamoah Ii Brian Sf25,
+LV,CB,1,40,Woods Jt Sf25,41
+LV,S,1,28,Edmunds Terrell Sf25,
+LV,IR,1,32,Johnson Jr. Lonnie S^,12
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+MIA,LWR,1,17,Waddle Jaylen 21/1,82
+MIA,RWR,1,10,Hill Tyreek T/Kc,18
+MIA,SWR,1,6,Washington Malik 24/6,84
+MIA,LT,1,52,Paul Patrick 24/2,70
+MIA,LG,1,72,Savaiinaea Jonah 25/2,69
+MIA,C,1,55,Brewer Aaron U/Ten,
+MIA,RG,1,64,Brunskill Daniel U/Ten,71
+MIA,RT,1,79,Borom Larry U/Chi,
+MIA,TE,1,83,Waller Darren T/Nyg,89
+MIA,TE,2,"Hill, Julian CF23",80,"Conner, Tanner CF22"
+MIA,QB,1,1,Tagovailoa Tua 20/1,0
+MIA,QB,2,"Wilson, Zach U/Den",14,"Ewers, Quinn 25/7"
+MIA,RB,1,28,Achane De'Von 23/3,31
+MIA,RB,2,"Gordon II, Ollie 25/6",5,"Wright, Jaylen 24/4"
+MIA,FB,1,30,Ingold Alec U/Lv,
+MIA,LDE,1,90,Grant Kenneth 25/1,93
+MIA,NT,1,94,Phillips Jordan 25/5,95
+MIA,RDE,1,92,Sieler Zach W/Bal,91
+MIA,LOLB,1,15,Phillips Jaelan 21/1,44
+MIA,LOLB,2,"Robinson, Chop 24/1",53,"Goode, Cameron 22/7"
+MIA,LILB,1,20,Brooks Jordyn U/Sea,3
+MIA,RILB,1,25,Dodson Tyrel W/Sea,40
+MIA,ROLB,1,2,Chubb Bradley T/Den,8
+MIA,LCB,1,23,Jones Jack Sf25,27
+MIA,LCB,2,"Bonner, Ethan CF23",32,"Brents, JuJu W/Ind"
+MIA,SS,1,9,Melifonwu Ifeatu U/Det,21
+MIA,FS,1,29,Fitzpatrick Minkah T/Pit,11
+MIA,FS,2,"Trader Jr., Dante 25/5",22,"CAMPBELL, ELIJAH W/NYJ"
+MIA,RCB,1,36,Duck Storm Cf24,26
+MIA,NB,1,33,Marshall Jr. Jason 25/5,38
+MIA,PT,1,16,Bailey Jake Cc/Ne,
+MIA,LS,1,49,Cardona Joe Sf25,
+MIA,H,1,16,Bailey Jake Cc/Ne,
+MIA,PR,1,6,Washington Malik 24/6,10
+MIA,KR,1,82,Eskridge Dee Sf24,6
+MIA,KR,2,"Washington, Malik 24/6",5,"Wright, Jaylen 24/4"
+MIA,WR,1,81,Wease Jr. Theo Cf25,88
+MIA,OT,1,75,Telfort Kadeem Sf25,76
+MIA,OG,1,66,Daniels Braeden P/Dal,68
+MIA,TE,1,87,Rucci Hayden Cf24,85
+MIA,RB,1,37,Hasty Jamycal Sf25,34
+MIA,ED,1,56,Bell Quinton Sf23,59
+MIA,DI,1,96,Huntley Alex Cf25,
+MIA,CB,1,46,Johnson Isaiah Cf24,
+MIA,S,1,35,Saunders Jr. John Cf25,43
+MIA,PK,1,47,Patterson Riley U/Atl,
+MIA,PUP,1,74,Eichenberg Liam Og^,
+MIA,NFI,1,24,Smith Cam Cb^,
+MIA,IR,1,7,Sanders Jason Pk^,60
+MIA,IR,2,"Meyer, Andrew OC^",78,"Daniels, James OG^"
+MIA,IR,3,73,Jackson Austin Ot^,43
+MIA,IR,1,8,Mattison Alexander Rb,62
+MIA,IR,2,"IFEDI, GERMAIN OT",63,"Cajuste, Yodny OT"
+MIA,IR,3,62,Eze Obinna Ot,47
+MIA,IR,1,23,Burns Artie Cb,4
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+MIN,LWR,1,18,Jefferson Justin 20/1,13
+MIN,RWR,1,3,Addison Jordan 23/1,4
+MIN,SWR,1,1,Nailor Jalen 22/6,19
+MIN,LT,1,71,Darrisaw Christian 21/1,67
+MIN,LG,1,74,Jackson Donovan 25/1,64
+MIN,C,1,78,Kelly Ryan U/Ind,65
+MIN,RG,1,76,Fries Will U/Ind,60
+MIN,RT,1,75,O'Neill Brian 18/2,73
+MIN,TE,1,87,Hockenson T.J. T/Det,84
+MIN,TE,2,"Oliver, Josh U/Bal",85,"Yurosek, Ben CF25"
+MIN,TE,3,81,Vannett Nick U/Ten,
+MIN,QB,1,9,Mccarthy J.J. 24/1,11
+MIN,QB,2,"WENTZ, CARSON U/KC",12,"Brosmer, Max CF25"
+MIN,QB,3,5,Ridder Desmond Sf25,
+MIN,RB,1,27,Mason Jordan T/Sf,36
+MIN,RB,2,"Scott, Zavier SF24",31,"Akers, Cam SF25"
+MIN,LDE,1,93,Allen Jonathan Cc/Was,99
+MIN,NT,1,97,Hargrave Javon Cc/Sf,50
+MIN,RDE,1,61,Redmond Jalen Sf24,90
+MIN,LOLB,1,58,Greenard Jonathan U/Hou,98
+MIN,LILB,1,55,Wilson Eric U/Gb,56
+MIN,RILB,1,0,Pace Jr. Ivan Cf23,41
+MIN,ROLB,1,43,Van Ginkel Andrew U/Mia,15
+MIN,ROLB,2,"Turner, Dallas 24/1",57,"Chambliss, Chaz CF25"
+MIN,LCB,1,2,Rodgers Isaiah U/Phi,8
+MIN,SS,1,22,Smith Harrison 12/1,37
+MIN,FS,1,26,Jackson Theo P/Ten,24
+MIN,RCB,1,7,Murphy Jr. Byron U/Arz,6
+MIN,NB,1,44,Metellus Joshua 20/6,
+MIN,PT,1,17,Wright Ryan Cf22,
+MIN,PK,1,16,Reichard Will 24/6,
+MIN,LS,1,42,Depaola Andrew Sf20,
+MIN,H,1,17,Wright Ryan Cf22,
+MIN,KO,1,16,Reichard Will 24/6,
+MIN,PR,1,4,Price Myles Cf25,19
+MIN,KR,1,4,Price Myles Cf25,13
+MIN,WR,1,89,Fleming Dontae Cf25,82
+MIN,WR,2,"Jones, Jeshaun CF24",14,"Jones, Tim U/Jax"
+MIN,OT,1,63,Pircher Max Sf25*,
+MIN,OG,1,68,Byrd Henry Sf23,
+MIN,C,1,66,Lee Vershon Cf25,
+MIN,TE,1,83,Nesbit Bryson Cf25,
+MIN,RB,1,35,Kiner Corey Sf25,
+MIN,ED,1,59,Murphy Gabriel Cf24,
+MIN,DI,1,94,Taimani Taki Cf24,92
+MIN,LB,1,40,Takitaki Sione Cc/Ne,
+MIN,CB,1,34,Vaughn Zemaiah Cf25,29
+MIN,CB,2,"Funderburk, Tyrek SF25",23,"MOREAU, FABIAN SF25"
+MIN,S,1,20,Wallace K'Von Sf25,
+MIN,PUP,1,86,Bartholomew Gavin Te^,
+MIN,IR,1,96,Batty Tyler Olb^,30
+MIN,IR,2,"HAM, C.J. FB^",51,"Cashman, Blake ILB^"
+MIN,IR,3,32,Chandler Ty Rb^,33
+MIN,IR,1,63,Correll Zeke Oc,4
+MIN,IR,2,"Moore, Rondale WR",69,"Nelson, Matt OT"
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+NE,LWR,1,9,Boutte Kayshon 23/6,
+NE,RWR,1,13,Hollins Mack U/Buf,18
+NE,SWR,1,8,Diggs Stefon U/Hou,3
+NE,SWR,2,"Douglas, DeMario 23/6",86,"Chism III, Efton CF25"
+NE,LT,1,66,Campbell Will 25/1,52
+NE,LG,1,58,Wilson Jared 25/3,77
+NE,C,1,65,Bradbury Garrett Cc/Min,61
+NE,RG,1,71,Onwenu Mike 20/6,70
+NE,RT,1,76,Moses Morgan U/Nyj,59
+NE,TE,1,85,Henry Hunter U/Lac,81
+NE,QB,1,10,Maye Drake 24/1,11
+NE,QB,2,"DOBBS, JOSHUA U/SF",16,"DeVito, Tommy W/NYG"
+NE,RB,1,32,Henderson Treveyon 25/2,38
+NE,RB,2,"Stevenson, Rhamondre 21/4",4,"Gibson, Antonio U/Was"
+NE,FB,1,37,Westover Jack Sf24,
+NE,DE,1,97,Williams Milton U/Phi,55
+NE,NT,1,95,Tonga Khyiris U/Arz,94
+NE,DT,1,90,Barmore Christian 21/2,92
+NE,LOLB,1,44,Chaisson K'Lavon U/Lv,99
+NE,LOLB,2,"White, Keion 23/2",33,"Jennings, Anfernee 20/3"
+NE,LILB,1,14,Spillane Robert U/Lv,15
+NE,LILB,2,"Mapu, Marte 23/3",42,"Harris, Darius SF25"
+NE,RILB,1,53,Elliss Christian W/Phi,51
+NE,ROLB,1,2,Landry Iii Harold Cc/Ten,91
+NE,LCB,1,7,Davis Iii Carlton U/Det,
+NE,SS,1,31,Woodson Craig 25/4,23
+NE,SS,2,"Dugger, Kyle 20/2",41,"Schooler, Brenden CF22"
+NE,FS,1,21,Hawkins Jaylinn U/Lac,24
+NE,RCB,1,0,Gonzalez Christian 23/1,28
+NE,NB,1,25,Jones Marcus 22/3,22
+NE,PT,1,17,Baringer Bryce 23/6,
+NE,PK,1,36,Borregales Andy 25/6,
+NE,LS,1,47,Ashby Julian 25/7,
+NE,H,1,17,Baringer Bryce 23/6,
+NE,KO,1,36,Borregales Andy 25/6,
+NE,PR,1,25,Jones Marcus 22/3,3
+NE,PR,2,"Douglas, DeMario 23/6",86,"Chism III, Efton CF25"
+NE,KR,1,4,Gibson Antonio U/Was,32
+NE,WR,1,29,Webb Jeremiah Cf25,83
+NE,OT,1,67,Conley Jack Cf25,
+NE,OG,1,74,Newman Royce Sf25,
+NE,TE,1,82,Dippre Cj Cf25,80
+NE,RB,1,26,Jennings Terrell Cf24,
+NE,ED,1,54,Jones Truman Sf24,43
+NE,DI,1,98,Pharms Jr. Jeremiah Sf22,72
+NE,DI,2,"Lovett Sr., Fabien SF25",96,"Olajiga, David SF25*"
+NE,LB,1,42,Harris Darius Sf25,
+NE,CB,1,35,Battle Miles Sf24,19
+NE,CB,2,"Minor, Kobee 25/7",39,"Herring, Tyron SF25"
+NE,IR,1,48,Tavai Jahlani Ilb^,64
+NE,IR,2,"Robinson, Layden OG",27,"Dial Jr., Marcellas CB"
+NE,IR,3,94,Roy Jaquelin Dt,34
+NE,IR,1,30,Prince Deneric Rb,68
+NE,IR,2,"Iton, Isaiah DE",72,"Durant, Yasir OT"
+NE,IR,3,46,Lampe Brock Fb,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+NO,LWR,1,12,Olave Chris 22/1,17
+NO,RWR,1,10,Cooks Brandin U/Dal,15
+NO,SWR,1,22,Shaheed Rashid Cf22,14
+NO,LT,1,71,Banks Jr. Kelvin 25/1,
+NO,LG,1,70,Penning Trevor 22/1,68
+NO,C,1,78,Mccoy Erik 19/2,79
+NO,RG,1,51,Ruiz Cesar 20/1,77
+NO,RT,1,75,Fuaga Taliese 24/1,72
+NO,RT,2,"Richards, Asim T/Dal",74,"Truss, Xavier W/Den"
+NO,TE,1,83,Johnson Juwan Cf20,88
+NO,TE,2,"Stoll, Jack U/Mia",80,"Matavao, Moliki 25/7"
+NO,QB,1,2,Rattler Spencer 24/5,6
+NO,RB,1,41,Kamara Alvin 17/3,5
+NO,RB,2,"Miller, Kendre 23/3",24,"Neal, Devin 25/6"
+NO,RB,3,13,Jones Jr. Velus U/Car,
+NO,DE,1,93,Shepherd Nathan U/Nyj,54
+NO,NT,1,92,Godchaux Davon T/Ne,97
+NO,DT,1,90,Bresee Bryan 23/1,98
+NO,LOLB,1,99,Young Chase U/Sf,94
+NO,LOLB,2,"JORDAN, CAMERON 11/1",40,"Diggs, Fadil 25/7"
+NO,WLB,1,20,Werner Pete 21/2,44
+NO,WLB,2,"Stalbird, Isaiah CF24",53,"Ford, Jaylan 24/5"
+NO,MLB,1,56,Davis Demario U/Nyj,28
+NO,MLB,2,"Stutsman, Danny 25/4",45,"Sewell, Nephi CF22"
+NO,ROLB,1,96,Granderson Carl Cf19,58
+NO,LCB,1,27,Yiadom Isaac U/Sf,25
+NO,SS,1,21,Reid Justin U/Kc,31
+NO,FS,1,33,Sanker Jonas 25/3,26
+NO,RCB,1,4,Mckinstry Kool-Aid 24/2,29
+NO,NB,1,1,Taylor Alontae 22/2,0
+NO,PT,1,32,Kroeger Kai Sf25,
+NO,PK,1,19,Grupe Blake Cf23,
+NO,LS,1,49,Wood Zach Sf17,
+NO,H,1,32,Kroeger Kai Sf25,
+NO,KO,1,19,Grupe Blake Cf23,
+NO,PR,1,22,Shaheed Rashid Cf22,0
+NO,KR,1,5,Miller Kendre 23/3,13
+NO,WR,1,84,Mellott Tommy Sf25,11
+NO,WR,2,"Wilson Jr., Cedrick U/Mia",81,"Austin Jr., Kevin SF24"
+NO,OG,1,73,Kilty Easton Cf25,63
+NO,OG,2,"Laumea, Sataoa SF25",66,"Sherman, William SF25"
+NO,TE,1,82,Welch Treyton Sf24,
+NO,QB,1,3,Haener Jake 23/4,
+NO,ED,1,55,Leota Eku Sf25,52
+NO,DI,1,59,Izzard Coziah Sf25,
+NO,CB,1,38,Price Jayden Sf25,37
+NO,S,1,35,Davison Elliott Cf25,26
+NO,PK,1,39,Smyth Charlie Sf24*,
+NO,PUP,1,87,Moreau Foster Te^,7
+NO,PS/IR,1,18,Dekkers Hunter Qb^,
+NO,IR,1,95,Ridgeway Iii John Dt^,69
+NO,IR,2,"Wesley, Barry OT^",91,"Broughton, Vernon DT"
+NO,IR,3,76,Clapp Will Oc,85
+NO,IR,1,16,Means Bub Wr,67
+NO,IR,2,"Young, Landon OT",64,"Saldiveri, Nick OG"
+NO,IR,3,23,Blackmon Julian S,"Polk, Ja'Lynn WR"
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+NYG,LWR,1,1,Nabers Malik 24/1,81
+NYG,RWR,1,18,Slayton Darius 19/5,13
+NYG,SWR,1,17,Robinson Wan'Dale 22/2,80
+NYG,LT,1,78,Thomas Andrew 20/1,71
+NYG,LG,1,76,Runyan Jon U/Gb,64
+NYG,C,1,61,Schmitz Jr. John Michael 23/2,65
+NYG,RG,1,74,Van Roten Greg U/Lv,73
+NYG,RT,1,72,Eluemunor Jermaine U/Lv,55
+NYG,TE,1,84,Johnson Theo 24/4,82
+NYG,TE,2,"Bellinger, Daniel 22/4",85,"MANHERTZ, CHRIS CC/Den"
+NYG,TE,3,86,Fidone Ii Thomas 25/7,
+NYG,QB,1,6,Dart Jaxson 25/1,3
+NYG,QB,2,"WILSON, RUSSELL U/Pit",19,"WINSTON, JAMEIS U/Cle"
+NYG,RB,1,44,Skattebo Cam 25/4,29
+NYG,RB,2,"Tracy Jr., Tyrone 24/5",26,"Singletary, Devin U/Hou"
+NYG,DE,1,95,Robertson-Harris Roy Cc/Sea,90
+NYG,NT,1,97,Lawrence Ii Dexter 19/1,98
+NYG,DT,1,93,Nuñez-Roches Sr. Rakeem U/Tb,91
+NYG,LOLB,1,0,Burns Brian T/Car,57
+NYG,LOLB,2,"Golston, Chauncey U/Dal",45,"Fox, Tomon CF22"
+NYG,LILB,1,58,Okereke Bobby U/Ind,33
+NYG,LILB,2,"Flannigan-Fowles, Demetrius SF25",47,"HEWITT, NEVILLE U/Hou"
+NYG,RILB,1,53,Muasau Darius 24/6,54
+NYG,ROLB,1,5,Thibodeaux Kayvon 22/1,51
+NYG,LCB,1,21,Adebo Paulson U/No,23
+NYG,SS,1,27,Nubin Tyler 24/2,24
+NYG,FS,1,8,Holland Jevón U/Mia,34
+NYG,RCB,1,28,Flott Cor'Dale 22/3,2
+NYG,NB,1,22,Phillips Dru 24/3,31
+NYG,PT,1,12,Gillan Jamie Sf22,
+NYG,PK,1,99,Mcatamney Jude Cf24*,
+NYG,LS,1,59,Kreiter Casey U/Den,
+NYG,H,1,12,Gillan Jamie Sf22,
+NYG,KO,1,99,Mcatamney Jude Cf24*,
+NYG,PR,1,80,Olszewski Gunner Sf23,17
+NYG,KR,1,26,Singletary Devin U/Hou,29
+NYG,KR,2,"Tracy Jr., Tyrone 24/5",80,"Olszewski, Gunner SF23"
+NYG,KR,3,17,Robinson Wan'Dale 22/2,
+NYG,WR,1,87,Smith-Marsette Ihmir Sf24,89
+NYG,WR,2,"Humphrey, Lil'Jordan U/Den",83,"Cambre, Dalen CF25"
+NYG,OG,1,63,Kubas Jake Cf24,
+NYG,C,1,60,Hudson Bryan Sf24,67
+NYG,RB,1,25,Miller Dante Sf24,
+NYG,DI,1,94,Chatman Elijah Cf24,99
+NYG,LB,1,46,Barnes Zaire Sf25,
+NYG,CB,1,35,James Lamareon Sf25,
+NYG,S,1,43,Layne Raheem U/Lac,
+NYG,PK,1,37,Koo Younghoe Sf25,
+NYG,PUP,1,20,Gray Eric Rb^,15
+NYG,NFI,1,52,Dimukeje Victor Olb^,
+NYG,IR,1,75,Ezeudu Joshua Og^,35
+NYG,IR,2,"Payton, Rico CB^",41,"McFadden, Micah ILB^"
+NYG,IR,3,49,Board Chris Ilb^,9
+NYG,IR,1,88,Ford-Wheaton Bryce Wr,30
+NYG,IR,2,"Moore, TJ CB",83,"Felton, Da'Quan WR"
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+NYJ,LWR,1,5,Wilson Garrett 22/1,82
+NYJ,RWR,1,83,Reynolds Josh Cc/Jax,10
+NYJ,SWR,1,16,Johnson Tyler U/Lar,18
+NYJ,LT,1,74,Fashanu Olu 24/1,61
+NYJ,LT,2,"Mitchell, Max 22/4",67,"Pole, Esa W/KC"
+NYJ,LG,1,76,Simpson John U/Bal,
+NYJ,C,1,71,Myers Josh U/Gb,
+NYJ,RG,1,66,Tippmann Joe 23/2,65
+NYJ,RT,1,70,Membou Armand 25/1,79
+NYJ,TE,1,85,Taylor Mason 25/2,89
+NYJ,TE,2,"Ruckert, Jeremy 22/3",84,"Smartt, Stone U/LAC"
+NYJ,TE,3,86,Woods Jelani W/Ind,
+NYJ,QB,1,7,Fields Justin U/Pit,2
+NYJ,RB,1,20,Hall Breece 22/2,0
+NYJ,RB,2,"Allen, Braelon 24/4",32,"Davis, Isaiah 24/5"
+NYJ,RB,3,34,Nwangwu Kene Sf24,
+NYJ,FB,1,47,Beck Andrew Sf25,
+NYJ,LDE,1,9,Mcdonald Iv Will 23/1,55
+NYJ,LDT,1,97,Phillips Harrison T/Min,91
+NYJ,RDT,1,95,Williams Quinnen 19/1,78
+NYJ,RDT,2,"Tufele, Jay U/Cin",96,"Taylor III, Leonard CF24"
+NYJ,RDE,1,11,Johnson Jermaine 22/1,72
+NYJ,RDE,2,"Clemons, Micheal 22/4",94,"Baron, Tyler 25/5"
+NYJ,WLB,1,51,Mauigoa Kiko 25/5,43
+NYJ,MLB,1,44,Sherwood Jamien 21/5,45
+NYJ,LCB,1,1,Gardner Sauce 22/1,23
+NYJ,LCB,2,"Thomas, Azareye'h 25/3",29,"Brownlee Jr., Jarvis T/Ten"
+NYJ,SS,1,22,Adams Tony Cf22,27
+NYJ,FS,1,8,Cisco Andre U/Jax,26
+NYJ,RCB,1,21,Stephens Brandon U/Bal,37
+NYJ,NB,1,30,Carter Ii Michael 21/5,
+NYJ,PT,1,14,Mcnamara Austin Sf25,
+NYJ,PK,1,6,Folk Nick U/Ten,
+NYJ,LS,1,42,Hennessy Thomas T/Ind,
+NYJ,H,1,14,Mcnamara Austin Sf25,
+NYJ,KO,1,6,Folk Nick U/Ten,
+NYJ,PR,1,18,Williams Isaiah P/Cin,32
+NYJ,PR,2,"Davis, Isaiah 24/5",82,"Smith, Arian 25/4"
+NYJ,KR,1,34,Nwangwu Kene Sf24,32
+NYJ,KR,2,"Davis, Isaiah 24/5",18,"Williams, Isaiah P/Cin"
+NYJ,KR,3,0,Allen Braelon 24/4,
+NYJ,WR,1,87,Smith Brandon Sf24,81
+NYJ,WR,2,"Pritchett, Jamaal CF25",88,"Skinner, Quentin CF25"
+NYJ,OG,1,60,Levao Kohl Sf24,77
+NYJ,OG,2,"Hayes, Marquis SF25",64,"Wiegand, Leander SF25*"
+NYJ,QB,1,4,Cook Brady Cf25,
+NYJ,RB,1,38,Toafili Lawrance Cf25,
+NYJ,ED,1,58,Watts Eric Cf24,
+NYJ,DI,1,69,Page Payton Cf25,
+NYJ,LB,1,49,Sirmon Jackson Cf24,53
+NYJ,LB,2,"Walker, Mykal SF25",52,"NIEMANN, BEN U/NYJ"
+NYJ,CB,1,33,Clark Jordan Cf25,25
+NYJ,S,1,40,Needham Nik Sf25,35
+NYJ,PUP,1,19,Charles Irvin Wr^,
+NYJ,PS/IR,1,31,Robinson Keilan Rb^,
+NYJ,IR,1,54,Weston Ja'Markis Lb^,56
+NYJ,IR,2,"Williams, Quincy LB^",41,"McCrary-Ball, Marcelino LB^"
+NYJ,IR,3,17,Boyd Kris Cb,63
+NYJ,IR,1,75,Vera-Tucker Alijah Og,93
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+PHI,LWR,1,11,Brown A.J. T/Ten,18
+PHI,RWR,1,2,Dotson Jahan T/Was,
+PHI,SWR,1,6,Smith Devonta 21/1,87
+PHI,LT,1,68,Mailata Jordan 18/7,74
+PHI,LG,1,69,Dickerson Landon 21/2,64
+PHI,C,1,51,Jurgens Cam 22/2,66
+PHI,RG,1,56,Steen Tyler 23/3,
+PHI,RT,1,65,Johnson Lane 13/1,79
+PHI,TE,1,88,Goedert Dallas 18/2,81
+PHI,TE,2,"Calcaterra, Grant 22/6",83,"Granson, Kylen U/Ind"
+PHI,TE,3,36,Latu Cameron Sf25,
+PHI,QB,1,1,Hurts Jalen 20/2,16
+PHI,QB,2,"McKee, Tanner 23/6",14,"Howell, Sam T/Min"
+PHI,RB,1,26,Barkley Saquon U/Nyg,28
+PHI,RB,2,"Shipley, Will 24/4",29,"Dillon, A.J. U/GB"
+PHI,RB,3,37,Bigsby Tank T/Jax,
+PHI,DE,1,97,Ojomo Moro 23/7,
+PHI,NT,1,90,Davis Jordan 22/1,95
+PHI,DT,1,98,Carter Jalen 23/1,94
+PHI,LOLB,1,52,Smith Za'Darius Cc/Det,0
+PHI,LOLB,2,"Uche, Joshua U/KC",45,"OKORONKWO, OGBO CC/Cle"
+PHI,WLB,1,53,Baun Zack U/No,42
+PHI,MLB,1,30,Campbell Jihaad 25/1,54
+PHI,ROLB,1,58,Hunt Jalyx 24/3,48
+PHI,ROLB,2,"Johnson, Patrick U/NYG",13,"Ojulari, Azeez U/NYG"
+PHI,LCB,1,27,Mitchell Quinyon 24/1,34
+PHI,SS,1,24,Mukuba Andrew 25/2,21
+PHI,FS,1,32,Blankenship Reed Cf22,39
+PHI,RCB,1,8,Jackson Adoree' U/Nyg,7
+PHI,NB,1,33,Dejean Cooper 24/2,22
+PHI,PT,1,10,Mann Braden Sf23,
+PHI,PK,1,4,Elliott Jake P/Cin,
+PHI,LS,1,47,Hughlett Charley Cc/Cle,
+PHI,H,1,10,Mann Braden Sf23,
+PHI,KO,1,4,Elliott Jake P/Cin,
+PHI,PR,1,2,Dotson Jahan T/Was,33
+PHI,KR,1,37,Bigsby Tank T/Jax,28
+PHI,KR,2,"Shipley, Will 24/4",18,"Metchie III, John T/Hou"
+PHI,KR,3,29,Dillon A.J. U/Gb,
+PHI,WR,1,85,Covey Britain Sf25,82
+PHI,WR,2,"Marshall, Terrace U/LV",86,"Baker, Javon SF25"
+PHI,WR,3,46,Watkins Quez Sf25,
+PHI,OT,1,72,Felix-Fualalo Luke Sf25*,
+PHI,OG,1,63,Pierce Hollin Cf25,
+PHI,C,1,75,Majors Jake Sf25,
+PHI,TE,1,84,Jenkins E.J. Sf24,
+PHI,QB,1,19,Mccord Kyle 25/6,
+PHI,RB,1,49,Estimé Audric Sf25,
+PHI,DI,1,96,Hall Gabe Cf24,
+PHI,LB,1,59,Campbell Chance U/Ten,50
+PHI,CB,1,38,Thomas Ambry Sf25,41
+PHI,S,1,31,Sam Andre' Cf24,35
+PHI,PUP,1,17,Dean Nakobe Ilb^,
+PHI,IR,1,61,Lampkin Willie Og^,78
+PHI,IR,2,"Hinton, Myles OT^",43,"VanSumeren, Ben FB^"
+PHI,IR,3,73,Williams Cameron Ot^,80
+PHI,IR,1,23,Bennett Jakorian Cb^,3
+PHI,IR,2,"Smith Jr., Nolan OLB^",46,"Castro-Fields, Tariq CB"
+PHI,IR,3,89,Wilson Johnny Wr,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+PIT,LWR,1,4,Metcalf Dk T/Sea,13
+PIT,LWR,2,"Miller, Scotty U/Atl",15,"Skowronek, Ben SF24"
+PIT,RWR,1,19,Austin Iii Calvin 22/4,10
+PIT,LT,1,77,Jones Broderick 23/1,71
+PIT,LG,1,73,Seumalo Isaac U/Phi,74
+PIT,C,1,54,Frazier Zach 24/2,62
+PIT,RG,1,66,Mccormick Mason 24/4,
+PIT,RT,1,76,Fautanu Troy 24/1,67
+PIT,LTE,1,81,Smith Jonnu T/Mia,80
+PIT,RTE,1,88,Freiermuth Pat 21/2,83
+PIT,QB,1,8,Rodgers Aaron Cc/Nyj,2
+PIT,RB,1,30,Warren Jaylen Cf22,14
+PIT,RB,2,"Gainwell, Kenneth U/Phi",20,"Johnson, Kaleb 25/3"
+PIT,RB,3,37,Sermon Trey U/Ind,
+PIT,DE,1,99,Harmon Derrick 25/1,94
+PIT,DE,2,"Black, Yahya 25/5",93,"Otomewo, Esezi U/Jax"
+PIT,NT,1,95,Benton Keeanu 23/2,96
+PIT,DT,1,97,Heyward Cameron 11/1,91
+PIT,LOLB,1,90,Watt T.J. 17/1,98
+PIT,LILB,1,6,Queen Patrick U/Bal,44
+PIT,RILB,1,41,Wilson Payton 24/3,55
+PIT,ROLB,1,56,Highsmith Alex 20/3,51
+PIT,ROLB,2,"Herbig, Nick 23/4",33,"Sawyer, Jack 25/4"
+PIT,LCB,1,23,Slay Darius Cc/Phi,42
+PIT,SS,1,25,Elliott Deshon U/Mia,21
+PIT,SS,2,"CLARK, CHUCK U/NYJ",40,"PEPPERS, JABRILL CC/NE"
+PIT,FS,1,22,Thornhill Juan Cc/Cle,28
+PIT,RCB,1,24,Porter Jr. Joey 23/2,26
+PIT,NB,1,5,Ramsey Jalen T/Mia,
+PIT,PT,1,3,Waitman Corliss Sf24,
+PIT,PK,1,9,Boswell Chris Sf15,
+PIT,LS,1,46,Kuntz Christian Sf19,
+PIT,H,1,3,Waitman Corliss Sf24,
+PIT,KO,1,9,Boswell Chris Sf15,
+PIT,PR,1,19,Austin Iii Calvin 22/4,13
+PIT,KR,1,14,Gainwell Kenneth U/Phi,20
+PIT,KR,2,"Johnson, Kaleb 25/3",30,"Warren, Jaylen CF22"
+PIT,WR,1,85,Williams Ke'Shawn Cf25,82
+PIT,OT,1,60,Cook Dylan Sf23,
+PIT,OG,1,79,Jones Steven Sf25,
+PIT,TE,1,85,Sokol Matt Sf25,
+PIT,QB,1,6,Woodside Logan Sf25,
+PIT,RB,1,35,Nichols Lew Sf25,84
+PIT,ED,1,45,Welschof Julius Cf24*,
+PIT,DI,1,65,Baugh Kyler Sf25,
+PIT,LB,1,49,Rhattigan Jon Sf25,53
+PIT,CB,1,39,Porter Daryl Sf25,31
+PIT,CB,2,"Bishop Jr., Beanie CF24",38,"Jamison, D'Shawn SF24"
+PIT,S,1,29,Castro Sebastian Cf25,
+PIT,IR,1,27,Trice Jr. Cory Cb^,18
+PIT,IR,2,"Howard, Will QB^",34,"Kent, Donte CB^"
+PIT,IR,3,17,Thompson Skylar Qb^,50
+PIT,IR,1,92,Loudermilk Isaiahh De^,89
+PIT,IR,2,"Parham Jr., Donald TE",69,"Davis, Domenique DT"
+PIT,IR,3,94,Lowry Dean Dt,79
+PIT,IR,1,78,Warren Gareth Ot,64
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+SEA,LWR,1,15,Horton Tory 25/5,19
+SEA,RWR,1,11,Smith-Njigba Jaxon 23/1,82
+SEA,SWR,1,10,Kupp Cooper Cc/Lar,83
+SEA,LT,1,67,Cross Charles 22/1,74
+SEA,LG,1,76,Zabel Grey 25/1,77
+SEA,C,1,61,Sundell Jalen Cf24,55
+SEA,RG,1,75,Bradford Anthony 23/4,
+SEA,RT,1,72,Lucas Abraham 22/3,78
+SEA,TE,1,88,Barner Aj 24/4,18
+SEA,TE,2,"Arroyo, Elijah 25/2",81,"SAUBERT, ERIC U/SF"
+SEA,TE,3,89,Kallerup Nick Cf25,
+SEA,QB,1,14,Darnold Sam U/Min,2
+SEA,QB,2,"Lock, Drew U/NYG",6,"Milroe, Jalen 25/3"
+SEA,RB,1,9,Walker Iii Kenneth 22/2,26
+SEA,RB,2,"Charbonnet, Zach 23/2",36,"Holani, George CF24"
+SEA,FB,1,38,Russell Brady P/Phi,
+SEA,DE,1,99,Williams Leonard T/Nyg,94
+SEA,NT,1,91,Murphy Ii Byron 24/1,
+SEA,DT,1,90,Reed Jarran U/Gb,
+SEA,RUSH,1,0,Lawrence Demarcus U/Dal,58
+SEA,RUSH,2,"Hall, Derick 23/2",51,"Ivey, Jared CF25"
+SEA,WLB,1,48,Knight Tyrice 24/4,42
+SEA,MLB,1,13,Jones Iv Ernest T/Ten,44
+SEA,SLB,1,53,Mafe Boye 22/2,7
+SEA,SLB,2,"Nwosu, Uchenna U/LAC",57,"O'Toole, Connor CF25"
+SEA,LCB,1,29,Jobe Josh Sf24,28
+SEA,SS,1,20,Love Julian U/Nyg,3
+SEA,SS,2,"Emmanwori, Nick 25/2",23,"Bell, D'Anthony U/Cle"
+SEA,FS,1,8,Bryant Coby 22/4,39
+SEA,RCB,1,27,Woolen Riq 22/5,
+SEA,NB,1,21,Witherspoon Devon 23/1,1
+SEA,PT,1,4,Dickson Michael 18/5,
+SEA,PK,1,5,Myers Jason U/Nyj,
+SEA,LS,1,41,Stoll Chris Cf23,
+SEA,H,1,4,Dickson Michael 18/5,
+SEA,KO,1,5,Myers Jason U/Nyj,
+SEA,PR,1,15,Horton Tory 25/5,19
+SEA,KR,1,36,Holani George Cf24,83
+SEA,KR,2,"Young, Dareke 22/7",82,"White, Cody SF23"
+SEA,WR,1,86,White Iii Ricky 25/7,84
+SEA,WR,2,"Jackson, Courtney SF25",85,"Broden, Tyrone CF25"
+SEA,OT,1,79,Kight Amari Cf25,
+SEA,OG,1,66,Lemieux Shane Sf25,
+SEA,C,1,62,Maranges Federico Cf25*,
+SEA,RB,1, ,Herbert Khalil Sf25,
+SEA,ED,1,50,Sheriff Jamie Sf24,
+SEA,DI,1,92,Bohanna Quinton Sf24,70
+SEA,DI,2,"Singleton, J.R. CF25",95,"Pili, Brandon W/Mia"
+SEA,LB,1,52,O'Connell Patrick Cf23,49
+SEA,CB,1,34,Jean-Charles Shemar U/No,24
+SEA,S,1,32,Reed Ii Jerrick 23/6,
+SEA,NFI,1,97,Hankins Johnathan Dt^,98
+SEA,PS/IR,1,31,Wright Jacardia Rb^,
+SEA,IR,1,64,Haynes Christian Og^,40
+SEA,IR,2,"Ouzts, Robbie FB^",25,"McIntosh, Kenny RB"
+SEA,IR,3,44,Steiner Wesley Fb,30
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+SF,LWR,1,5,Robinson Demarcus U/Lar,83
+SF,RWR,1,1,Pearsall Ricky 24/1,84
+SF,RWR,2,"BOURNE, KENDRICK CC/NE",17,"Watkins, Jordan 25/4"
+SF,SWR,1,15,Jennings Jauan 20/7,9
+SF,LT,1,71,Williams Trent T/Was,
+SF,LG,1,75,Colby Connor 25/7,
+SF,C,1,64,Brendel Jake Sf20,61
+SF,RG,1,77,Puni Dominick 24/3,65
+SF,RT,1,68,Mckivitz Colton 20/5,62
+SF,TE,1,88,Tonges Jake Sf23,89
+SF,TE,2,"Farrell, Luke U/Jax",82,"Willis, Brayden 23/7"
+SF,QB,1,13,Purdy Brock 22/7,10
+SF,RB,1,23,Mccaffrey Christian T/Car,3
+SF,RB,2,"Robinson Jr., Brian T/Was",31,"Guerendo, Isaac 24/4"
+SF,RB,3,29,James Jordan 25/5,
+SF,FB,1,44,Juszczyk Kyle U/Bal,
+SF,LDE,1,47,Huff Bryce T/Phi,94
+SF,LDE,2,"Gross-Matos, Yetur U/Car",51,"Beal Jr., Robert 23/5"
+SF,LDT,1,92,Elliott Jordan U/Cle,99
+SF,LDT,2,"West, C.J. 25/4",96,"Jefferson, Jordan W/Jax"
+SF,RDT,1,93,Davis Kalia 22/6,95
+SF,RDE,1,98,Williams Mykel 25/1,91
+SF,WLB,1,53,Winters Dee 23/6,48
+SF,WLB,2,"Bethune, Tatum 24/7",59,"Robinson, Curtis SF21"
+SF,MLB,1,54,Warner Fred 18/3,57
+SF,MLB,2,"GIFFORD, LUKE U/Ten",45,"Martin, Nick 25/3"
+SF,LCB,1,0,Green Renardo 24/2,26
+SF,LCB,2,"Lucas, Chase U/Det",30,"APPLE, ELI U/LAC"
+SF,SS,1,36,Sigle Marques 25/5,27
+SF,FS,1,25,Pinnock Jason U/Nyg,33
+SF,RCB,1,2,Lenoir Deommodore 21/5,28
+SF,NB,1,20,Stout Upton 25/3,
+SF,PT,1,7,Morstead Thomas Cc/Nyj,
+SF,PK,1,18,Piñeiro Eddy U/Car,
+SF,LS,1,46,Weeks Jon U/Hou,
+SF,H,1,7,Morstead Thomas Cc/Nyj,
+SF,KO,1,18,Piñeiro Eddy U/Car,
+SF,PR,1,9,Moore Skyy T/Kc,17
+SF,PR,2,"Watkins, Jordan 25/4",1,"Pearsall, Ricky 24/1"
+SF,KR,1,31,Guerendo Isaac 24/4,9
+SF,WR,1,14,Gage Jr. Russell Sf24,86
+SF,WR,2,"Bergen, Junior 25/7",84,"Turner, Malik SF24"
+SF,OT,1,76,Zierer Kilian Sf25*,60
+SF,OG,1,63,Zakelj Nick 22/6,
+SF,C,1,66,Nugent Drake Cf24,
+SF,TE,1,43,Swinson Messiah Sf25,
+SF,QB,1,4,Martinez Adrian Sf25,
+SF,RB,1,35,Mccormick Sincere Sf25,
+SF,ED,1,56,Gipson Trevis U/Sea,"Bradley-King, William SF25"
+SF,DI,1,55,Valdez Sebastian Cf25,58
+SF,LB,1,41,Graham Jalen 23/7,
+SF,S,1, ,Mahoney Jaylen Cf24,
+SF,PUP,1,11,Aiyuk Brandon Wr^,6
+SF,NFI,1,4,Rourke Kurtis Qb^,
+SF,IR,1,90,Givens Kevin Dt^,19
+SF,IR,2,"Cowing, Jacob WR^",85,"KITTLE, GEORGE TE^"
+SF,IR,3,78,Bartch Ben Og^,74
+SF,IR,1,81,Taylor Trent Wr,49
+SF,IR,2,"Robinson, Jakob CB",35,"Tomlinson, Tre CB"
+SF,IR,3,56,Jackson Tarron De,32
+SF,IR,1,97,Bosa Nick De,
+SF,SUS,1,67,Alarcon Isaac Ot,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+TB,LWR,1,13,Evans Mike 14/1,81
+TB,RWR,1,2,Egbuka Emeka 25/1,19
+TB,SWR,1,14,Godwin Jr. Chris 17/3,17
+TB,SWR,2,"SHEPARD, STERLING U/NYG",15,"Johnson, Tez 25/7"
+TB,LT,1,78,Wirfs Tristan 20/1,
+TB,LG,1,68,Bredeson Ben U/Nyg,65
+TB,C,1,62,Barton Graham 24/1,
+TB,RG,1,79,Klein Elijah 24/6,72
+TB,RT,1,77,Heck Charlie U/Sf,70
+TB,TE,1,88,Otton Cade 22/4,87
+TB,TE,2,"Durham, Payne 23/5",82,"Culp, Devin 24/7"
+TB,QB,1,6,Mayfield Baker U/Lar,10
+TB,RB,1,7,Irving Bucky 24/4,1
+TB,RB,2,"White, Rachaad 22/3",44,"Tucker, Sean CF23"
+TB,RB,3,18,Williams Josh Cf25,
+TB,LDE,1,90,Hall Logan 22/2,95
+TB,NT,1,50,Vea Vita 18/1,92
+TB,RDE,1,96,Gaines Greg U/Lar,52
+TB,LOLB,1,5,Reddick Haason U/Nyj,98
+TB,LILB,1,54,David Lavonte 12/2,45
+TB,RILB,1,8,Dennis Sirvocea 23/5,57
+TB,ROLB,1,0,Diaby Yaya 23/3,43
+TB,ROLB,2,"Braswell, Chris 24/2",58,"Watts, Markees CF23"
+TB,LCB,1,27,Mccollum Zyon 22/5,32
+TB,LCB,2,"Hayes, Josh 23/6",22,"Vildor, Kindle U/Det"
+TB,SS,1,23,Smith Tykee 24/3,26
+TB,FS,1,31,Winfield Jr. Antoine 20/2,38
+TB,RCB,1,35,Dean Jamel 19/3,21
+TB,NB,1,25,Parrish Jacob 25/3,29
+TB,PT,1,9,Dixon Riley U/Den,
+TB,PK,1,4,Mclaughlin Chase U/Ind,
+TB,LS,1,86,Deckers Evan Cf23,
+TB,H,1,9,Dixon Riley U/Den,
+TB,KO,1,4,Mclaughlin Chase U/Ind,
+TB,PR,1,19,Johnson Kameron Cf24,15
+TB,KR,1,44,Tucker Sean Cf23,18
+TB,WR,1,89,Houston Dennis Sf24,85
+TB,OT,1,71,Metz Lorenz Sf24*,74
+TB,OG,1,76,Opeta Sua U/Phi,60
+TB,C,1,66,Scott Ben Cf25,
+TB,TE,1,84,Taula Tanner Cf23,83
+TB,QB,1,16,Bazelak Connor Cf25,
+TB,ED,1,59,Kamara Mohamed Sf25,
+TB,DI,1,93,Jones Jayson Sf25,97
+TB,DI,2,"GOTSIS, ADAM SF24",64,"Hutmacher, Nash CF25"
+TB,DI,3,56,Watson Desmond Cf25,
+TB,LB,1,53,Jackson Nick Cf25,
+TB,CB,1,34,Hall Bryce U/Nyj,
+TB,IR,1,11,Mcmillan Jalen Wr^,67
+TB,IR,2,"Goedeke, Luke OT^",94,"Kancey, Calijah DE^"
+TB,IR,3,41,Kieft Ko Te^,51
+TB,IR,1,36,Roberts Jj S,80
+TB,IR,2,"Smith, Jaden WR",69,"Mauch, Cody OG"
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+TEN,LWR,1,5,Ayomanor Elic 25/4,11
+TEN,RWR,1,0,Ridley Calvin U/Jax,80
+TEN,SWR,1,4,Lockett Tyler Cc/Sea,17
+TEN,LT,1,75,Moore Jr. Dan U/Pit,72
+TEN,LG,1,77,Skoronski Peter 23/1,64
+TEN,C,1,79,Cushenberry Iii Lloyd U/Den,62
+TEN,RG,1,70,Zeitler Kevin U/Det,73
+TEN,RT,1,55,Latham Jc 24/1,61
+TEN,RT,2,"Ojukwu, John CF23",78,"Crenshaw-Dickson, Brandon CF25"
+TEN,TE,1,85,Okonkwo Chig 22/4,84
+TEN,TE,2,"Helm, Gunnar 25/4",88,"Martin-Robinson, David CF24"
+TEN,QB,1,1,Ward Cam 25/1,10
+TEN,RB,1,20,Pollard Tony U/Dal,36
+TEN,RB,2,"Chestnut, Julius CF22",24,"Mims, Jordan SF25"
+TEN,DE,1,69,Joseph-Day Sebastian U/Sf,97
+TEN,NT,1,90,Tuttle Shy Cc/Car,91
+TEN,DT,1,98,Simmons Jeffery 19/1,
+TEN,LOLB,1,7,Oladejo Oluwafemi 25/2,49
+TEN,LOLB,2,"Key, Arden U/Jax",92,"Harrell, Jaylen 24/7"
+TEN,LILB,1,33,Gray Cedric 24/4,52
+TEN,LILB,2,"Williams Sr., James 24/7",57,"Jacobs, Curtis SF25"
+TEN,RILB,1,50,Barton Cody U/Den,54
+TEN,ROLB,1,45,Jones Dre'Mont Cc/Sea,53
+TEN,LCB,1,38,Sneed L'Jarius T/Kc,26
+TEN,SS,1,37,Hooker Amani 19/4,23
+TEN,FS,1,25,Woods Xavier U/Car,28
+TEN,FS,2,"DIGGS, QUANDRE CC/Sea",44,"Brown, Mike P/Cle"
+TEN,RCB,1,39,Baker Jr. Darrell W/Ind,18
+TEN,NB,1,21,Mccreary Roger 22/2,35
+TEN,PT,1,3,Hekker Johnny U/Car,
+TEN,PK,1,6,Slye Joey U/Ne,
+TEN,LS,1,46,Cox Morgan U/Bal,
+TEN,H,1,3,Hekker Johnny U/Car,
+TEN,KO,1,6,Slye Joey U/Ne,
+TEN,PR,1,17,Dike Chimere 25/4,4
+TEN,KR,1,17,Dike Chimere 25/4,80
+TEN,KR,2,"Oliver, Bryce CF24",36,"Chestnut, Julius CF22"
+TEN,WR,1,13,Proche Ii James U/Cle,12
+TEN,WR,2,"Kinsey, Mason CF20",87,"Restrepo, Xavier CF25"
+TEN,OG,1,76,Rupcich Andrew Cf22,60
+TEN,TE,1,89,Odukoya Thomas Sf22*,83
+TEN,QB,1,15,Siemian Trevor Sf24,
+TEN,RB,1,30,Blackshear Raheem Sf25,
+TEN,ED,1,99,Gaye Ali W/Hou,
+TEN,DI,1,94,Horne Timmy U/Nyg,68
+TEN,DI,2,"Horsley, Cam CF25",96,"WATKINS, CARLOS U/Dal"
+TEN,LB,1,42,White Kyzir U/Arz,
+TEN,CB,1,41,Webb Sam Sf25,
+TEN,IR,1,2,Spears Tyjae Rb^,93
+TEN,IR,2,"Sweat, T'Vondre DT^",31,"Mullings, Kalel RB^"
+TEN,IR,3,16,Burks Treylon Wr,59
+TEN,IR,1,8,Levis Will Qb,
+Team,Pos,1,No.,Player 1,No
+Team,Pos,2,Player 2,No,Player 3
+Team,Pos,3,No,Player 4,No
+WAS,LWR,1,17,Mclaurin Terry 19/3,19
+WAS,LWR,2,"MOORE, CHRIS SF24",13,"Martin, Tay SF25"
+WAS,RWR,1,85,Brown Noah Sf24,83
+WAS,SWR,1,1,Samuel Deebo T/Sf,11
+WAS,LT,1,78,Tunsil Laremy T/Hou,73
+WAS,LG,1,74,Coleman Brandon 24/3,75
+WAS,C,1,63,Biadasz Tyler U/Dal,
+WAS,RG,1,67,Allegretti Nick U/Kc,71
+WAS,RT,1,72,Conerly Jr. Josh 25/1,77
+WAS,TE,1,86,Ertz Zach Sf24,87
+WAS,TE,2,"Bates, John 21/4",82,"Sinnott, Ben 24/2"
+WAS,TE,3,80,Yankoff Colson Cf24,
+WAS,QB,1,5,Daniels Jayden 24/1,8
+WAS,QB,2,"MARIOTA, MARCUS U/Phi",14,"JOHNSON, JOSH U/Bal"
+WAS,RB,1,22,Croskey-Merritt Jacory 25/7,36
+WAS,RB,2,"Rodriguez Jr., Chris 23/6",26,"McNichols, Jeremy SF24"
+WAS,LDE,1,92,Armstrong Dorance U/Dal,90
+WAS,LDE,2,"Jean-Baptiste, Javontae 24/7",96,"Holmes, Jalyn SF24"
+WAS,LDT,1,94,Payne Daron 18/1,97
+WAS,RDT,1,99,Kinlaw Javon U/Nyj,95
+WAS,RDE,1,24,Miller Von Cc/Buf,55
+WAS,RDE,2,"Martin, Jacob U/Chi",52,"SMITH, PRESTON CC/Pit"
+WAS,WLB,1,4,Luvu Frankie U/Car,57
+WAS,WLB,2,"BELLORE, NICK CC/Sea",51,"Kaho, Ale CF25"
+WAS,MLB,1,54,Wagner Bobby U/Sea,58
+WAS,MLB,2,"Magee, Jordan 24/5",56,"Medrano, Kain 25/6"
+WAS,LCB,1,23,Amos Trey 25/2,6
+WAS,SS,1,39,Reaves Jeremy Sf18,18
+WAS,FS,1,20,Martin Quan 23/2,35
+WAS,FS,2,"Butler, Percy 22/4",Savage Darnell Sf25,
+WAS,RCB,1,2,Lattimore Marshon T/No,34
+WAS,NB,1,0,Sainristil Mike 24/2,
+WAS,PT,1,10,Way Tress W/Chi,
+WAS,PK,1,16,Gay Matt Cc/Ind,
+WAS,LS,1,69,Ott Tyler U/Bal,
+WAS,H,1,10,Way Tress W/Chi,
+WAS,KO,1,16,Gay Matt Cc/Ind,
+WAS,PR,1,83,Lane Jaylin 25/4,11
+WAS,KR,1,1,Samuel Deebo T/Sf,11
+WAS,WR,1,84,Jones Jacoby Cf25,88
+WAS,OG,1,68,Mckay Timothy Cf25,61
+WAS,C,1,60,Deiter Michael U/Hou,
+WAS,TE,1,89,Cager Lawrence Sf25,
+WAS,QB,1,15,Hartman Sam Cf24,
+WAS,RB,1,32,Edwards Donovan Sf25,38
+WAS,ED,1,59,Maguranyanga T.J. Sf25,
+WAS,DI,1,98,Day Sheldon U/Min,66
+WAS,CB,1,22,Vigers Car'Lin Cf25,29
+WAS,S,1,47,Mcdaniel Robert Cf25,
+WAS,PUP,1,76,Cosmi Sam Og^,
+WAS,PS/IR,1,64,Dalcourt Darrian Og^,
+WAS,IR,1,31,Jones Jonathan Cb^,3
+WAS,IR,2,"Harris, Will S^",61,"Good-Jones, Julian OC"
+WAS,IR,3,91,Wise Jr. Deatrich De,30
+WAS,IR,1,80,Jackson Tyree Te,53

@@ -1,0 +1,2 @@
+# Example ratings file with non-ASCII characters
+1|José Pérez|QB|90|MEX|29

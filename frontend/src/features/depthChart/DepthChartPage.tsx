@@ -92,8 +92,8 @@ export function DepthChartPage() {
           <div>
             <h2 className="text-2xl font-semibold text-white">Depth chart management</h2>
             <p className="mt-2 text-sm text-slate-300">
-              Assign starters and backups for key positions. Changes are stored in the mock state for
-              quick iteration.
+              Assign starters and backups for key positions. Updates persist to the shared backend roster so
+              simulations and trades immediately respect the adjustments.
             </p>
           </div>
           <label className="flex flex-col text-sm text-slate-200">
