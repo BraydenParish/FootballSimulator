@@ -5,6 +5,7 @@ const navigation = [
   { to: "/free-agency", label: "Free Agency" },
   { to: "/trade-center", label: "Trade Center" },
   { to: "/depth-chart", label: "Depth Chart" },
+  { to: "/standings", label: "Standings" },
   { to: "/data-uploads", label: "Data Uploads" },
 ];
 

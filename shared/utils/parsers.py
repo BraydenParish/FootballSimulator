@@ -3,6 +3,26 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Iterable
 
+import csv
+
+
+def _normalize_row(row: dict[str, str | None]) -> dict[str, str]:
+    """Normalize CSV dictionary rows for easier lookups."""
+
+    normalized: dict[str, str] = {}
+    for key, value in row.items():
+        if key is None:
+            continue
+        normalized[key.strip().lower()] = (value or "").strip()
+    return normalized
+
+
+def _first_value(row: dict[str, str], *keys: str) -> str:
+    for key in keys:
+        if key in row and row[key]:
+            return row[key]
+    return ""
+
 
 def _read_lines(path: Path) -> Iterable[str]:
     if not path.exists():
@@ -20,21 +40,56 @@ def _read_lines(path: Path) -> Iterable[str]:
 def parse_ratings(path: str | Path) -> list[dict[str, str]]:
     path = Path(path)
     players: list[dict[str, str]] = []
-    for row in _read_lines(path):
-        parts = row.split("|")
-        if len(parts) != 6:
-            continue
-        player_id, name, position, overall, team_abbr, age = parts
-        players.append(
-            {
-                "id": int(player_id),
-                "name": name,
-                "position": position,
-                "overall_rating": int(overall),
-                "team_abbr": team_abbr,
-                "age": int(age),
-            }
-        )
+
+    if path.suffix.lower() == ".csv":
+        with path.open(newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            if reader.fieldnames:
+                for csv_row in reader:
+                    row = _normalize_row(csv_row)
+                    player_id = _first_value(row, "player_id", "id")
+                    name = _first_value(row, "name", "player")
+                    position = _first_value(row, "position", "pos")
+                    overall = _first_value(row, "overall_rating", "overall", "ovr")
+                    team_abbr = _first_value(row, "team_abbr", "team", "team abbreviation")
+                    age = _first_value(row, "age")
+
+                    if not (player_id and name and position and overall and team_abbr and age):
+                        continue
+
+                    try:
+                        players.append(
+                            {
+                                "id": int(float(player_id)),
+                                "name": name,
+                                "position": position,
+                                "overall_rating": int(float(overall)),
+                                "team_abbr": team_abbr,
+                                "age": int(float(age)),
+                            }
+                        )
+                    except ValueError:
+                        continue
+
+    if not players:
+        for row in _read_lines(path):
+            parts = row.split("|")
+            if len(parts) != 6:
+                continue
+            player_id, name, position, overall, team_abbr, age = parts
+            try:
+                players.append(
+                    {
+                        "id": int(player_id),
+                        "name": name,
+                        "position": position,
+                        "overall_rating": int(overall),
+                        "team_abbr": team_abbr,
+                        "age": int(age),
+                    }
+                )
+            except ValueError:
+                continue
 
     if players:
         return players
@@ -57,19 +112,50 @@ def parse_ratings(path: str | Path) -> list[dict[str, str]]:
 def parse_depth_charts(path: str | Path) -> list[dict[str, str]]:
     path = Path(path)
     entries: list[dict[str, str]] = []
-    for row in _read_lines(path):
-        parts = row.split("|")
-        if len(parts) != 4:
-            continue
-        team_abbr, position, player_id, order = parts
-        entries.append(
-            {
-                "team_abbr": team_abbr,
-                "position": position,
-                "player_id": int(player_id),
-                "order": int(order),
-            }
-        )
+
+    if path.suffix.lower() == ".csv":
+        with path.open(newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            if reader.fieldnames:
+                for csv_row in reader:
+                    row = _normalize_row(csv_row)
+                    team_abbr = _first_value(row, "team_abbr", "team", "abbr")
+                    position = _first_value(row, "position", "pos")
+                    player_id = _first_value(row, "player_id", "id")
+                    order = _first_value(row, "order", "depth", "slot")
+
+                    if not (team_abbr and position and player_id and order):
+                        continue
+
+                    try:
+                        entries.append(
+                            {
+                                "team_abbr": team_abbr,
+                                "position": position,
+                                "player_id": int(float(player_id)),
+                                "order": int(float(order)),
+                            }
+                        )
+                    except ValueError:
+                        continue
+
+    if not entries:
+        for row in _read_lines(path):
+            parts = row.split("|")
+            if len(parts) != 4:
+                continue
+            team_abbr, position, player_id, order = parts
+            try:
+                entries.append(
+                    {
+                        "team_abbr": team_abbr,
+                        "position": position,
+                        "player_id": int(player_id),
+                        "order": int(order),
+                    }
+                )
+            except ValueError:
+                continue
 
     if entries:
         return entries
@@ -91,20 +177,53 @@ def parse_depth_charts(path: str | Path) -> list[dict[str, str]]:
 def parse_free_agents(path: str | Path) -> list[dict[str, str]]:
     path = Path(path)
     agents: list[dict[str, str]] = []
-    for row in _read_lines(path):
-        parts = row.split("|")
-        if len(parts) != 5:
-            continue
-        player_id, name, position, overall, age = parts
-        agents.append(
-            {
-                "id": int(player_id),
-                "name": name,
-                "position": position,
-                "overall_rating": int(overall),
-                "age": int(age),
-            }
-        )
+
+    if path.suffix.lower() == ".csv":
+        with path.open(newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            if reader.fieldnames:
+                for csv_row in reader:
+                    row = _normalize_row(csv_row)
+                    player_id = _first_value(row, "player_id", "id")
+                    name = _first_value(row, "name", "player")
+                    position = _first_value(row, "position", "pos")
+                    overall = _first_value(row, "overall_rating", "overall", "ovr")
+                    age = _first_value(row, "age")
+
+                    if not (player_id and name and position and overall and age):
+                        continue
+
+                    try:
+                        agents.append(
+                            {
+                                "id": int(float(player_id)),
+                                "name": name,
+                                "position": position,
+                                "overall_rating": int(float(overall)),
+                                "age": int(float(age)),
+                            }
+                        )
+                    except ValueError:
+                        continue
+
+    if not agents:
+        for row in _read_lines(path):
+            parts = row.split("|")
+            if len(parts) != 5:
+                continue
+            player_id, name, position, overall, age = parts
+            try:
+                agents.append(
+                    {
+                        "id": int(player_id),
+                        "name": name,
+                        "position": position,
+                        "overall_rating": int(overall),
+                        "age": int(age),
+                    }
+                )
+            except ValueError:
+                continue
 
     if agents:
         return agents
@@ -116,22 +235,51 @@ def parse_free_agents(path: str | Path) -> list[dict[str, str]]:
 
 
 def parse_schedule(path: str | Path) -> list[dict[str, str]]:
-    """Parse scheduled games from a pipe-delimited text file."""
+    """Parse scheduled games from a CSV or pipe-delimited text file."""
 
     path = Path(path)
     schedule: list[dict[str, str]] = []
-    for row in _read_lines(path):
-        parts = row.split("|")
-        if len(parts) != 3:
-            continue
-        week, home_abbr, away_abbr = parts
-        schedule.append(
-            {
-                "week": int(week),
-                "home_abbr": home_abbr,
-                "away_abbr": away_abbr,
-            }
-        )
+
+    if path.suffix.lower() == ".csv":
+        with path.open(newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            if reader.fieldnames:
+                for csv_row in reader:
+                    row = _normalize_row(csv_row)
+                    week = _first_value(row, "week")
+                    home = _first_value(row, "home_abbr", "home", "home_team")
+                    away = _first_value(row, "away_abbr", "away", "away_team")
+
+                    if not (week and home and away):
+                        continue
+
+                    try:
+                        schedule.append(
+                            {
+                                "week": int(float(week)),
+                                "home_abbr": home,
+                                "away_abbr": away,
+                            }
+                        )
+                    except ValueError:
+                        continue
+
+    if not schedule:
+        for row in _read_lines(path):
+            parts = row.split("|")
+            if len(parts) != 3:
+                continue
+            week, home_abbr, away_abbr = parts
+            try:
+                schedule.append(
+                    {
+                        "week": int(week),
+                        "home_abbr": home_abbr,
+                        "away_abbr": away_abbr,
+                    }
+                )
+            except ValueError:
+                continue
 
     if schedule:
         return schedule

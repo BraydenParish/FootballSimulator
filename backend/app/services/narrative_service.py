@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from typing import Any, Iterable, Sequence
+from typing import Any, Sequence
 
 from ..db import row_to_dict
 

@@ -9,6 +9,7 @@ from fastapi import HTTPException
 
 from ..db import row_to_dict
 from shared.utils.rules import SimulationRules
+from .injury_service import InjuryService
 
 
 @dataclass(slots=True)
@@ -29,8 +30,9 @@ class GameBoxScore:
 class SimulationService:
     """Simulate scheduled games and persist box scores/statistics."""
 
-    def __init__(self, rules: SimulationRules) -> None:
+    def __init__(self, rules: SimulationRules, injury_service: InjuryService | None = None) -> None:
         self.rules = rules
+        self.injury_service = injury_service or InjuryService()
 
     def simulate_week(self, connection, week: int, *, detailed: bool = False) -> list[GameBoxScore]:
         games = connection.execute(
@@ -212,11 +214,15 @@ class SimulationService:
 
         players_stats: list[dict] = []
         total_yards = 0
-        turnovers = max(0, int(abs(rng.gauss(0, 1))))
+        turnovers = self.injury_service.clamp_turnovers(int(abs(rng.gauss(0, 1))))
 
         if qb:
-            passing_yards = int(qb["overall_rating"] * self.rules.passing_yards_per_rating + rng.gauss(0, 35))
-            passing_tds = max(0, int(round(team_points / 14 + rng.random())))
+            passing_yards = self.injury_service.clamp_yards(
+                int(qb["overall_rating"] * self.rules.passing_yards_per_rating + rng.gauss(0, 35))
+            )
+            passing_tds = self.injury_service.clamp_touchdowns(
+                int(round(team_points / 14 + rng.random()))
+            )
             interceptions = min(3, max(0, int(rng.gauss(0.5, 0.8))))
             players_stats.append(
                 self._player_stat_template(
@@ -229,8 +235,12 @@ class SimulationService:
             total_yards += passing_yards
 
         if rb:
-            rushing_yards = int(rb["overall_rating"] * self.rules.rushing_yards_per_rating + rng.gauss(0, 20))
-            rushing_tds = max(0, int(round(team_points / 21 + rng.random() - 0.3)))
+            rushing_yards = self.injury_service.clamp_yards(
+                int(rb["overall_rating"] * self.rules.rushing_yards_per_rating + rng.gauss(0, 20))
+            )
+            rushing_tds = self.injury_service.clamp_touchdowns(
+                int(round(team_points / 21 + rng.random() - 0.3))
+            )
             players_stats.append(
                 self._player_stat_template(
                     rb,
@@ -241,8 +251,12 @@ class SimulationService:
             total_yards += rushing_yards
 
         if wr:
-            receiving_yards = int(wr["overall_rating"] * self.rules.receiving_yards_per_rating + rng.gauss(0, 25))
-            receiving_tds = max(0, int(round(team_points / 21 + rng.random() - 0.4)))
+            receiving_yards = self.injury_service.clamp_yards(
+                int(wr["overall_rating"] * self.rules.receiving_yards_per_rating + rng.gauss(0, 25))
+            )
+            receiving_tds = self.injury_service.clamp_touchdowns(
+                int(round(team_points / 21 + rng.random() - 0.4))
+            )
             players_stats.append(
                 self._player_stat_template(
                     wr,
@@ -254,7 +268,9 @@ class SimulationService:
 
         if defender:
             tackles = max(2, int(rng.gauss(6, 2)))
-            sacks = max(0.0, round(rng.random() * self.rules.defense_big_play_factor * 10, 1))
+            sacks = self.injury_service.clamp_sacks(
+                round(rng.random() * self.rules.defense_big_play_factor * 10, 1)
+            )
             forced = 1 if rng.random() < self.rules.defense_big_play_factor else 0
             players_stats.append(
                 self._player_stat_template(
@@ -556,14 +572,15 @@ class SimulationService:
             if not player:
                 continue
             if rng.random() < self.rules.injury_probability:
-                injuries.append(
-                    {
-                        "player_id": player["id"],
-                        "team_id": player["team_id"],
-                        "name": player["name"],
-                        "status": "questionable",
-                    }
-                )
+                metadata = self.injury_service.generate_injury(rng, player)
+                injuries.append({
+                    "player_id": metadata.player_id,
+                    "team_id": metadata.team_id,
+                    "name": metadata.name,
+                    "status": metadata.status,
+                    "duration_weeks": metadata.duration_weeks,
+                    "games_missed": metadata.games_missed,
+                })
                 connection.execute(
                     "UPDATE players SET injury_status = 'questionable' WHERE id = ?",
                     (player["id"],),

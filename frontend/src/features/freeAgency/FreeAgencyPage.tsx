@@ -3,7 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { leagueApi } from "../../api/client";
 import { queryKeys } from "../../api/queryKeys";
 import { Card } from "../../components/ui/Card";
-import { Player, Team } from "../../types/league";
+import { Player, SignResult, Team } from "../../types/league";
 
 const DEFAULT_TEAM_ID = 1;
 
@@ -12,6 +12,7 @@ export function FreeAgencyPage() {
   const [positionFilter, setPositionFilter] = useState<string>("All");
   const [selectedTeam, setSelectedTeam] = useState<number>(DEFAULT_TEAM_ID);
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [lastActionSuccess, setLastActionSuccess] = useState<boolean | null>(null);
 
   const teamsQuery = useQuery({ queryKey: queryKeys.teams, queryFn: () => leagueApi.fetchTeams() });
   const freeAgentsQuery = useQuery({
@@ -22,15 +23,21 @@ export function FreeAgencyPage() {
   const signMutation = useMutation({
     mutationFn: ({ playerId, teamId }: { playerId: number; teamId: number }) =>
       leagueApi.signFreeAgent(teamId, playerId),
-    onSuccess: (result) => {
+    onSuccess: (result: SignResult) => {
       setFeedback(result.message);
+      setLastActionSuccess(true);
       queryClient.invalidateQueries({ queryKey: queryKeys.freeAgents });
       queryClient.invalidateQueries({ queryKey: queryKeys.roster(selectedTeam) });
+    },
+    onError: (error: unknown) => {
+      setFeedback(error instanceof Error ? error.message : "Signing failed.");
+      setLastActionSuccess(false);
     },
   });
 
   const teams = teamsQuery.data ?? [];
-  const freeAgents = freeAgentsQuery.data ?? [];
+  const freeAgentPool = freeAgentsQuery.data;
+  const freeAgents = freeAgentPool?.players ?? [];
 
   const filteredFreeAgents = freeAgents.filter((player) =>
     positionFilter === "All" ? true : player.position === positionFilter
@@ -43,7 +50,7 @@ export function FreeAgencyPage() {
   };
 
   const renderRow = (player: Player) => (
-    <tr key={player.id} className="border-b border-white/5">
+    <tr key={player.id} className="border-b border-white/5" data-test="free-agent-row">
       <td className="px-4 py-3 text-sm text-white">{player.name}</td>
       <td className="px-4 py-3 text-sm text-slate-300">{player.position}</td>
       <td className="px-4 py-3 text-sm text-slate-300">{player.overall}</td>
@@ -53,7 +60,8 @@ export function FreeAgencyPage() {
         <button
           type="button"
           onClick={() => handleSign(player.id)}
-          className="rounded-lg bg-primary.accent px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-primary.accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary.accent"
+          disabled={signMutation.isPending}
+          className="rounded-lg bg-primary.accent px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-primary.accent/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary.accent disabled:cursor-not-allowed disabled:bg-primary.accent/60"
         >
           Sign
         </button>
@@ -66,8 +74,8 @@ export function FreeAgencyPage() {
       <Card>
         <h2 className="text-2xl font-semibold text-white">Free agency center</h2>
         <p className="mt-2 text-sm text-slate-300">
-          Filter the available pool and sign players directly to the selected team. All moves are
-          validated locally until the backend services are integrated.
+          Filter the available pool and sign players directly to the selected team. Contracts are validated against
+          the live roster constraints.
         </p>
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end">
           <label className="flex flex-col text-sm text-slate-200">
@@ -100,7 +108,10 @@ export function FreeAgencyPage() {
             </select>
           </label>
           {feedback ? (
-            <div className="rounded-lg bg-primary.accent/10 px-4 py-2 text-xs font-semibold text-primary.accent">
+            <div
+              className="rounded-lg bg-primary.accent/10 px-4 py-2 text-xs font-semibold text-primary.accent"
+              data-test="sign-feedback"
+            >
               {feedback}
             </div>
           ) : null}
@@ -139,6 +150,17 @@ export function FreeAgencyPage() {
             </tbody>
           </table>
         </div>
+      </Card>
+
+      <Card data-test="depth-chart">
+        <h3 className="text-lg font-semibold text-white">Latest roster update</h3>
+        <p className="mt-2 text-sm text-slate-300">
+          {feedback
+            ? lastActionSuccess
+              ? `${feedback}${feedback.endsWith(".") ? "" : "."} Depth chart updated for ${freeAgentPool?.year ?? "the current"} season.`
+              : `${feedback}${feedback.endsWith(".") ? "" : "."} No changes were applied to the roster.`
+            : "Sign a player to immediately reflect the move on the active depth chart."}
+        </p>
       </Card>
     </div>
   );
