@@ -1,9 +1,10 @@
 import {
   BoxScore,
   DepthChartEntry,
-  FreeAgentSigningResult,
+  FreeAgentPool,
   GameSummary,
   Player,
+  SignResult,
   SimulationRequest,
   SimulationResult,
   Standing,
@@ -52,14 +53,14 @@ export async function simulateWeek(request: SimulationRequest): Promise<Simulati
   return getState().simulateWeek(request.week, request.mode);
 }
 
-export async function fetchFreeAgents(): Promise<Player[]> {
-  return getState().freeAgents;
+export async function fetchFreeAgents(): Promise<FreeAgentPool> {
+  return { year: new Date().getFullYear(), players: getState().freeAgents };
 }
 
 export async function signFreeAgent(
   teamId: number,
   playerId: number
-): Promise<FreeAgentSigningResult> {
+): Promise<SignResult> {
   return getState().signFreeAgent(teamId, playerId);
 }
 

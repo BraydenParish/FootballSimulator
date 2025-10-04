@@ -184,8 +184,6 @@ export function ResultsPage() {
             return (
               <Card
                 key={game.gameId}
-                data-testid="game-card"
-                data-game-id={game.gameId}
                 className={
                   isHighlighted || isFocus
                     ? "border border-primary.accent/60 bg-primary.accent/5"

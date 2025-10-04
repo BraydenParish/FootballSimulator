@@ -53,7 +53,7 @@ export function RecentResultsCard({
       opponentRecord,
       outcome: focusScore > opponentScore ? "Victory" : focusScore < opponentScore ? "Defeat" : "Draw",
     };
-  }, [lastResult, standings]);
+  }, [lastResult, standings, focusTeamId]);
 
   return (
     <Card>

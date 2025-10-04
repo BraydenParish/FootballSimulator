@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen, waitFor } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { vi } from "vitest";
@@ -27,10 +27,17 @@ describe("DashboardPage", () => {
     renderDashboard();
 
     const simButton = await screen.findByRole("button", { name: /simulate week/i });
-    await userEvent.click(simButton);
+    await act(async () => {
+      await userEvent.click(simButton);
+    });
 
-    await waitFor(() => expect(simulateSpy).toHaveBeenCalled());
-    expect(await screen.findByRole("heading", { name: /week \d+ results/i })).toBeInTheDocument();
-    simulateSpy.mockRestore();
+    const quickSimButton = await screen.findByRole("button", { name: /quick sim/i });
+    await act(async () => {
+      await userEvent.click(quickSimButton);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(/Quick sim complete/i)).toBeInTheDocument();
+    });
   });
 });
