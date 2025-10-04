@@ -25,6 +25,16 @@ SCHEMA_PATH = BASE_DIR / "schema.sql"
 CURRENT_YEAR = 2025
 
 
+def _resolve_data_file(*names: str) -> Path:
+    for name in names:
+        for extension in (".csv", ".txt"):
+            candidate = DATA_DIR / f"{name}{extension}"
+            if candidate.exists():
+                return candidate
+    # Fall back to the first name with the legacy .txt extension.
+    return DATA_DIR / f"{names[0]}.txt"
+
+
 def init_db(connection: sqlite3.Connection) -> None:
     schema_sql = SCHEMA_PATH.read_text()
     connection.executescript(schema_sql)
@@ -42,7 +52,8 @@ def load_teams(connection: sqlite3.Connection) -> None:
 
 
 def load_players(connection: sqlite3.Connection, *, rules) -> None:
-    players = parse_ratings(DATA_DIR / "ratings.txt")
+    ratings_path = _resolve_data_file("ratings")
+    players = parse_ratings(ratings_path)
     for player in players:
         team_abbr = player.pop("team_abbr")
         team_id_row = connection.execute(
@@ -88,7 +99,8 @@ def load_players(connection: sqlite3.Connection, *, rules) -> None:
 
 
 def load_schedule(connection: sqlite3.Connection) -> None:
-    games = parse_schedule(DATA_DIR / "schedule.txt")
+    schedule_path = _resolve_data_file("schedule")
+    games = parse_schedule(schedule_path)
     for game in games:
         home_team_row = connection.execute(
             "SELECT id FROM teams WHERE abbreviation = ?",
@@ -125,7 +137,9 @@ def load_schedule(connection: sqlite3.Connection) -> None:
 
 
 def apply_depth_chart(connection: sqlite3.Connection) -> None:
-    depth_entries = parse_depth_charts(DATA_DIR / "NFL_Depth_Charts.txt")
+    depth_entries = parse_depth_charts(
+        _resolve_data_file("NFL_Depth_Charts", "depth_charts")
+    )
     for entry in depth_entries:
         depth_position = entry["position"].upper()
         order = entry["order"]
@@ -142,7 +156,9 @@ def apply_depth_chart(connection: sqlite3.Connection) -> None:
 
 
 def load_free_agents(connection: sqlite3.Connection, *, rules, year: int) -> None:
-    agents = parse_free_agents(DATA_DIR / f"{year}_Free_Agents.txt")
+    agents = parse_free_agents(
+        _resolve_data_file(f"{year}_Free_Agents", f"{year}_free_agents")
+    )
     for agent in agents:
         salary = rules.salary_base + rules.salary_per_rating * agent["overall_rating"]
         connection.execute(
