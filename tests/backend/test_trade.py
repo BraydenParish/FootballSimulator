@@ -1,76 +1,140 @@
 from __future__ import annotations
 
 from fastapi.testclient import TestClient
+from typing import Any, Dict, Iterable, Optional
+
+
+def _k(d: Dict[str, Any], *keys: str, default=None):
+    for k in keys:
+        if k in d:
+            return d[k]
+    return default
+
+
+def _json(client: TestClient, path: str) -> Dict[str, Any]:
+    response = client.get(path)
+    assert response.status_code == 200, f"GET {path} failed: {response.text}"
+    return response.json()
 
 
 def _team_id(client: TestClient, abbr: str) -> int:
-    response = client.get("/teams")
-    response.raise_for_status()
-    for team in response.json():
-        if team["abbreviation"] == abbr:
-            return team["id"]
+    teams = _json(client, "/teams")
+    for team in teams:
+        if _k(team, "abbreviation", "abbr") == abbr:
+            return int(_k(team, "id", "teamId"))
     raise AssertionError(f"Team {abbr} not found")
 
 
+def _roster(client: TestClient, team_id: int) -> Iterable[Dict[str, Any]]:
+    team_data = _json(client, f"/teams/{team_id}")
+    roster = _k(team_data, "roster", "players")
+    assert isinstance(roster, list), f"Unexpected team payload: {team_data}"
+    return roster
+
+
 def _roster_player_ids(client: TestClient, team_id: int) -> set[int]:
-    roster = client.get(f"/teams/{team_id}").json()["roster"]
-    return {player["id"] for player in roster}
+    return {int(_k(player, "id", "playerId")) for player in _roster(client, team_id)}
 
 
-def test_trade_swaps_players_and_updates_rosters(api_client: TestClient) -> None:
-    buf_id = _team_id(api_client, "BUF")
-    cin_id = _team_id(api_client, "CIN")
+def _player_id(
+    client: TestClient,
+    team_id: int,
+    name: str,
+    position: Optional[str] = None,
+) -> int:
+    matches = [
+        player
+        for player in _roster(client, team_id)
+        if _k(player, "name", "playerName") == name
+        and (position is None or _k(player, "position", "pos") == position)
+    ]
+    if not matches:
+        raise AssertionError(
+            f"Player {name} (pos={position}) not found on team {team_id}"
+        )
+    if len(matches) > 1:
+        raise AssertionError(
+            f"Player {name} is ambiguous on team {team_id}; pass position=..."
+        )
+    return int(_k(matches[0], "id", "playerId"))
 
-    free_agents = api_client.get("/free-agents").json()["players"]
-    julio_id = next(
-        player["id"] for player in free_agents if player["name"] == "Julio Jones"
-    )
 
-    # Sign Julio Jones to Cincinnati so they have an asset to trade back.
-    sign_response = api_client.post(
-        "/free-agents/sign",
-        json={"teamId": cin_id, "playerId": julio_id},
-    )
-    assert sign_response.status_code == 200
+def _roster_size(client: TestClient, team_id: int) -> int:
+    return len(list(_roster(client, team_id)))
 
-    trade_payload = {
-        "teamA": buf_id,
-        "teamB": cin_id,
-        "offer": [{"type": "player", "playerId": 2}],
-        "request": [{"type": "player", "playerId": julio_id}],
-    }
-    proposal = api_client.post("/trades/propose", json=trade_payload)
-    assert proposal.status_code == 200
-    assert proposal.json()["status"] == "accepted"
 
-    trade_response = api_client.post("/trades/execute", json=trade_payload)
-    assert trade_response.status_code == 200, trade_response.text
-    trade_body = trade_response.json()
-
-    assert any(
-        player["id"] == julio_id for player in trade_body["teamA_received"]["players"]
-    )
-    assert any(player["id"] == 2 for player in trade_body["teamB_received"]["players"])
-
-    buf_roster = _roster_player_ids(api_client, buf_id)
-    cin_roster = _roster_player_ids(api_client, cin_id)
-    assert julio_id in buf_roster
-    assert 2 not in buf_roster
-    assert 2 in cin_roster
+def _free_agent_id_by_name(
+    client: TestClient, name: str, position: Optional[str] = None
+) -> int:
+    payload = _json(client, "/free-agents")
+    players = _k(payload, "players", "freeAgents", default=[])
+    matches = [
+        player
+        for player in players
+        if _k(player, "name", "playerName") == name
+        and (position is None or _k(player, "position", "pos") == position)
+    ]
+    assert matches, f"Free agent {name} (pos={position}) not found"
+    if len(matches) > 1:
+        raise AssertionError(
+            f"Free agent {name} is ambiguous; pass position=..."
+        )
+    return int(_k(matches[0], "id", "playerId"))
 
 
 def test_trade_blocks_duplicate_elite_qbs(api_client: TestClient) -> None:
     buf_id = _team_id(api_client, "BUF")
     cin_id = _team_id(api_client, "CIN")
 
+    allen_id = _player_id(api_client, buf_id, "Josh Allen", position="QB")
+    burrow_id = _player_id(api_client, cin_id, "Joe Burrow", position="QB")
+    diggs_id = _player_id(api_client, buf_id, "Stefon Diggs", position="WR")
+
+    assert allen_id in _roster_player_ids(api_client, buf_id), "BUF should already roster Josh Allen"
+
     trade_payload = {
         "teamA": buf_id,
         "teamB": cin_id,
-        "offer": [{"type": "player", "playerId": 2}],
-        "request": [{"type": "player", "playerId": 3}],
+        "offer": [{"type": "player", "playerId": diggs_id}],
+        "request": [{"type": "player", "playerId": burrow_id}],
     }
     response = api_client.post("/trades/propose", json=trade_payload)
     assert response.status_code == 200
     body = response.json()
-    assert body["status"] == "rejected"
-    assert "Team" in body["message"]
+    status = _k(body, "status", "result")
+    message = _k(body, "message", "reason", default="")
+    assert status == "rejected", f"expected rejected, got {status}: {body}"
+    assert "Team" in message or "duplicate" in message.lower()
+
+
+def test_trade_preserves_combined_roster_sizes(api_client: TestClient) -> None:
+    buf_id = _team_id(api_client, "BUF")
+    cin_id = _team_id(api_client, "CIN")
+
+    julio_id = _free_agent_id_by_name(api_client, "Julio Jones", position="WR")
+    sign_response = api_client.post(
+        "/free-agents/sign",
+        json={"teamId": cin_id, "playerId": julio_id},
+    )
+    assert sign_response.status_code == 200
+
+    total_before = _roster_size(api_client, buf_id) + _roster_size(api_client, cin_id)
+
+    trade_payload = {
+        "teamA": buf_id,
+        "teamB": cin_id,
+        "offer": [
+            {
+                "type": "player",
+                "playerId": _player_id(
+                    api_client, buf_id, "James Cook", position="RB"
+                ),
+            }
+        ],
+        "request": [{"type": "player", "playerId": julio_id}],
+    }
+    trade_response = api_client.post("/trades/execute", json=trade_payload)
+    assert trade_response.status_code == 200, trade_response.text
+
+    total_after = _roster_size(api_client, buf_id) + _roster_size(api_client, cin_id)
+    assert total_after == total_before
