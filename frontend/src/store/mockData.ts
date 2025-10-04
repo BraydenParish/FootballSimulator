@@ -2,7 +2,9 @@ import { create } from "zustand";
 import {
   BoxScore,
   DepthChartEntry,
+  FreeAgentSigningResult,
   GameSummary,
+  InjuryReport,
   Player,
   SignResult,
   SimulationMode,
@@ -10,8 +12,10 @@ import {
   Standing,
   Team,
   TeamStats,
-  TradeEvaluation,
+  TradeExecutionResult,
   TradeProposal,
+  TradeProposalResult,
+  WeeklyGameResult,
 } from "../types/league";
 import { parseDepthChartFile, parseFreeAgentFile, parseScheduleCsv } from "../utils/parsers";
 
@@ -525,16 +529,77 @@ const defaultBoxScores: BoxScore[] = [
   },
 ];
 
+const defaultInjuryLog: Record<number, InjuryReport[]> = {
+  1: [
+    {
+      playerId: 5,
+      name: "Alpha Linebacker",
+      teamId: 1,
+      teamName: "Team Alpha",
+      position: "LB",
+      status: "Questionable",
+      description: "Shoulder strain sustained late in the fourth quarter.",
+      expectedReturn: "1 week",
+    },
+    {
+      playerId: 18,
+      name: "Gamma Corner",
+      teamId: 3,
+      teamName: "Team Gamma",
+      position: "CB",
+      status: "Out",
+      description: "Ankle sprain – held out as precaution.",
+      expectedReturn: "2 weeks",
+    },
+  ],
+};
+
+const DEFENSIVE_POSITIONS = ["LB", "CB", "S", "SS", "FS", "DE", "DT", "EDGE"] as const;
+
+function cloneTeams(teams: Team[]): Team[] {
+  return teams.map((team) => ({ ...team }));
+}
+
+function clonePlayers(players: Player[]): Player[] {
+  return players.map((player) => ({ ...player }));
+}
+
+function cloneBoxScores(boxScores: BoxScore[]): BoxScore[] {
+  return boxScores.map((box) => ({
+    ...box,
+    homeTeam: { ...box.homeTeam },
+    awayTeam: { ...box.awayTeam },
+    keyPlayers: box.keyPlayers.map((player) => ({ ...player })),
+  }));
+}
+
+function createInitialState() {
+  return {
+    teams: cloneTeams(defaultTeams),
+    players: clonePlayers(defaultPlayers),
+    freeAgents: clonePlayers(defaultFreeAgents),
+    games: defaultGames.map((game) => ({ ...game })),
+    boxScores: cloneBoxScores(defaultBoxScores),
+    injuryLog: { ...defaultInjuryLog },
+    nextPlayerId: Math.max(...defaultPlayers.map((player) => player.id), 0) + 100,
+    ratingsSource: null as string | null,
+    rulesSource: null as string | null,
+    simulationRulesSource: null as string | null,
+  };
+}
+
 type MockDataState = {
   teams: Team[];
   players: Player[];
   freeAgents: Player[];
   games: GameSummary[];
   boxScores: BoxScore[];
+  injuryLog: Record<number, InjuryReport[]>;
   nextPlayerId: number;
   ratingsSource: string | null;
   rulesSource: string | null;
   simulationRulesSource: string | null;
+  reset: () => void;
   loadDepthCharts: (text: string) => void;
   loadFreeAgents: (text: string) => void;
   loadSchedule: (text: string) => void;
@@ -549,6 +614,8 @@ type MockDataState = {
   computeStandings: () => Standing[];
   getTeamRoster: (teamId: number) => Player[];
   getTeamStats: (teamId: number) => TeamStats;
+  getWeekResults: (week: number) => WeeklyGameResult[];
+  getLatestCompletedWeek: () => number | null;
 };
 
 function computeStandingsFromGames(games: GameSummary[], teams: Team[]): Standing[] {
@@ -592,7 +659,13 @@ function computeStandingsFromGames(games: GameSummary[], teams: Team[]): Standin
       }
     });
 
-  return Array.from(records.values()).sort((a, b) => {
+  const standings = Array.from(records.values());
+  standings.forEach((entry) => {
+    const gamesPlayed = entry.wins + entry.losses + entry.ties;
+    entry.winPct = gamesPlayed ? Number((entry.wins / gamesPlayed).toFixed(3)) : 0;
+  });
+
+  return standings.sort((a, b) => {
     if (b.wins !== a.wins) {
       return b.wins - a.wins;
     }
@@ -688,16 +761,100 @@ function buildPlayByPlay(game: GameSummary, boxScore: BoxScore): string[] {
   ];
 }
 
+function playerToStatLine(player: Player, note: string): BoxScore["keyPlayers"][number] {
+  return {
+    playerId: player.id,
+    name: player.name,
+    teamId: player.teamId ?? 0,
+    position: player.position,
+    statLine: note,
+  };
+}
+
+function computeWeeklyLeaders(
+  game: GameSummary,
+  boxScore: BoxScore | undefined,
+  players: Player[]
+): {
+  passingLeader: BoxScore["keyPlayers"][number] | null;
+  rushingLeader: BoxScore["keyPlayers"][number] | null;
+  receivingLeader: BoxScore["keyPlayers"][number] | null;
+  defensiveLeaders: BoxScore["keyPlayers"][number][];
+} {
+  const statLines = boxScore?.keyPlayers ?? [];
+  const participants = players.filter(
+    (player) => player.teamId === game.homeTeamId || player.teamId === game.awayTeamId
+  );
+
+  const pickStat = (positions: string[]): BoxScore["keyPlayers"][number] | undefined =>
+    statLines.find((line) => positions.includes(line.position));
+
+  const fallback = (slot: string, predicate: (player: Player) => boolean, descriptor: string) => {
+    const fromSlot = participants.find((player) => player.depthChartSlot === slot);
+    const selected = fromSlot ?? participants.find(predicate);
+    return selected ? playerToStatLine(selected, descriptor) : null;
+  };
+
+  const qbOverall = participants.find((player) => player.position === "QB")?.overall ?? 70;
+  const rbOverall = participants.find((player) => player.position === "RB")?.overall ?? 65;
+  const wrOverall = participants.find((player) => player.position === "WR")?.overall ?? 68;
+
+  const passingLeader =
+    pickStat(["QB"]) ?? fallback("QB1", (player) => player.position === "QB", `${220 + qbOverall} pass yds · 2 TD`);
+
+  const rushingLeader =
+    pickStat(["RB"]) ?? fallback("RB1", (player) => player.position === "RB", `${90 + rbOverall} rush yds · TD`);
+
+  const receivingLeader =
+    pickStat(["WR", "TE"]) ??
+    fallback(
+      "WR1",
+      (player) => player.position === "WR" || player.position === "TE",
+      `6 rec · ${wrOverall + 40} yds`
+    );
+
+  const defensiveLeadersFromStats = statLines.filter((line) =>
+    DEFENSIVE_POSITIONS.includes(line.position as (typeof DEFENSIVE_POSITIONS)[number])
+  );
+
+  const defensiveFallback = participants
+    .filter((player) => DEFENSIVE_POSITIONS.includes(player.position as any))
+    .sort((a, b) => b.overall - a.overall)
+    .slice(0, 2)
+    .map((player) => playerToStatLine(player, `${player.overall} OVR · defensive anchor`));
+
+  const defensiveLeaders = defensiveLeadersFromStats.length ? defensiveLeadersFromStats : defensiveFallback;
+
+  return {
+    passingLeader: passingLeader ?? null,
+    rushingLeader: rushingLeader ?? null,
+    receivingLeader: receivingLeader ?? null,
+    defensiveLeaders,
+  };
+}
+
+function buildInjurySummary(summary: BoxScore): InjuryReport | null {
+  const candidate = summary.keyPlayers.find((player) => player.position !== "QB") ?? summary.keyPlayers[0];
+  if (!candidate) {
+    return null;
+  }
+  const teamName =
+    candidate.teamId === summary.homeTeam.teamId ? summary.homeTeam.name : summary.awayTeam.name;
+  return {
+    playerId: candidate.playerId,
+    name: candidate.name,
+    teamId: candidate.teamId,
+    teamName,
+    position: candidate.position,
+    status: "Questionable",
+    description: "Day-to-day after taking a hit.",
+    expectedReturn: "1 week",
+  };
+}
+
 const useMockDataStore = create<MockDataState>((set, get) => ({
-  teams: defaultTeams,
-  players: defaultPlayers,
-  freeAgents: defaultFreeAgents,
-  games: defaultGames,
-  boxScores: defaultBoxScores,
-  nextPlayerId: 200,
-  ratingsSource: null,
-  rulesSource: null,
-  simulationRulesSource: null,
+  ...createInitialState(),
+  reset: () => set(createInitialState()),
   loadDepthCharts: (text: string) => {
     const assignments = parseDepthChartFile(text, get().teams);
     set((state) => {
@@ -749,7 +906,7 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
         awayTeamAbbreviation: away.abbreviation,
       };
     });
-    set({ games: schedule, boxScores: [] });
+    set({ games: schedule, boxScores: [], injuryLog: {} });
   },
   loadRatings: (text: string) => {
     set({ ratingsSource: text });
@@ -776,6 +933,15 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
       buildPlayByPlay(gamesToSimulate[index], summary)
     );
 
+    const simulatedInjuries = summaries
+      .map((summary) => buildInjurySummary(summary))
+      .filter((injury): injury is InjuryReport => Boolean(injury));
+
+    const existingWeekInjuries = state.injuryLog[week] ?? [];
+    const updatedInjuryLog = simulatedInjuries.length
+      ? { ...state.injuryLog, [week]: [...existingWeekInjuries, ...simulatedInjuries] }
+      : state.injuryLog;
+
     const updatedGames = state.games.map((game) => {
       const summary = summaries.find((item) => item.gameId === game.id);
       if (!summary) {
@@ -792,6 +958,7 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
     set({
       games: updatedGames,
       boxScores: [...state.boxScores, ...summaries],
+      injuryLog: updatedInjuryLog,
     });
 
     return { week, summaries, playByPlay };
@@ -850,34 +1017,34 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
   evaluateTrade: (proposal: TradeProposal) => {
     const state = get();
     if (proposal.teamA === proposal.teamB) {
-      return { success: false, message: "Teams must be different." };
+      return { status: "rejected", message: "Teams must be different." };
     }
     if (!proposal.offer.length || !proposal.request.length) {
-      return { success: false, message: "Both teams must include at least one asset." };
+      return { status: "rejected", message: "Both teams must include at least one asset." };
     }
 
     const teamA = state.teams.find((candidate) => candidate.id === proposal.teamA);
     const teamB = state.teams.find((candidate) => candidate.id === proposal.teamB);
     if (!teamA || !teamB) {
-      return { success: false, message: "Both teams must be valid selections." };
+      return { status: "rejected", message: "Both teams must be valid selections." };
     }
 
     if (proposal.offer.some((id) => proposal.request.includes(id))) {
-      return { success: false, message: "Assets cannot appear on both sides of the trade." };
+      return { status: "rejected", message: "Assets cannot appear on both sides of the trade." };
     }
 
     const offerPlayers = state.players.filter((player) => proposal.offer.includes(player.id));
     const requestPlayers = state.players.filter((player) => proposal.request.includes(player.id));
 
     if (!offerPlayers.length || !requestPlayers.length) {
-      return { success: false, message: "Unable to match selected players." };
+      return { status: "rejected", message: "Unable to match selected players." };
     }
 
     if (!offerPlayers.every((player) => player.teamId === proposal.teamA)) {
-      return { success: false, message: "Offering assets must belong to the selected team." };
+      return { status: "rejected", message: "Offering assets must belong to the selected team." };
     }
     if (!requestPlayers.every((player) => player.teamId === proposal.teamB)) {
-      return { success: false, message: "Requested assets must belong to the opposing team." };
+      return { status: "rejected", message: "Requested assets must belong to the opposing team." };
     }
 
     const projectedPlayers = state.players.map((player) => {
@@ -916,10 +1083,10 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
 
     for (const position of KEY_POSITIONS) {
       if (!teamARoster.some((player) => player.position === position)) {
-        return { success: false, message: `Team ${teamA.name} must retain a ${position}.` };
+        return { status: "rejected", message: `Team ${teamA.name} must retain a ${position}.` };
       }
       if (!teamBRoster.some((player) => player.position === position)) {
-        return { success: false, message: `Team ${teamB.name} must retain a ${position}.` };
+        return { status: "rejected", message: `Team ${teamB.name} must retain a ${position}.` };
       }
     }
 
@@ -935,18 +1102,24 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
     }
 
     if (countEliteQuarterbacks(teamARoster) > 1) {
-      return { success: false, message: `${teamA.name} cannot roster multiple elite quarterbacks.` };
+      return { status: "rejected", message: `${teamA.name} cannot roster multiple elite quarterbacks.` };
     }
     if (countEliteQuarterbacks(teamBRoster) > 1) {
-      return { success: false, message: `${teamB.name} cannot roster multiple elite quarterbacks.` };
+      return { status: "rejected", message: `${teamB.name} cannot roster multiple elite quarterbacks.` };
     }
 
-    return { success: true, message: "Proposal passes local validation." };
+    return {
+      status: "accepted",
+      message: "Proposal passes mock validation.",
+      offerValue,
+      requestValue,
+      valueDelta: requestValue - offerValue,
+    };
   },
   executeTrade: (proposal: TradeProposal) => {
     const state = get();
     const validation = get().evaluateTrade(proposal);
-    if (!validation.success) {
+    if (validation.status !== "accepted") {
       return validation;
     }
 
@@ -982,7 +1155,13 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
     });
 
     set({ players: updatedPlayers, teams: updatedTeams });
-    return { success: true, message: "Trade completed." };
+    return {
+      status: "accepted",
+      message: "Trade completed.",
+      offerValue: validation.offerValue,
+      requestValue: validation.requestValue,
+      valueDelta: validation.valueDelta,
+    };
   },
   updateDepthChart: (teamId: number, entries: DepthChartEntry[]) => {
     set((state) => ({
@@ -1046,6 +1225,52 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
       gamesPlayed: relevant.length,
       starters,
     };
+  },
+  getWeekResults: (week: number) => {
+    const state = get();
+    const games = state.games.filter((game) => game.week === week);
+    if (!games.length) {
+      return [];
+    }
+    const injuriesByWeek = state.injuryLog[week] ?? [];
+    return games.map((game) => {
+      const boxScore = state.boxScores.find((box) => box.gameId === game.id);
+      const leaders = computeWeeklyLeaders(game, boxScore, state.players);
+      const injuries = injuriesByWeek.filter(
+        (injury) => injury.teamId === game.homeTeamId || injury.teamId === game.awayTeamId
+      );
+      return {
+        gameId: game.id,
+        week: game.week,
+        playedAt: game.playedAt,
+        homeTeam: {
+          id: game.homeTeamId,
+          name: game.homeTeamName,
+          abbreviation: game.homeTeamAbbreviation,
+          points: boxScore?.homeTeam.points ?? game.homeScore,
+        },
+        awayTeam: {
+          id: game.awayTeamId,
+          name: game.awayTeamName,
+          abbreviation: game.awayTeamAbbreviation,
+          points: boxScore?.awayTeam.points ?? game.awayScore,
+        },
+        passingLeader: leaders.passingLeader,
+        rushingLeader: leaders.rushingLeader,
+        receivingLeader: leaders.receivingLeader,
+        defensiveLeaders: leaders.defensiveLeaders,
+        injuries,
+      } satisfies WeeklyGameResult;
+    });
+  },
+  getLatestCompletedWeek: () => {
+    const playedWeeks = get()
+      .games.filter((game) => Boolean(game.playedAt))
+      .map((game) => game.week);
+    if (!playedWeeks.length) {
+      return null;
+    }
+    return Math.max(...playedWeeks);
   },
 }));
 

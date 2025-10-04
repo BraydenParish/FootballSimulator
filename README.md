@@ -53,8 +53,22 @@ npm install
 npm run dev
 ```
 
-Open the dashboard at `http://localhost:5173` to view the placeholder GM
-control center UI.
+Open the dashboard at `http://localhost:5173` to interact with the GM control center UI. When both services are running you can simulate weeks, review results, and manage your roster end-to-end.
+
+### Full-stack workflow
+
+1. Start the backend in one terminal (`uvicorn app.main:app --reload`).
+2. Start the frontend in another terminal (`npm run dev`).
+3. Load `http://localhost:5173` – the dashboard greets you with a matchup preview, roster summary, and quick links to roster management pages.
+4. Click **Simulate Week** to trigger a quick simulation. The UI will navigate to the **Results** page with box scores, stat leaders, and injuries for the selected week. Use the Previous/Next buttons to browse other weeks at any time.
+5. Use the navigation bar to reach:
+   - **Results** – recap the latest week using `/games/week/{week}` data.
+   - **Depth Chart** – reorder starters with dropdown swaps using `/teams/{id}/depth-chart` (GET + POST) to keep lineups in sync.
+   - **Free Agency** – filter and sign available free agents from `/free-agents`; commit signings with `POST /free-agents/sign`.
+   - **Trade Center** – build multi-player trades, validate them through `POST /trades/propose`, and commit approved deals via `POST /trades/execute`.
+   - **Standings** – view division tables powered by `/standings`, including win-percentage tiebreakers and highlighted leaders.
+
+All transactional pages fall back to seeded demo data if live endpoints are unavailable, ensuring the UI remains interactive.
 
 ### Database Seeding
 

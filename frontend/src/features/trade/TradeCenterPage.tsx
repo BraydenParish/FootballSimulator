@@ -30,6 +30,14 @@ export function TradeCenterPage() {
     queryFn: () => leagueApi.fetchTeamRoster(teamB),
   });
 
+  const formatTradeFeedback = (result: { message: string; valueDelta?: number | undefined }) => {
+    if (typeof result.valueDelta === "number") {
+      const sign = result.valueDelta > 0 ? "+" : "";
+      return `${result.message} (Δ ${sign}${result.valueDelta.toFixed(1)} value)`;
+    }
+    return result.message;
+  };
+
   const evaluateMutation = useMutation({
     mutationFn: (proposal: TradeProposal) => leagueApi.evaluateTrade(proposal),
     onSuccess: (result) => {
@@ -43,12 +51,15 @@ export function TradeCenterPage() {
   const executeMutation = useMutation({
     mutationFn: (proposal: TradeProposal) => leagueApi.executeTrade(proposal),
     onSuccess: (result) => {
-      setFeedback(result.message);
-      queryClient.invalidateQueries({ queryKey: queryKeys.roster(teamA) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.roster(teamB) });
-      setOffer([]);
-      setRequest([]);
+      setFeedback(formatTradeFeedback(result));
+      if (result.status === "accepted") {
+        queryClient.invalidateQueries({ queryKey: queryKeys.roster(teamA) });
+        queryClient.invalidateQueries({ queryKey: queryKeys.roster(teamB) });
+        setOffer([]);
+        setRequest([]);
+      }
     },
+    onError: () => setFeedback("Trade execution failed. Please try again."),
   });
 
   const handleToggle = (playerId: number, list: number[], setList: (ids: number[]) => void) => {
