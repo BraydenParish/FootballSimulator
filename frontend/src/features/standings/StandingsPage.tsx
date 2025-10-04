@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+
 import { leagueApi } from "../../api/client";
 import { queryKeys } from "../../api/queryKeys";
 import { Card } from "../../components/ui/Card";
