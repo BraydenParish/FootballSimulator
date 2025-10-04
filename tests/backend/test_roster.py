@@ -67,3 +67,4 @@ def test_depth_chart_round_trip(api_client: TestClient) -> None:
     assert update_response.status_code == 200
     updated = api_client.get(f"/teams/{team_id}/depth-chart").json()["entries"]
     assert any(entry["slot"] == "QB2" for entry in updated)
+

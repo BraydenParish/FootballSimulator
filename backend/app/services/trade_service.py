@@ -4,10 +4,10 @@ from dataclasses import dataclass
 from typing import Iterable
 
 from fastapi import HTTPException
-from shared.utils.rules import GameRules
 
 from ..db import row_to_dict
 from .roster_service import RosterService
+from shared.utils.rules import GameRules
 
 
 @dataclass(slots=True)
@@ -51,9 +51,7 @@ class TradeService:
         request: list[dict],
     ) -> TradeResult:
         if team_a_id == team_b_id:
-            raise HTTPException(
-                status_code=400, detail="Teams must be different for a trade"
-            )
+            raise HTTPException(status_code=400, detail="Teams must be different for a trade")
 
         team_a = self._get_team(connection, team_a_id)
         team_b = self._get_team(connection, team_b_id)
@@ -66,12 +64,8 @@ class TradeService:
         offer_pick_ids = [pick["id"] for pick in offer_assets["picks"]]
         request_pick_ids = [pick["id"] for pick in request_assets["picks"]]
 
-        team_a_sent_players = [
-            row_to_dict(player) for player in offer_assets["players"]
-        ]
-        team_b_sent_players = [
-            row_to_dict(player) for player in request_assets["players"]
-        ]
+        team_a_sent_players = [row_to_dict(player) for player in offer_assets["players"]]
+        team_b_sent_players = [row_to_dict(player) for player in request_assets["players"]]
         team_a_sent_picks = [row_to_dict(pick) for pick in offer_assets["picks"]]
         team_b_sent_picks = [row_to_dict(pick) for pick in request_assets["picks"]]
 
@@ -80,11 +74,15 @@ class TradeService:
         self._validate_fairness(offer_value, request_value)
 
         self._validate_roster_sizes(
-            connection, team_a_id, team_b_id, offer_assets, request_assets
+            connection,
+            team_a_id,
+            team_b_id,
+            offer_assets,
+            request_assets,
+            team_a,
+            team_b,
         )
-        self._validate_salary_caps(
-            connection, team_a_id, team_b_id, offer_assets, request_assets
-        )
+        self._validate_salary_caps(connection, team_a_id, team_b_id, offer_assets, request_assets)
 
         try:
             self._apply_assets(connection, offer_assets, team_b_id)
@@ -122,9 +120,7 @@ class TradeService:
             value_delta=value_delta,
         )
 
-    def _apply_assets(
-        self, connection, assets: dict[str, list], destination_team_id: int
-    ) -> None:
+    def _apply_assets(self, connection, assets: dict[str, list], destination_team_id: int) -> None:
         for player in assets["players"]:
             order, label = self.roster_service.next_depth_slot(
                 connection, destination_team_id, player["position"]
@@ -152,9 +148,7 @@ class TradeService:
                 (destination_team_id, pick["id"]),
             )
 
-    def _gather_assets(
-        self, connection, team_id: int, assets: Iterable[dict]
-    ) -> dict[str, list]:
+    def _gather_assets(self, connection, team_id: int, assets: Iterable[dict]) -> dict[str, list]:
         players = []
         picks = []
 
@@ -163,26 +157,19 @@ class TradeService:
             if asset_type == "player":
                 player_id = asset.get("player_id") or asset.get("playerId")
                 if player_id is None:
-                    raise HTTPException(
-                        status_code=400, detail="Player asset missing player_id"
-                    )
+                    raise HTTPException(status_code=400, detail="Player asset missing player_id")
                 player = connection.execute(
                     "SELECT * FROM players WHERE id = ? AND team_id = ?",
                     (player_id, team_id),
                 ).fetchone()
                 if player is None:
-                    raise HTTPException(
-                        status_code=404,
-                        detail=f"Player {player_id} not on team {team_id}",
-                    )
+                    raise HTTPException(status_code=404, detail=f"Player {player_id} not on team {team_id}")
                 players.append(player)
             elif asset_type == "pick":
                 year = asset.get("year")
                 draft_round = asset.get("round") or asset.get("draft_round")
                 if year is None or draft_round is None:
-                    raise HTTPException(
-                        status_code=400, detail="Pick asset missing year or round"
-                    )
+                    raise HTTPException(status_code=400, detail="Pick asset missing year or round")
                 pick = connection.execute(
                     """
                     SELECT * FROM draft_picks
@@ -197,9 +184,7 @@ class TradeService:
                     )
                 picks.append(pick)
             else:
-                raise HTTPException(
-                    status_code=400, detail=f"Unsupported asset type: {asset_type}"
-                )
+                raise HTTPException(status_code=400, detail=f"Unsupported asset type: {asset_type}")
 
         return {"players": players, "picks": picks}
 
@@ -211,7 +196,7 @@ class TradeService:
     def _pick_value(self, pick_row) -> float:
         round_value = self._PICK_VALUE_BY_ROUND.get(int(pick_row["round"]), 0.5)
         years_out = max(0, int(pick_row["year"]) - self.current_year)
-        decay = 0.85**years_out
+        decay = 0.85 ** years_out
         return round_value * decay
 
     def _validate_fairness(self, offer_value: float, request_value: float) -> None:
@@ -226,9 +211,7 @@ class TradeService:
                 ),
             )
 
-    def _fetch_players_by_ids(
-        self, connection, player_ids: Iterable[int]
-    ) -> list[dict]:
+    def _fetch_players_by_ids(self, connection, player_ids: Iterable[int]) -> list[dict]:
         ids = list(player_ids)
         if not ids:
             return []
@@ -268,27 +251,34 @@ class TradeService:
         team_b_id: int,
         offer_assets: dict[str, list],
         request_assets: dict[str, list],
+        team_a,
+        team_b,
     ) -> None:
-        def roster_total(team_id: int) -> int:
-            row = connection.execute(
-                "SELECT COUNT(*) AS total FROM players WHERE team_id = ? AND status = 'active'",
-                (team_id,),
-            ).fetchone()
-            return row["total"] if row else 0
+        team_a_total = self.roster_service.roster_size(connection, team_a_id)
+        team_b_total = self.roster_service.roster_size(connection, team_b_id)
 
-        team_a_total = roster_total(team_a_id)
-        team_b_total = roster_total(team_b_id)
+        team_a_after = team_a_total - len(offer_assets["players"]) + len(request_assets["players"])
+        team_b_after = team_b_total - len(request_assets["players"]) + len(offer_assets["players"])
 
-        team_a_after = (
-            team_a_total - len(offer_assets["players"]) + len(request_assets["players"])
-        )
-        team_b_after = (
-            team_b_total - len(request_assets["players"]) + len(offer_assets["players"])
-        )
-
-        if team_a_after > self.rules.roster_max or team_b_after > self.rules.roster_max:
+        if team_a_after > self.rules.roster_max and team_a_after > team_a_total:
             raise HTTPException(
-                status_code=400, detail="Trade would exceed roster limit for a team"
+                status_code=400,
+                detail=f"{team_a['name']} would exceed the roster limit",
+            )
+        if team_b_after > self.rules.roster_max and team_b_after > team_b_total:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{team_b['name']} would exceed the roster limit",
+            )
+        if team_a_after < self.rules.roster_min and team_a_after < team_a_total:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{team_a['name']} would fall below the roster minimum",
+            )
+        if team_b_after < self.rules.roster_min and team_b_after < team_b_total:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{team_b['name']} would fall below the roster minimum",
             )
 
     def _validate_salary_caps(
@@ -316,13 +306,9 @@ class TradeService:
         team_b_in = sum(player["salary"] for player in offer_assets["players"])
 
         if (team_a_cap - team_a_out + team_a_in) > self.rules.salary_cap:
-            raise HTTPException(
-                status_code=400, detail="Team A would exceed salary cap"
-            )
+            raise HTTPException(status_code=400, detail="Team A would exceed salary cap")
         if (team_b_cap - team_b_out + team_b_in) > self.rules.salary_cap:
-            raise HTTPException(
-                status_code=400, detail="Team B would exceed salary cap"
-            )
+            raise HTTPException(status_code=400, detail="Team B would exceed salary cap")
 
     def _validate_depth(self, connection, team_a_id: int, team_b_id: int) -> None:
         for team_id in (team_a_id, team_b_id):
@@ -343,3 +329,4 @@ class TradeService:
                     status_code=400,
                     detail=f"Team {team_id} would exceed elite QB limit",
                 )
+

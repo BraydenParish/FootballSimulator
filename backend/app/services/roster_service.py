@@ -62,10 +62,7 @@ class RosterService:
         if player_row is None:
             raise HTTPException(status_code=404, detail="Free agent not found")
 
-        roster_count = connection.execute(
-            "SELECT COUNT(*) AS total FROM players WHERE team_id = ? AND status = 'active'",
-            (team_id,),
-        ).fetchone()["total"]
+        roster_count = self.roster_size(connection, team_id)
         if roster_count >= self.rules.roster_max:
             raise HTTPException(status_code=400, detail="Roster limit reached")
 
@@ -109,6 +106,17 @@ class RosterService:
         ).fetchone()
 
         return SignResult(player=row_to_dict(signed_player), team=row_to_dict(team_row))
+
+    def roster_size(self, connection, team_id: int) -> int:
+        row = connection.execute(
+            """
+            SELECT COUNT(*) AS total
+            FROM players
+            WHERE team_id = ? AND status != 'free_agent'
+            """,
+            (team_id,),
+        ).fetchone()
+        return row["total"] if row else 0
 
     def get_depth_chart(self, connection, team_id: int) -> list[dict]:
         rows = connection.execute(
