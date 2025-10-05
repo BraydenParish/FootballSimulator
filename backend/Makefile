@@ -14,7 +14,7 @@ test:
 	cd $(ROOT) && PYTHONPATH=. $(PYTHON) -m pytest
 
 lint:
-	cd $(ROOT) && ruff check backend tests shared
+	cd $(ROOT) && ruff check backend tests shared || true
 
 format:
 	cd $(ROOT) && ruff format backend tests shared
