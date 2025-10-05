@@ -23,16 +23,19 @@ export function FreeAgencyPage() {
   const signMutation = useMutation({
     mutationFn: ({ playerId, teamId }: { playerId: number; teamId: number }) =>
       leagueApi.signFreeAgent(teamId, playerId),
-    onSuccess: (result: SignResult) => {
-      setFeedback(result.message);
-      if (result.status === "signed") {
+  
+    onSuccess: (_result: SignResult) => {
+      if (_result.status === "signed") {
+        setFeedback(_result.message || "Player signed successfully!");
         queryClient.invalidateQueries({ queryKey: queryKeys.freeAgents });
         queryClient.invalidateQueries({ queryKey: queryKeys.roster(selectedTeam) });
+        setLastActionSuccess(true);
+      } else {
+        setFeedback(_result.message || "Signing failed.");
+        setLastActionSuccess(false);
       }
     },
-    onError: () => {
-      setFeedback("Signing failed. Please try again.");
-    },
+  
     onError: (error: unknown) => {
       setFeedback(error instanceof Error ? error.message : "Signing failed.");
       setLastActionSuccess(false);

@@ -188,6 +188,7 @@ export const leagueApi = API_MODE === "mock"
           body: JSON.stringify({ teamId, playerId }),
         });
         return {
+          status: "signed",
           message: `Signed ${result.player.name} to the roster`,
           player: mapPlayer(result.player),
           team: result.team,

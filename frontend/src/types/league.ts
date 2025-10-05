@@ -162,6 +162,7 @@ export type FreeAgentSigningResult = {
 };
 
 export type SignResult = {
+  status: "signed" | "error";
   message: string;
   player: Player;
   team: Team;

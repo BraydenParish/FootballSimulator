@@ -89,4 +89,29 @@ describe("FreeAgencyPage", () => {
     const messages = await screen.findAllByText(/roster limit reached/i);
     expect(messages.length).toBeGreaterThanOrEqual(1);
   });
+
+  it("returns status 'signed' on successful signing", async () => {
+    const store = useMockDataStore.getState();
+    const freeAgent = store.freeAgents[0];
+    const result = store.signFreeAgent(DEFAULT_TEAM_ID, freeAgent.id);
+    expect(result.status).toBe("signed");
+    expect(result.message).toBeTruthy();
+    expect(result.player.id).toBe(freeAgent.id);
+    expect(result.team.id).toBe(DEFAULT_TEAM_ID);
+  });
+
+  it("invariant: signFreeAgent preserves roster integrity", async () => {
+    const store = useMockDataStore.getState();
+    const initialRosterCount = store.players.filter((p) => p.teamId === DEFAULT_TEAM_ID).length;
+    const freeAgent = store.freeAgents.find((p) => p.position === "LB");
+    if (!freeAgent) {
+      throw new Error("Test requires a free agent LB");
+    }
+    const result = store.signFreeAgent(DEFAULT_TEAM_ID, freeAgent.id);
+    expect(result.status).toBe("signed");
+    const updatedStore = useMockDataStore.getState();
+    const finalRosterCount = updatedStore.players.filter((p) => p.teamId === DEFAULT_TEAM_ID).length;
+    expect(finalRosterCount).toBe(initialRosterCount + 1);
+    expect(updatedStore.freeAgents.find((p) => p.id === freeAgent.id)).toBeUndefined();
+  });
 });

@@ -104,9 +104,9 @@ export function DashboardPage() {
       queryClient.invalidateQueries({ queryKey: queryKeys.standings });
       queryClient.invalidateQueries({ queryKey: queryKeys.boxScores(FOCUS_TEAM_ID) });
       queryClient.invalidateQueries({ queryKey: queryKeys.teamStats(FOCUS_TEAM_ID) });
-      setDetailedLog(result.playByPlay);
-      setLatestWeek(result.week);
-      setLatestSummaries(result.summaries);
+      setDetailedLog(_result.playByPlay);
+      setLatestWeek(_result.week);
+      setLatestSummaries(_result.summaries);
     },
   });
 

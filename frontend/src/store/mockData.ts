@@ -1009,6 +1009,7 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
     });
 
     return {
+      status: "signed",
       message: `Signed ${player.name} to the roster`,
       player: updatedPlayer,
       team: updatedTeam,
