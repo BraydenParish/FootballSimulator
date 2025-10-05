@@ -2,7 +2,6 @@ import { create } from "zustand";
 import {
   BoxScore,
   DepthChartEntry,
-  FreeAgentSigningResult,
   GameSummary,
   InjuryReport,
   Player,
@@ -608,8 +607,8 @@ type MockDataState = {
   loadSimulationRules: (text: string) => void;
   simulateWeek: (week: number, mode: SimulationMode) => SimulationResult;
   signFreeAgent: (teamId: number, playerId: number) => SignResult;
-  evaluateTrade: (proposal: TradeProposal) => TradeEvaluation;
-  executeTrade: (proposal: TradeProposal) => TradeEvaluation;
+  evaluateTrade: (proposal: TradeProposal) => TradeProposalResult;
+  executeTrade: (proposal: TradeProposal) => TradeExecutionResult;
   updateDepthChart: (teamId: number, entries: DepthChartEntry[]) => void;
   computeStandings: () => Standing[];
   getTeamRoster: (teamId: number) => Player[];
@@ -631,6 +630,7 @@ function computeStandingsFromGames(games: GameSummary[], teams: Team[]): Standin
       wins: 0,
       losses: 0,
       ties: 0,
+      winPct: 0,
     });
   });
 
@@ -1064,20 +1064,20 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
     const teamBRoster = projectedPlayers.filter((player) => player.teamId === proposal.teamB);
 
     if (teamARoster.length > ROSTER_LIMIT && teamARoster.length > teamATotal) {
-      return { success: false, message: `${teamA.name} would exceed the roster limit.` };
+      return { status: "rejected", message: `${teamA.name} would exceed the roster limit.` };
     }
     if (teamBRoster.length > ROSTER_LIMIT && teamBRoster.length > teamBTotal) {
-      return { success: false, message: `${teamB.name} would exceed the roster limit.` };
+      return { status: "rejected", message: `${teamB.name} would exceed the roster limit.` };
     }
     if (teamARoster.length < ROSTER_MIN && teamARoster.length < teamATotal) {
       return {
-        success: false,
+        status: "rejected",
         message: `${teamA.name} must retain at least ${ROSTER_MIN} players.`,
       };
     }
     if (teamBRoster.length < ROSTER_MIN && teamBRoster.length < teamBTotal) {
       return {
-        success: false,
+        status: "rejected",
         message: `${teamB.name} must retain at least ${ROSTER_MIN} players.`,
       };
     }
@@ -1096,10 +1096,10 @@ const useMockDataStore = create<MockDataState>((set, get) => ({
     const teamASalary = getSalarySpent(teamA) - offerValue + requestValue;
     const teamBSalary = getSalarySpent(teamB) - requestValue + offerValue;
     if (teamASalary > getSalaryCap(teamA)) {
-      return { success: false, message: `Trade would exceed salary cap for ${teamA.name}.` };
+      return { status: "rejected", message: `Trade would exceed salary cap for ${teamA.name}.` };
     }
     if (teamBSalary > getSalaryCap(teamB)) {
-      return { success: false, message: `Trade would exceed salary cap for ${teamB.name}.` };
+      return { status: "rejected", message: `Trade would exceed salary cap for ${teamB.name}.` };
     }
 
     if (countEliteQuarterbacks(teamARoster) > 1) {

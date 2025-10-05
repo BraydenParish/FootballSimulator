@@ -99,14 +99,14 @@ export function DashboardPage() {
 
   const simulationMutation = useMutation({
     mutationFn: leagueApi.simulateWeek,
-    onSuccess: (_result, variables) => {
+    onSuccess: (result, variables) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.schedule(FOCUS_TEAM_ID) });
       queryClient.invalidateQueries({ queryKey: queryKeys.standings });
       queryClient.invalidateQueries({ queryKey: queryKeys.boxScores(FOCUS_TEAM_ID) });
       queryClient.invalidateQueries({ queryKey: queryKeys.teamStats(FOCUS_TEAM_ID) });
-      setDetailedLog(_result.playByPlay);
-      setLatestWeek(_result.week);
-      setLatestSummaries(_result.summaries);
+      setDetailedLog(result.playByPlay);
+      setLatestWeek(result.week);
+      setLatestSummaries(result.summaries);
     },
   });
 

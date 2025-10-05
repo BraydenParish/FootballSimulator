@@ -41,7 +41,7 @@ export function TradeCenterPage() {
   const evaluateMutation = useMutation({
     mutationFn: (proposal: TradeProposal) => leagueApi.evaluateTrade(proposal),
     onSuccess: (result) => {
-      setFeedback(result.success ? "Trade Accepted" : result.message);
+      setFeedback(result.status === "accepted" ? "Trade Accepted" : result.message);
     },
     onError: (error: unknown) => {
       setFeedback(error instanceof Error ? error.message : "Trade evaluation failed.");
