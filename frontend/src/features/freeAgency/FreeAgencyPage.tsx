@@ -24,14 +24,14 @@ export function FreeAgencyPage() {
     mutationFn: ({ playerId, teamId }: { playerId: number; teamId: number }) =>
       leagueApi.signFreeAgent(teamId, playerId),
   
-    onSuccess: (_result: SignResult) => {
-      if (_result.status === "signed") {
-        setFeedback(_result.message || "Player signed successfully!");
+    onSuccess: (result: SignResult) => {
+      if (result.status === "signed") {
+        setFeedback(result.message || "Player signed successfully!");
         queryClient.invalidateQueries({ queryKey: queryKeys.freeAgents });
         queryClient.invalidateQueries({ queryKey: queryKeys.roster(selectedTeam) });
         setLastActionSuccess(true);
       } else {
-        setFeedback(_result.message || "Signing failed.");
+        setFeedback(result.message || "Signing failed.");
         setLastActionSuccess(false);
       }
     },
